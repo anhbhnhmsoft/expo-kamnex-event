@@ -1,24 +1,24 @@
 import {useEffect, useRef} from 'react';
 import { View, Image, StyleSheet, Animated } from 'react-native';
+import DefaultColor from "@/components/ui/defaultColor";
 
 const styles = StyleSheet.create({
     overlay: {
         ...StyleSheet.absoluteFillObject,
-        backgroundColor: 'rgba(255,255,255,0.8)',
+        backgroundColor: 'rgba(255,255,255,0.4)',
         justifyContent: 'center',
         alignItems: 'center',
         zIndex: 9999_9999,
     },
     dotContainer: {
-        marginTop: 16,
         flexDirection: 'row',
         gap: 8,
     },
     dot: {
-        width: 8,
-        height: 8,
-        borderRadius: 6,
-        backgroundColor: '#000',
+        width: 10,
+        height: 10,
+        borderRadius: 10,
+        backgroundColor: DefaultColor.primary_color,
     },
 });
 
@@ -55,8 +55,8 @@ const FullScreenLoading = ({loading} : {loading:boolean}) => {
                 <Image
                     source={require('@/assets/images/logo/logo-kamnex.png')}
                     style={{
-                        width: 80,
-                        height: 80
+                        height: 100,
+                        width: 200
                     }}
                     resizeMode="contain"
                 />
