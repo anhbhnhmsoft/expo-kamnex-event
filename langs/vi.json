@@ -34,6 +34,12 @@
       "placeholder_search": "Tìm kiếm bên tổ chức..."
     }
   },
+  "tab": {
+    "home": "Trang chủ",
+    "seen": "Đã xem",
+    "registered": "Đã đăng ký",
+    "account": "Tài khoản"
+  },
   "auth": {
     "page": {
       "index": {

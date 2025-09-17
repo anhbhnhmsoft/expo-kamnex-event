@@ -6,12 +6,19 @@ import {_StorageKey} from "@/utils/storages/key";
 
 interface IAppStore {
     language: _LanguageCode;
+    loading: boolean;
+
+    // functions
     setLanguage: (lang: _LanguageCode) => Promise<void>;
     hydrateLanguage: () => Promise<void>;
+    setLoading: (state: boolean) => void;
 }
 
 export const useAppStore = create<IAppStore>((set) => ({
     language: _LanguageCode.VI,
+    loading: false,
+
+    // functions
     setLanguage: async (lang) => {
         try {
             await Storage.setItem(_StorageKey.LANGUAGE, lang);
@@ -31,4 +38,7 @@ export const useAppStore = create<IAppStore>((set) => ({
             console.error('Failed to load language', err);
         }
     },
+    setLoading: (state: boolean) => {
+        set({loading: state});
+    }
 }));

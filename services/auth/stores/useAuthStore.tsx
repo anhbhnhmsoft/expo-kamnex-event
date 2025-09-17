@@ -31,7 +31,6 @@ const useAuthStore = create<IAuthStore>((set, get) => ({
    hydrate: async () => {
         const token = await SecureStorage.getItem<string>(_StorageKey.SECURE_AUTH_TOKEN);
         const user = await Storage.getItem<User>(_StorageKey.USER_LOGIN);
-        console.log(user , token)
         if (user && token) {
             set({user: user, token, status: _AuthStatus.AUTHORIZED});
         }else{
