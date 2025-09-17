@@ -1,0 +1,65 @@
+{
+  "common": {
+    "login": "Đăng nhập",
+    "logout": "Đăng xuất",
+    "register": "Đăng ký",
+    "full_name": "Họ và tên",
+    "email": "Email",
+    "password": "Mật khẩu",
+    "re_password": "Nhập lại mật khẩu",
+    "placeholder_search": "Tìm kiếm...",
+    "empty": "Không có dữ liệu để hiển thị...",
+    "select": "Chọn"
+  },
+  "common_error": {
+    "server_error": "Đã xảy ra lỗi trên máy chủ, vui lòng liên hệ quản trị viên để được hỗ trợ.",
+    "request_error": "Không nhận được phản hồi từ máy chủ, vui lòng liên hệ quản trị viên để được hỗ trợ.",
+    "program_error": "Đã xảy ra lỗi trên chương trình, vui lòng liên hệ quản trị viên để được hỗ trợ.",
+    "unknown_error": "Đã xảy ra lỗi, vui lòng liên hệ quản trị viên để được hỗ trợ.",
+    "invalid_or_expired_token": "Tài khoản của bạn đã hết hạn hoặc không hợp lệ. Vui lòng đăng nhập lại.",
+    "api_not_found": "Nguồn không xác định đã xảy ra, vui lòng liên hệ quản trị viên để được hỗ trợ.",
+    "method_not_allowed": "API không đúng định dạng, vui lòng liên hệ quản trị viên để được hỗ trợ.",
+    "permission_error": "Bạn không có quyền làm tác vụ này, vui lòng liên hệ quản trị viên để được hỗ trợ.",
+    "authorization_header_not_found": "Không tìm thấy tiêu đề ủy quyền, vui lòng liên hệ quản trị viên để được hỗ trợ.",
+    "refresh_token_fail": "Tài khoản của bạn đã hết hạn hoặc không hợp lệ. Vui lòng đăng nhập lại.",
+    "data_not_found": "Dữ liệu trống, vui lòng thử lại sau.",
+    "data_not_fields": "Có một số dữ liệu chưa được điền, vui lòng thử lại.",
+    "data_exists": "Dữ liệu đã tồn tại, vui lòng thử lại.",
+    "vm_error_general": "VM hiện đang không sử dụng được, vui lòng liên hệ với admin",
+    "project_unauthorized": "Project hoặc VM của bạn đang có lỗi về xác thực, vui lòng kiểm tra lại sau",
+    "copy_error": "Lỗi khi copy"
+  },
+  "component": {
+    "choose_organizer": {
+      "placeholder_search": "Tìm kiếm bên tổ chức..."
+    }
+  },
+  "auth": {
+    "page": {
+      "index": {
+        "logo_desc": "Chào mừng bạn đã đến với Kamnex"
+      },
+      "login": {
+        "title_1": "Xin chào",
+        "title_2": "Vui lòng đăng nhập !",
+        "have_no_account": "Bạn chưa có tài khoản?"
+      },
+      "register": {
+        "title_1": "Tạo mới",
+        "title_2": "Tài khoản của bạn",
+        "choose_org": "Chọn bên tổ chức sự kiện",
+        "have_account": "Bạn đã có tài khoản?"
+      }
+    },
+    "error": {
+      "invalid_name": "Tên phải có ít nhất 4 ký tự và không được vượt quá 50 ký tự",
+      "invalid_email": "Email không hợp lệ",
+      "invalid_password": "Mật khẩu phải có ít nhất 8 kí tự, 1 chữ hoa, 1 chữ thường",
+      "invalid_confirm_password": "Mật khẩu nhập lại không giống với mật khẩu",
+      "invalid_organizer": "Vui lòng chọn bên tổ chức"
+    },
+    "success": {
+      "login_success": "Đăng nhập thành công, chào mừng bạn trở lại!"
+    }
+  }
+}

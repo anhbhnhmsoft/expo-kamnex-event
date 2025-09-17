@@ -1,0 +1,14 @@
+{
+  "common": {
+    "login": "Login",
+    "logout": "Logout",
+    "register": "Register"
+  },
+  "auth": {
+    "page": {
+      "index": {
+        "logo_desc": "Welcome to Kamnex"
+      }
+    }
+  }
+}
