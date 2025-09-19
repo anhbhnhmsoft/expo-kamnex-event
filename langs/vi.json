@@ -12,10 +12,16 @@
     "select": "Chọn",
     "search": "Tìm kiếm",
     "press_to_search": "Nhấn để tìm kiếm",
+    "press_to_see_detail": "Nhấn để xem chi tiết",
     "province": "Tỉnh/Thành phố",
     "district": "Quận/Huyện",
     "ward": "Phường/Xã",
-    "free_to_join": "Miễn phí tham gia"
+    "free_to_join": "Miễn phí tham gia",
+    "account": "Tài khoản",
+    "vip": "vip",
+    "upgrade_now": "Nâng cấp ngay",
+    "cancel": "Hủy",
+    "accept": "Đồng ý"
   },
   "common_error": {
     "server_error": "Đã xảy ra lỗi trên máy chủ, vui lòng liên hệ quản trị viên để được hỗ trợ.",
@@ -49,6 +55,18 @@
     "page": {
       "index": {
         "search_placeholder": "Tìm kiếm theo vị trí"
+      },
+      "account": {
+        "register_membership_1": "Nâng cấp tài khoản",
+        "register_membership_2": "để nhận nhiều ưu đãi từ chúng tôi",
+        "account_info": "Thông tin cá nhân",
+        "manager_notification": "Quản lý thông báo",
+        "manager_file": "Quản lý tài liệu",
+        "manager_membership": "Nâng cấp thành viên",
+        "manager_gift": "Xem phần quà sự kiện",
+        "support": "Hỗ trợ",
+        "title_logout": "Đăng xuất",
+        "desc_logout": "Bạn có chắc là muốn đăng xuất khỏi thiết bị này không ?"
       }
     }
   },

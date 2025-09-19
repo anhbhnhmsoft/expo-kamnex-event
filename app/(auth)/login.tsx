@@ -53,7 +53,7 @@ export default function LoginScreen() {
             onSuccess: (res) => {
                 login(res).then(() => {
                     success({message: t('auth.success.login_success')});
-                    router.replace('/(app)');
+                    router.replace('/(app)/(tab)');
                 });
             }
         });

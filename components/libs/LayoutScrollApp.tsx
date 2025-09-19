@@ -6,10 +6,8 @@ import {
     StyleProp,
     ViewStyle
 } from 'react-native';
-import {View} from "tamagui";
-import {useSafeAreaInsets} from "react-native-safe-area-context";
 import FocusAwareStatusBar from "@/components/libs/FocusAwareStatusBar";
-import {DefaultSize} from "@/components/ui/defaultStyle";
+import LayoutView from "@/components/libs/LayoutView";
 
 export default function LayoutScrollApp({children, style}: {
     children: ReactNode,
@@ -17,7 +15,6 @@ export default function LayoutScrollApp({children, style}: {
 }) {
     const scrollY = useRef(new Animated.Value(0)).current;
     const [showHeader, setShowHeader] = useState<boolean>(false);
-    const insets = useSafeAreaInsets();
     const handleScroll = Animated.event(
         [{nativeEvent: {contentOffset: {y: scrollY}}}],
         {
@@ -29,19 +26,18 @@ export default function LayoutScrollApp({children, style}: {
         }
     );
     return (
-        <View flex={1}>
+        <>
             <FocusAwareStatusBar hidden={showHeader}/>
             <Animated.ScrollView
                 onScroll={handleScroll}
                 scrollEventThrottle={16}
-                contentContainerStyle={{
-                    padding: DefaultSize.sm,
-                    paddingTop: insets.top > 0 ? insets.top : DefaultSize.md
-                }}
                 style={style}
             >
-                {children}
+                <LayoutView>
+                    {children}
+                </LayoutView>
             </Animated.ScrollView>
-        </View>
+        </>
+
     )
 }
