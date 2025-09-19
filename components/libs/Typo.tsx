@@ -33,7 +33,9 @@ interface Props extends TextProps {
     marginBottom?: DimensionValue;
     marginLeft?: DimensionValue;
     marginRight?: DimensionValue;
-    textTransform?: "none" | "capitalize" | "uppercase" | "lowercase"
+    textTransform?: "none" | "capitalize" | "uppercase" | "lowercase",
+    textAlign?: "auto" | "left" | "right" | "center" | "justify" | undefined,
+    lineHeight?: number
 }
 
 const fontMap: Record<string, string> = {
@@ -78,6 +80,8 @@ const Typo: FC<Props> = ({
                              marginLeft,
                              marginRight,
                              textTransform,
+                             textAlign,
+                             lineHeight,
                              ...props
                          }) => {
     const fontKey = italic ? `${weight}_italic` : weight;
@@ -103,7 +107,9 @@ const Typo: FC<Props> = ({
         marginBottom,
         marginLeft,
         marginRight,
-        textTransform
+        textTransform,
+        textAlign,
+        lineHeight
     };
 
     return <TextRN {...props} style={[textStyle, style]}/>;

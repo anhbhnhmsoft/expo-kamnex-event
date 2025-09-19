@@ -22,7 +22,8 @@ export type User = {
     gender: 'male' | 'female' | 'other';
     avatar_url: string | null;
     organizer_id: number;
-    lang: _LanguageCode
+    lang: _LanguageCode,
+    memberships: {id: number; name: string;}[]
 }
 
 export type RegisterRequest = {
