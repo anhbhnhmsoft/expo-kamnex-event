@@ -14,7 +14,7 @@ const useCheckStatusLogin = (forTab: 'app' | 'auth') => {
         }
         if (forTab === 'auth') {
             if (status === _AuthStatus.AUTHORIZED) {
-                router.replace('/(app)');
+                router.replace('/(app)/(tab)');
             }
         }
     }, [status, forTab]);

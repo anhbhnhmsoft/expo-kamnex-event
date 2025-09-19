@@ -1,4 +1,4 @@
-import {LoginRequest, LoginResponse, RegisterRequest} from "@/services/auth/types";
+import {LoginRequest, LoginResponse, RegisterRequest, UserResponse} from "@/services/auth/types";
 import {client} from "@/utils/axiosClient";
 import {ResponseSuccessType} from "@/utils/@types";
 
@@ -11,6 +11,10 @@ const authAPI = {
     },
     register: async (data: RegisterRequest): Promise<ResponseSuccessType> =>  {
         const response = await client.post(`${defaultUri}/register`, data);
+        return response.data;
+    },
+    user: async (): Promise<UserResponse> =>  {
+        const response = await client.get(`/user`);
         return response.data;
     },
 }

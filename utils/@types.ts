@@ -72,7 +72,24 @@ export type ResponseDataSuccessType<T> = {
     message: string;
     data: T;
 }
+export type ResponsePagingSuccessType<T> = {
+    message: string;
+    data: T;
+    pagination: {
+        total: number;
+        per_page: number;
+        current_page: number;
+        last_page: number;
+    }
+}
 
 export type ResponseSuccessType = {
     message: string;
+}
+
+export type BaseSearchRequest<TFilter> = {
+    filters: TFilter;
+    sort_by?: string;
+    page?: number;
+    limit?: number;
 }

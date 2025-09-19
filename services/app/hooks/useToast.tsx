@@ -6,7 +6,7 @@ type SetMessage = {
     title?: string,
     message: string,
 }
-type ToastOptions = Omit<ToastShowParams, 'type' | 'text1' | 'text2' | 'position' | 'visibilityTime' | 'autoHide'>;
+type ToastOptions = Omit<ToastShowParams, 'type' | 'text1' | 'text2' >;
 
 const useToast = () => {
     const success = useCallback((set: SetMessage, option?: ToastOptions) => {

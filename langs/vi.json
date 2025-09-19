@@ -9,7 +9,13 @@
     "re_password": "Nhập lại mật khẩu",
     "placeholder_search": "Tìm kiếm...",
     "empty": "Không có dữ liệu để hiển thị...",
-    "select": "Chọn"
+    "select": "Chọn",
+    "search": "Tìm kiếm",
+    "press_to_search": "Nhấn để tìm kiếm",
+    "province": "Tỉnh/Thành phố",
+    "district": "Quận/Huyện",
+    "ward": "Phường/Xã",
+    "free_to_join": "Miễn phí tham gia"
   },
   "common_error": {
     "server_error": "Đã xảy ra lỗi trên máy chủ, vui lòng liên hệ quản trị viên để được hỗ trợ.",
@@ -27,7 +33,8 @@
     "data_exists": "Dữ liệu đã tồn tại, vui lòng thử lại.",
     "vm_error_general": "VM hiện đang không sử dụng được, vui lòng liên hệ với admin",
     "project_unauthorized": "Project hoặc VM của bạn đang có lỗi về xác thực, vui lòng kiểm tra lại sau",
-    "copy_error": "Lỗi khi copy"
+    "copy_error": "Lỗi khi copy",
+    "warning_location": "Hiện tại bạn chưa bật định vị, vui lòng bật định vị để sử dụng chức năng này."
   },
   "component": {
     "choose_organizer": {
@@ -38,7 +45,12 @@
     "home": "Trang chủ",
     "seen": "Đã xem",
     "registered": "Đã đăng ký",
-    "account": "Tài khoản"
+    "account": "Tài khoản",
+    "page": {
+      "index": {
+        "search_placeholder": "Tìm kiếm theo vị trí"
+      }
+    }
   },
   "auth": {
     "page": {
