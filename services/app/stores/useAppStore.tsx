@@ -2,22 +2,24 @@ import {_LanguageCode} from "@/utils/@types";
 import {create} from "zustand";
 import {Storage} from "@/utils/storages";
 import {_StorageKey} from "@/utils/storages/key";
+import {LocationObject} from "expo-location";
 
 
 interface IAppStore {
     language: _LanguageCode;
     loading: boolean;
-
+    location: LocationObject | null;
     // functions
     setLanguage: (lang: _LanguageCode) => Promise<void>;
     hydrateLanguage: () => Promise<void>;
     setLoading: (state: boolean) => void;
+    setLocation: (location: LocationObject) => void;
 }
 
 export const useAppStore = create<IAppStore>((set) => ({
     language: _LanguageCode.VI,
     loading: false,
-
+    location: null,
     // functions
     setLanguage: async (lang) => {
         try {
@@ -40,5 +42,8 @@ export const useAppStore = create<IAppStore>((set) => ({
     },
     setLoading: (state: boolean) => {
         set({loading: state});
+    },
+    setLocation: (location: LocationObject) => {
+        set({location});
     }
 }));

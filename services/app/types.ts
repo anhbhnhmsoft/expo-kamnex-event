@@ -8,3 +8,10 @@ export type GetOrganizersRequest = {
 }
 
 export type GetOrganizersResponse = ResponseDataSuccessType<{id:number, name:string}[]>
+
+export type Province = {
+    code: string,
+    name: string,
+}
+
+export type ProvinceResponse = ResponseDataSuccessType<Province[]>

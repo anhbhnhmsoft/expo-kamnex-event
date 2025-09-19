@@ -1,21 +1,15 @@
-import {router, Stack} from "expo-router";
-import useAuthStore from "@/services/auth/stores/useAuthStore";
+import { Stack} from "expo-router";
 import {useAppStore} from "@/services/app/stores/useAppStore";
-import {useEffect} from "react";
-import {_AuthStatus} from "@/services/auth/const";
 import FullScreenLoading from "@/components/libs/FullScreenLoading";
 import DefaultColor from "@/components/ui/defaultColor";
+import useCheckStatusLogin from "@/services/auth/hooks/useCheckStatusLogin";
 
 
 export default function AppLayout(){
-    const status = useAuthStore(state => state.status);
     const loading = useAppStore(state => state.loading);
 
-    useEffect(() => {
-        if (status === _AuthStatus.UNAUTHORIZED) {
-            router.replace('/(auth)')
-        }
-    }, [status]);
+    useCheckStatusLogin('app');
+
     return (
         <>
             <FullScreenLoading loading={loading} />
@@ -24,9 +18,11 @@ export default function AppLayout(){
                 screenOptions={{
                     headerShown: false,
                     contentStyle: { backgroundColor: DefaultColor.primary_bg },
+                    animation: "fade_from_bottom",
                 }}
             >
                 <Stack.Screen name="(tab)"/>
+                <Stack.Screen name="(event)"/>
             </Stack>
         </>
     )

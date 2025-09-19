@@ -1,6 +1,6 @@
-import { Stack } from "expo-router";
+import {Stack} from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import {useEffect, useState} from 'react';
+import { useEffect, useState} from 'react';
 import useFontDefault from "@/components/ui/defaultFonts";
 import {GestureHandlerRootView} from "react-native-gesture-handler";
 import initI18n from '@/utils/i18n';
@@ -17,19 +17,20 @@ const config = createTamagui(defaultConfig);
 
 export default function RootLayout() {
     const [loaded, error] = useFontDefault();
-    const [ready, setReady] = useState(false);
+    const [readyI18n, setReadyI18n] = useState(false);
+
     // Init i18n
     useEffect(() => {
-        initI18n().finally(() => setReady(true));
+        initI18n().finally(() => setReadyI18n(true));
     }, []);
 
     useEffect(() => {
-        if ((loaded || error) && ready) {
+        if ((loaded || error) && readyI18n) {
             SplashScreen.hideAsync();
         }
-    }, [loaded, error, ready]);
+    }, [loaded, error, readyI18n]);
 
-    if (!(loaded || error) || !ready) {
+    if (!(loaded || error) || !readyI18n) {
         return null;
     }
 
@@ -44,12 +45,12 @@ export default function RootLayout() {
                         initialRouteName="index"
                         screenOptions={{
                             headerShown: false,
-                            contentStyle: { backgroundColor: DefaultColor.primary_bg },
+                            contentStyle: {backgroundColor: DefaultColor.primary_bg},
                         }}
                     >
-                        <Stack.Screen name="index" />
-                        <Stack.Screen name="(app)"  />
-                        <Stack.Screen name="(auth)"  />
+                        <Stack.Screen name="index"/>
+                        <Stack.Screen name="(app)"/>
+                        <Stack.Screen name="(auth)"/>
                     </Stack>
                     <ToastManager/>
                 </TamaguiProvider>

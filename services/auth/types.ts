@@ -1,4 +1,4 @@
-import {_LanguageCode} from "@/utils/@types";
+import {_LanguageCode, ResponseDataSuccessType} from "@/utils/@types";
 
 
 export type LoginRequest = {
@@ -25,7 +25,6 @@ export type User = {
     lang: _LanguageCode
 }
 
-
 export type RegisterRequest = {
     name: string;
     email: string;
@@ -34,3 +33,5 @@ export type RegisterRequest = {
     organizer_id: number;
     locate?: _LanguageCode
 }
+
+export type UserResponse = ResponseDataSuccessType<User>

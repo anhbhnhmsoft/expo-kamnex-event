@@ -1,4 +1,5 @@
 import {StyleSheet} from "react-native";
+import DefaultColor from "@/components/ui/defaultColor";
 
 export const DefaultSize = {
     xs: 10,
@@ -14,5 +15,12 @@ export const DefaultSize = {
 }
 
 export const DefaultStyle = StyleSheet.create({
-
+    back_btn:{
+        width: 30,
+        height: 30,
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: 30,
+        backgroundColor: DefaultColor.white
+    }
 })
