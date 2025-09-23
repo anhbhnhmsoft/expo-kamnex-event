@@ -23,7 +23,7 @@ export type User = {
     avatar_url: string | null;
     organizer_id: number;
     lang: _LanguageCode,
-    memberships: {id: string; name: string;}[]
+    membership: {id: string; name: string;} | null
 }
 
 export type RegisterRequest = {

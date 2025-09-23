@@ -1,7 +1,6 @@
 import {useQuery} from "@tanstack/react-query";
 import eventApi from "@/services/event/api";
 import {useEffect} from "react";
-import {useAppStore} from "@/services/app/stores/useAppStore";
 import {router} from "expo-router";
 import useToastErrorHandler from "@/services/app/hooks/useToastErrorHandler";
 
@@ -12,12 +11,7 @@ export const useGetDataEventDetail = (id: string | null) => {
         enabled: !!id,
         select: (res) => res.data,
     });
-    const setLoading = useAppStore(state => state.setLoading);
     const handleError = useToastErrorHandler();
-
-    useEffect(() => {
-        setLoading(query.isLoading || query.isRefetching)
-    },[query.isLoading, query.isRefetching]);
 
     useEffect(() => {
         if (query.error){
@@ -26,5 +20,8 @@ export const useGetDataEventDetail = (id: string | null) => {
         }
     }, [query.error]);
 
-    return query.data;
+    return {
+        event: query.data,
+        loading: query.isLoading || query.isRefetching
+    };
 }

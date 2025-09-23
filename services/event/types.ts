@@ -1,5 +1,5 @@
 import {BaseSearchRequest, ResponseDataSuccessType, ResponsePagingSuccessType} from "@/utils/@types";
-import {_EventStatus, _EventUserRole} from "@/services/event/const";
+import {_EventStatus, _EventUserHistory, _EventUserRole} from "@/services/event/const";
 
 export type SearchEventParams = {
     province_code?: string;
@@ -31,7 +31,7 @@ export type EventDetail = {
     short_description: string;
     description: string;
     day_represent: string;
-    start_time:string;
+    start_time: string;
     end_time: string;
     status: _EventStatus,
     latitude: string; // float
@@ -40,7 +40,7 @@ export type EventDetail = {
         id: string;
         name: string;
         avatar_url: string | null
-        role:_EventUserRole
+        role: _EventUserRole
     }[];
     organizer: {
         id: string;
@@ -55,3 +55,25 @@ export type EventDetail = {
 }
 
 export type EventDetailResponse = ResponseDataSuccessType<EventDetail>;
+
+export type EventUserHistory = {
+    id: string;
+    event_id: string;
+    user_id: string;
+    seat: {
+        id: string;
+        seat_code: string;
+        area_id: string;
+        area_name: string
+    } | null;
+    ticket_code: string | null
+    status: _EventUserHistory
+}
+
+export type RegisterEventHistoryRequest = {
+    event_id: string;
+    event_seat_id?: string;
+    status: _EventUserHistory.BOOKED | _EventUserHistory.SEENED
+}
+
+export type RegisterEventHistoryResponse = ResponseDataSuccessType<EventUserHistory>
