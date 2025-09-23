@@ -38,7 +38,7 @@ export default function AccountScreen() {
                         <Image
                             source={require('@/assets/images/logo/vietnam.png')}
                             style={styles.logo_lang_btn}
-                            resizeMode="cover"
+                            objectFit="cover"
                         />
                     </TouchableOpacity>
                     <TouchableOpacity
@@ -50,7 +50,7 @@ export default function AccountScreen() {
                         <Image
                             source={require('@/assets/images/logo/eng.png')}
                             style={styles.logo_lang_btn}
-                            resizeMode="cover"
+                            objectFit="cover"
                         />
                     </TouchableOpacity>
                 </XStack>

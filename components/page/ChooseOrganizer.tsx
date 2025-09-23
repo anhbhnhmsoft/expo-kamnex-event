@@ -1,16 +1,16 @@
 import {Dispatch, FC, SetStateAction, useEffect, useState} from "react";
-import {Card, Input, Separator, Sheet, XStack, YStack} from "tamagui";
+import {Card, Input, Separator, Sheet, YStack} from "tamagui";
 import useQueryGetOrganizers from "@/services/app/hooks/useQueryGetOrganizers";
 import {useTranslation} from "react-i18next";
 import useDebounce from "@/services/app/hooks/useDebounce";
 import useToastErrorHandler from "@/services/app/hooks/useToastErrorHandler";
-import SkeletonFade from "@/components/libs/SkeletonFade";
 import Empty from "@/components/libs/Empty";
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import {DefaultSize} from "@/components/ui/defaultStyle";
 import DefaultColor from "@/components/ui/defaultColor";
 import Typo from "@/components/libs/Typo";
 import {TouchableOpacity} from "react-native";
+import LoadingList from "@/components/libs/LoadingList";
 
 type Props = {
     open: boolean,
@@ -89,21 +89,5 @@ const ChooseOrganizer: FC<Props> = ({open, setOpen, value, onChange}) => {
         </Sheet>
     )
 }
-
-
-const LoadingList = () => (
-    <>
-        <SkeletonFade width={"100%"} height={10}/>
-        <SkeletonFade width={"90%"} height={10}/>
-        <SkeletonFade width={"80%"} height={10}/>
-        <SkeletonFade width={"70%"} height={10}/>
-        <SkeletonFade width={"80%"} height={10}/>
-        <SkeletonFade width={"80%"} height={10}/>
-        <SkeletonFade width={"90%"} height={10}/>
-        <SkeletonFade width={"70%"} height={10}/>
-        <SkeletonFade width={"50%"} height={10}/>
-    </>
-)
-
 
 export default ChooseOrganizer;

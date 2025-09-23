@@ -13,7 +13,7 @@ export type LoginResponse = {
     user: User;
 };
 export type User = {
-    id: number;
+    id: string;
     name: string;
     email: string;
     phone: string | null;
@@ -23,7 +23,7 @@ export type User = {
     avatar_url: string | null;
     organizer_id: number;
     lang: _LanguageCode,
-    memberships: {id: number; name: string;}[]
+    memberships: {id: string; name: string;}[]
 }
 
 export type RegisterRequest = {
