@@ -1,10 +1,10 @@
 import {router, useLocalSearchParams} from "expo-router";
 import {Dispatch, FC, SetStateAction, useEffect, useMemo, useState} from "react";
-import {Button, Image, View, XStack, YStack, ScrollView, TextArea, Card, Sheet, useWindowDimensions} from "tamagui";
+import {Button, Card, Image, ScrollView, Sheet, TextArea, useWindowDimensions, View, XStack, YStack} from "tamagui";
 import {DefaultSize, DefaultStyle} from "@/components/ui/defaultStyle";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import DefaultColor from "@/components/ui/defaultColor";
-import {Keyboard, TouchableOpacity, TouchableWithoutFeedback, Platform} from "react-native";
+import {Keyboard, TouchableOpacity, TouchableWithoutFeedback} from "react-native";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {useTranslation} from "react-i18next";
 import Typo from "@/components/libs/Typo";
@@ -14,22 +14,29 @@ import {useAppStore} from "@/services/app/stores/useAppStore";
 import {formatDate} from "@/utils/helper";
 import {EventDetail} from "@/services/event/types";
 import useAuthStore from "@/services/auth/stores/useAuthStore";
-import {getLabelEventUserRole} from "@/services/event/const";
+import {_EventStatus, _EventUserHistory, getLabelEventStatus, getLabelEventUserRole} from "@/services/event/const";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 import RenderHtml from 'react-native-render-html';
 import MapView, {Marker} from 'react-native-maps';
 import useInfiniteEventList from "@/services/event/hooks/useInfiniteEventList";
 import Empty from "@/components/libs/Empty";
 import EventCard from "@/components/page/EventCard";
+import {useMutateRegisterEventHistory} from "@/services/event/hooks/use-mutate-event";
+import useToastErrorHandler from "@/services/app/hooks/useToastErrorHandler";
+import useEventDetailStore from "@/services/event/stores/useEventDetailStore";
+import useToast from "@/services/app/hooks/useToast";
 
 export default function DetailScreen() {
     const [idEvent, setIdEvent] = useState<string | null>(null);
-    const [openDesc, setOpenDesc] = useState<boolean>(false)
+    const [openDesc, setOpenDesc] = useState<boolean>(false);
     const {id} = useLocalSearchParams<{ id?: string }>();
+    const setEventUserHistory = useEventDetailStore(s => s.setEventUserHistory)
     const {t} = useTranslation();
-    const event = useGetDataEventDetail(idEvent);
+    const {event, loading} = useGetDataEventDetail(idEvent);
     const language = useAppStore(s => s.language);
-    const user = useAuthStore(s => s.user);
+    const setLoading = useAppStore(s => s.setLoading);
+    const {mutate, isPending} = useMutateRegisterEventHistory();
+    const handleError = useToastErrorHandler();
 
     const {data} = useInfiniteEventList({
         filters: {
@@ -41,10 +48,25 @@ export default function DetailScreen() {
     const listEvent = useMemo(() => data?.pages.flatMap((page) => page.data) || [], [data]);
 
     useEffect(() => {
-        if (!id) {
-            router.back();
-        } else {
+        setLoading(loading || isPending);
+    }, [loading, isPending]);
+
+    useEffect(() => {
+        if (id) {
             setIdEvent(id);
+            mutate({event_id: id, status: _EventUserHistory.SEENED}, {
+                onSuccess: (res) => {
+                    setEventUserHistory(res.data);
+                },
+                onError: (error) => {
+                    handleError(error);
+                }
+            })
+        } else {
+            router.back();
+        }
+        return () => {
+            setEventUserHistory(null)
         }
     }, [id]);
 
@@ -68,7 +90,18 @@ export default function DetailScreen() {
 
                         <YStack marginBottom={DefaultSize.md} padding={DefaultSize.md} gap={"$4"}>
                             {/*Địa điểm */}
-                            <Typo weight={"700"} fontSize={DefaultSize.xl}>{event.name}</Typo>
+                            <YStack gap={"$2"}>
+                                <Typo weight={"700"} fontSize={DefaultSize.xl}>{event.name}</Typo>
+                                <View alignSelf={"flex-start"} paddingHorizontal={10} paddingVertical={2}
+                                      borderRadius={10} backgroundColor={
+                                    event.status === _EventStatus.UPCOMING ? DefaultColor.yellow["500"] : DefaultColor.primary_color["500"]
+                                }>
+                                    <Typo
+                                        color={event.status === _EventStatus.UPCOMING ? DefaultColor.black : DefaultColor.white}>
+                                        {t(getLabelEventStatus(event.status))}
+                                    </Typo>
+                                </View>
+                            </YStack>
                             <XStack alignItems={"center"} justifyContent={"space-between"}>
                                 <Typo weight={"500"} color={DefaultColor.slate["500"]}>
                                     {event.start_time} - {event.end_time}
@@ -84,6 +117,10 @@ export default function DetailScreen() {
                             </XStack>
                             {/*Người tổ chức*/}
                             <CarouselUserParticipants data={event.user_event}/>
+
+                            {/*Event history status*/}
+                            <EventHistoryCard/>
+
                             {/*Agenda sự kiện*/}
                             <Typo weight={"700"} marginTop={20}
                                   fontSize={DefaultSize.xl}>{t('event.page.detail.agenda_event')}</Typo>
@@ -183,6 +220,14 @@ export default function DetailScreen() {
 export const HeaderDetailScreen = () => {
     const insets = useSafeAreaInsets();
     const {t} = useTranslation();
+    const {id} = useLocalSearchParams<{ id?: string }>();
+    const {error} = useToast();
+    const handleError = useToastErrorHandler();
+    const setLoading = useAppStore(s => s.setLoading);
+
+    const {event_user_history, setEventUserHistory} = useEventDetailStore();
+    const user = useAuthStore(s => s.user);
+    const {mutate} = useMutateRegisterEventHistory();
     return (
         <XStack paddingTop={insets.top + 10} paddingHorizontal={DefaultSize.md} alignItems={"center"}
                 justifyContent="space-between" paddingBottom={10}>
@@ -191,10 +236,40 @@ export const HeaderDetailScreen = () => {
             </TouchableOpacity>
             <XStack alignItems={"center"} gap={"$2"}>
                 <Typo color={DefaultColor.primary_color} weight={"700"}>{t('common.free_to_join')}</Typo>
-                <Button size={"$3"} paddingHorizontal={DefaultSize.md} borderRadius={DefaultSize["4xl"]}
-                        color={DefaultColor.white} theme={"blue"} backgroundColor={DefaultColor.primary_color}>
-                    {t('common.register')}
-                </Button>
+                {event_user_history &&
+                    <Button size={"$3"} paddingHorizontal={DefaultSize.md} borderRadius={DefaultSize["4xl"]}
+                            color={DefaultColor.white} theme={"blue"} backgroundColor={DefaultColor.primary_color}
+                            disabled={![_EventUserHistory.SEENED, _EventUserHistory.CANCELLED].includes(event_user_history.status)}
+                            onPress={() => {
+                                if (event_user_history && user && id) {
+                                    // nếu ko có membership
+                                    if (!user.membership) {
+                                        setLoading(true);
+                                        mutate({event_id: id, status: _EventUserHistory.BOOKED}, {
+                                            onSuccess: (res) => {
+                                                setEventUserHistory(res.data);
+                                                setLoading(false);
+                                            },
+                                            onError: (err) => {
+                                                handleError(err);
+                                                setLoading(false);
+                                            }
+                                        })
+                                    } else {
+                                        // làm sau
+                                    }
+                                } else {
+                                    error({message: t('common_error.program_error')})
+                                }
+                            }}
+                    >
+                        {event_user_history.status === _EventUserHistory.SEENED && t('common.register')}
+                        {event_user_history.status === _EventUserHistory.BOOKED && t('common.had_register')}
+                        {event_user_history.status === _EventUserHistory.PARTICIPATED && t('common.had_join')}
+                        {event_user_history.status === _EventUserHistory.CANCELLED && t('common.had_cancel')}
+                    </Button>
+                }
+
             </XStack>
         </XStack>
     )
@@ -241,6 +316,55 @@ const CarouselUserParticipants: FC<{ data: EventDetail['user_event'] }> = ({data
                 </ScrollView> : null}
         </>
     )
+}
+
+const EventHistoryCard = () => {
+    const event_user_history = useEventDetailStore(s => s.event_user_history);
+    const {t} = useTranslation();
+    if (event_user_history) {
+        switch (event_user_history.status) {
+            case _EventUserHistory.BOOKED:
+            case _EventUserHistory.PARTICIPATED:
+                return (
+                    <Card padded marginTop={10} gap={"$4"} backgroundColor={DefaultColor.primary_color}>
+                        <Typo color={DefaultColor.white} weight={"700"}
+                              fontSize={DefaultSize.xl}>{t('event.page.detail.thank_for_book_title')}</Typo>
+                        <Typo color={DefaultColor.white}>{t('event.page.detail.thank_for_book_desc')}</Typo>
+                        {event_user_history.seat &&
+                            <Card padded marginTop={10} gap={"$4"} backgroundColor={DefaultColor.white}>
+                                <XStack gap={"$2"}>
+                                    <Typo color={DefaultColor.black}>
+                                        {t('common.ticket_code')}:
+                                    </Typo>
+                                    <Typo color={DefaultColor.black} weight={"700"}>
+                                        {event_user_history.ticket_code}
+                                    </Typo>
+                                </XStack>
+                                <XStack gap={"$2"}>
+                                    <Typo color={DefaultColor.black}>
+                                        {t('common.area_name')}:
+                                    </Typo>
+                                    <Typo color={DefaultColor.black} weight={"700"}>
+                                        {event_user_history.seat.area_name}
+                                    </Typo>
+                                </XStack>
+                                <XStack gap={"$2"}>
+                                    <Typo color={DefaultColor.black}>
+                                        {t('common.seat_code')}:
+                                    </Typo>
+                                    <Typo color={DefaultColor.black} weight={"700"}>
+                                        {event_user_history.seat.seat_code}
+                                    </Typo>
+                                </XStack>
+                            </Card>
+                        }
+                    </Card>
+                )
+            default:
+                break;
+        }
+    }
+    return null;
 }
 
 const DescriptionEvent: FC<{ event: EventDetail, open: boolean, setOpen: Dispatch<SetStateAction<boolean>> }> = ({

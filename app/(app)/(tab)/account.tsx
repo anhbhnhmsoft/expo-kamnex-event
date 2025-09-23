@@ -90,7 +90,7 @@ export default function AccountScreen() {
                                     <Typo color={DefaultColor.slate[400]}>{t('common.press_to_see_detail')}</Typo>
                                 </YStack>
                             </XStack>
-                            {user.memberships && user.memberships.length > 0 && (
+                            {user.membership && (
                                 <View position={"absolute"} top={10} right={10} width={45} justifyContent={"center"}
                                       alignItems={"center"} height={45} borderRadius={40}
                                       backgroundColor={DefaultColor.green[500]}>
@@ -105,7 +105,7 @@ export default function AccountScreen() {
             </TouchableOpacity>
 
             {/*Membership register*/}
-            {user && user.memberships && user.memberships.length === 0 && (
+            {user && !user.membership && (
                 <Card alignItems={"center"} paddingHorizontal={38} marginBottom={24}
                       paddingVertical={14} backgroundColor={DefaultColor.primary_color}>
                     <YStack gap={"$1"} marginBottom={40}>

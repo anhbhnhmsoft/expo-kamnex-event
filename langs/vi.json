@@ -3,6 +3,9 @@
     "login": "Đăng nhập",
     "logout": "Đăng xuất",
     "register": "Đăng ký",
+    "had_register": "Đã đăng ký",
+    "had_join": "Đã tham gia",
+    "had_cancel": "Đã hủy",
     "full_name": "Họ và tên",
     "email": "Email",
     "password": "Mật khẩu",
@@ -23,7 +26,10 @@
     "cancel": "Hủy",
     "accept": "Đồng ý",
     "send": "Gửi",
-    "see_more": "Xem thêm"
+    "see_more": "Xem thêm",
+    "area_name": "Tên khu vực",
+    "seat_code": "Mã ghế",
+    "ticket_code": "Mã vé"
   },
   "common_error": {
     "server_error": "Đã xảy ra lỗi trên máy chủ, vui lòng liên hệ quản trị viên để được hỗ trợ.",
@@ -48,6 +54,11 @@
     "_EventUserRole": {
       "ORGANIZER": "Người tổ chức",
       "PRESENTER": "Người dẫn chương trình"
+    },
+    "_EventStatus": {
+      "ACTIVE": "Đang diễn ra",
+      "UPCOMING": "Sắp diễn ra",
+      "CLOSED": "Đã kết thúc"
     }
   },
   "component": {
@@ -114,7 +125,9 @@
         "question_label": "Đặt câu hỏi và nhận xét",
         "question_placeholder": "Nhập câu hỏi hoặc nhận xét của bạn",
         "event_overview": "Tổng quan sự kiện",
-        "event_more": "Sự kiện liên quan"
+        "event_more": "Sự kiện liên quan",
+        "thank_for_book_title": "Cảm ơn bạn đã đăng ký tham gia sự kiện",
+        "thank_for_book_desc": "Đây là thông tin hàng ghế cũng như số vé của bạn"
       }
     }
   }
