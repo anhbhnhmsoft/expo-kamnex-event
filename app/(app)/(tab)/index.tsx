@@ -1,8 +1,8 @@
-import {Button, Card, Image, Spinner, View, XStack, YStack} from "tamagui";
+import {Button, Card,  Spinner, View, XStack, YStack} from "tamagui";
 import Typo from "@/components/libs/Typo";
 import DefaultColor from "@/components/ui/defaultColor";
 import {FontAwesome, FontAwesome5} from '@expo/vector-icons';
-import {FlatList, RefreshControl, TouchableOpacity} from "react-native";
+import {FlatList, RefreshControl, TouchableOpacity, Image} from "react-native";
 import {DefaultSize} from "@/components/ui/defaultStyle";
 import {useTranslation} from "react-i18next";
 import {router} from "expo-router";
@@ -34,7 +34,6 @@ export default function HomeScreen() {
     } = useInfiniteEventList(request);
 
     const listEvent = useMemo(() => data?.pages.flatMap((page) => page.data) || [], [data]);
-
     useEffect(() => {
         setLoading(isLoading || isRefetching);
     }, [isRefetching, isLoading]);
@@ -210,12 +209,23 @@ const EventItem: FC<{ item: EventListItem }> = ({item}) => {
     const {t} = useTranslation();
     const language = useAppStore(s => s.language);
     return (
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => {
+            router.push({
+                pathname: '/(app)/(event)/detail',
+                params: {
+                    id: item.id,
+                }
+            })
+        }}>
             <YStack marginBottom={24} gap={"$2"}>
                 <View position={"relative"}>
                     <Image source={{uri: item.image_represent_path}}
-                           height={230}
-                           borderRadius={10}
+                           style={{
+                               height: 230,
+                               width:"100%",
+                               borderRadius: 10
+                           }}
+                           resizeMode={"cover"}
                     />
                     <XStack position="absolute" top={10} right={10} left={10} justifyContent={"space-between"}
                             alignItems={"center"}

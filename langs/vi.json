@@ -21,7 +21,9 @@
     "vip": "vip",
     "upgrade_now": "Nâng cấp ngay",
     "cancel": "Hủy",
-    "accept": "Đồng ý"
+    "accept": "Đồng ý",
+    "send": "Gửi",
+    "see_more": "Xem thêm"
   },
   "common_error": {
     "server_error": "Đã xảy ra lỗi trên máy chủ, vui lòng liên hệ quản trị viên để được hỗ trợ.",
@@ -41,6 +43,12 @@
     "project_unauthorized": "Project hoặc VM của bạn đang có lỗi về xác thực, vui lòng kiểm tra lại sau",
     "copy_error": "Lỗi khi copy",
     "warning_location": "Hiện tại bạn chưa bật định vị, vui lòng bật định vị để sử dụng chức năng này."
+  },
+  "enum": {
+    "_EventUserRole": {
+      "ORGANIZER": "Người tổ chức",
+      "PRESENTER": "Người dẫn chương trình"
+    }
   },
   "component": {
     "choose_organizer": {
@@ -96,6 +104,18 @@
     },
     "success": {
       "login_success": "Đăng nhập thành công, chào mừng bạn trở lại!"
+    }
+  },
+  "event": {
+    "page": {
+      "detail": {
+        "time_of_organization": "Thời gian tổ chức",
+        "agenda_event": "Lịch trình sự kiện",
+        "question_label": "Đặt câu hỏi và nhận xét",
+        "question_placeholder": "Nhập câu hỏi hoặc nhận xét của bạn",
+        "event_overview": "Tổng quan sự kiện",
+        "event_more": "Sự kiện liên quan"
+      }
     }
   }
 }
