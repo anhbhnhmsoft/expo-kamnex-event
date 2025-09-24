@@ -10,7 +10,7 @@ import LayoutView from "@/components/libs/LayoutView";
 import useSearchEventStore from "@/services/event/stores/useSearchEventStore";
 import {useAppStore} from "@/services/app/stores/useAppStore";
 import HorizontalTabBar from "@/components/libs/HorizontalTabBar";
-import {_ActionSearchEvent, _EventStatus} from "@/services/event/const";
+import {_ActionSearchEvent, _EventStatus, getLabelEventStatus, getLabelEventUserHistory} from "@/services/event/const";
 import useInfiniteEventList from "@/services/event/hooks/useInfiniteEventList";
 import {FC, useEffect, useMemo} from "react";
 import Empty from "@/components/libs/Empty";
@@ -233,13 +233,29 @@ const EventItem: FC<{ item: EventListItem }> = ({item}) => {
                         <Button
                             backgroundColor={DefaultColor.primary_color}
                             theme={"blue"}
+                            disabled={true}
                             borderRadius={30}
                             paddingHorizontal={12}
                         >
-                            <Typo color={DefaultColor.white}>{t('common.register')}</Typo>
+                            <Typo color={DefaultColor.white}>
+                                {item.status_history ? t(getLabelEventUserHistory(item.status_history)) : t('common.register')}
+                            </Typo>
                         </Button>
                         <Typo color={DefaultColor.white} weight={"700"}
                               fontSize={DefaultSize.md}>{t('common.free_to_join')}</Typo>
+                    </XStack>
+                    <XStack position="absolute" bottom={10} right={10} left={10} justifyContent={"space-between"}
+                            alignItems={"center"}
+                    >
+                        <View alignSelf={"flex-start"} paddingHorizontal={10} paddingVertical={2}
+                              borderRadius={10} backgroundColor={
+                            item.status === _EventStatus.UPCOMING ? DefaultColor.yellow["500"] : DefaultColor.primary_color["500"]
+                        }>
+                            <Typo
+                                color={item.status === _EventStatus.UPCOMING ? DefaultColor.black : DefaultColor.white}>
+                                {t(getLabelEventStatus(item.status))}
+                            </Typo>
+                        </View>
                     </XStack>
                 </View>
                 <YStack gap={"$2"}>

@@ -59,6 +59,12 @@
       "ACTIVE": "Đang diễn ra",
       "UPCOMING": "Sắp diễn ra",
       "CLOSED": "Đã kết thúc"
+    },
+    "_EventUserHistory": {
+      "BOOKED": "Đã đăng ký",
+      "PARTICIPATED": "Đã tham gia",
+      "CANCELLED": "Đã hủy",
+      "SEENED": "Đã xem"
     }
   },
   "component": {
@@ -86,6 +92,12 @@
         "support": "Hỗ trợ",
         "title_logout": "Đăng xuất",
         "desc_logout": "Bạn có chắc là muốn đăng xuất khỏi thiết bị này không ?"
+      },
+      "seen": {
+        "title": "Sự kiện đã xem"
+      },
+      "registered": {
+        "title": "Sự kiện đã đăng ký"
       }
     }
   },
