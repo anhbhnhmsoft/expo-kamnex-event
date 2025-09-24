@@ -8,7 +8,9 @@ export type SearchEventParams = {
     lat?: number;
     lng?: number;
     exclude_id?: string;
-    status?: _EventStatus
+    status?: _EventStatus;
+    event_history_status?: _EventUserHistory;
+    event_history_statuses? : _EventUserHistory[]
 }
 
 export type SearchEventRequest = BaseSearchRequest<SearchEventParams>
@@ -16,9 +18,11 @@ export type SearchEventRequest = BaseSearchRequest<SearchEventParams>
 export type EventListItem = {
     id: string;
     name: string;
+    status: _EventStatus;
     image_represent_path: string;
     address: string;
     day_represent: string;
+    status_history: _EventUserHistory | null;
 }
 
 export type EventListResponse = ResponsePagingSuccessType<EventListItem[]>
@@ -33,14 +37,14 @@ export type EventDetail = {
     day_represent: string;
     start_time: string;
     end_time: string;
-    status: _EventStatus,
+    status: _EventStatus;
     latitude: string; // float
     longitude: string; // float
     user_event: {
         id: string;
         name: string;
-        avatar_url: string | null
-        role: _EventUserRole
+        avatar_url: string | null;
+        role: _EventUserRole;
     }[];
     organizer: {
         id: string;
@@ -49,8 +53,8 @@ export type EventDetail = {
         url_image: string | null;
     };
     schedules: {
-        id: string,
-        name: string
+        id: string;
+        name: string;
     }[];
 }
 
@@ -64,16 +68,16 @@ export type EventUserHistory = {
         id: string;
         seat_code: string;
         area_id: string;
-        area_name: string
+        area_name: string;
     } | null;
-    ticket_code: string | null
-    status: _EventUserHistory
-}
+    ticket_code: string | null;
+    status: _EventUserHistory;
+};
 
 export type RegisterEventHistoryRequest = {
     event_id: string;
     event_seat_id?: string;
-    status: _EventUserHistory.BOOKED | _EventUserHistory.SEENED
+    status: _EventUserHistory.BOOKED | _EventUserHistory.SEENED;
 }
 
 export type RegisterEventHistoryResponse = ResponseDataSuccessType<EventUserHistory>

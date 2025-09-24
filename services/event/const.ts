@@ -45,3 +45,17 @@ export enum _EventUserHistory {
     PARTICIPATED = 3, // đã tham gia
     CANCELLED = 4 // đã hủy
 }
+
+export const getLabelEventUserHistory = (event: _EventUserHistory) => {
+    switch (event) {
+        case _EventUserHistory.BOOKED:
+            return 'enum._EventUserHistory.BOOKED';
+        case _EventUserHistory.PARTICIPATED:
+            return 'enum._EventUserHistory.PARTICIPATED';
+        case _EventUserHistory.CANCELLED:
+            return 'enum._EventUserHistory.CANCELLED';
+        case _EventUserHistory.SEENED:
+        default:
+            return 'enum._EventUserHistory.SEENED';
+    }
+}

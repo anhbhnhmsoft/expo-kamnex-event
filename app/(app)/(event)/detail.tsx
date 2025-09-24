@@ -283,6 +283,9 @@ const CarouselUserParticipants: FC<{ data: EventDetail['user_event'] }> = ({data
                 <ScrollView
                     horizontal
                     flex={1}
+                    contentContainerStyle={{
+                        gap: 12
+                    }}
                     nestedScrollEnabled={true}
                     showsHorizontalScrollIndicator={false}
                 >
