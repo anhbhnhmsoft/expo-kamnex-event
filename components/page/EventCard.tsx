@@ -8,7 +8,7 @@ import DefaultColor from "@/components/ui/defaultColor";
 import {formatDate} from "@/utils/helper";
 import {useAppStore} from "@/services/app/stores/useAppStore";
 import {router} from "expo-router";
-import {getLabelEventUserHistory} from "@/services/event/const";
+import {getLabelEventStatus, getLabelEventUserHistory} from "@/services/event/const";
 import {useTranslation} from "react-i18next";
 
 type Props = {
@@ -49,8 +49,11 @@ const EventCard: FC<Props> = ({item}) => {
 
                 </View>
                 <YStack gap={"$2"} alignSelf={"flex-start"} width={"55%"}>
-                    <Typo numberOfLines={3} weight={"600"} fontSize={DefaultSize.md}>{item.name}</Typo>
-                    <Typo weight={"700"} color={DefaultColor.slate["500"]}>
+                    <Typo numberOfLines={2} weight={"600"} fontSize={DefaultSize.md}>{item.name}</Typo>
+                    <Typo weight={"500"} color={DefaultColor.slate["500"]}>
+                        {t(getLabelEventStatus(item.status))}
+                    </Typo>
+                    <Typo weight={"700"} color={DefaultColor.slate["400"]}>
                         {formatDate(item.day_represent, language)}
                     </Typo>
                 </YStack>

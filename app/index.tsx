@@ -15,15 +15,16 @@ export default function IndexScreen() {
     const {t} = useTranslation();
     const {hydrate, logout, setUser} = useAuthStore();
     const requestLocationPermission = useLocation();
+    const {warning} = useToast();
+
     // Xin cấp quyền các quyền cần thiết
     const grandPermission = useCallback(async () => {
         // Xin cấp quyền vị trí
         await requestLocationPermission();
-    }, [])
-    const {warning} = useToast();
+    }, []);
 
+    // animate the fade-in and scale-up effect
     useEffect(() => {
-        // animate the fade-in and scale-up effect
         Animated.parallel([
             Animated.timing(fadeAnim, {
                 toValue: 1,
@@ -37,6 +38,11 @@ export default function IndexScreen() {
                 useNativeDriver: true,
             }),
         ]).start();
+
+    }, [fadeAnim, scaleAnim]);
+
+    // grand permission and check
+    useEffect(() => {
         const check = setTimeout(async () => {
             await grandPermission();
             await hydrate();
@@ -63,7 +69,7 @@ export default function IndexScreen() {
         return () => {
             clearTimeout(check);
         };
-    }, [fadeAnim, hydrate, scaleAnim, t]);
+    }, [t]);
 
     return (
         <View style={styles.container}>

@@ -1,4 +1,4 @@
-import {LoginRequest, LoginResponse, RegisterRequest, UserResponse} from "@/services/auth/types";
+import {EditInfoRequest, LoginRequest, LoginResponse, RegisterRequest, UserResponse} from "@/services/auth/types";
 import {client} from "@/utils/axiosClient";
 import {_LanguageCode, ResponseSuccessType} from "@/utils/@types";
 
@@ -13,12 +13,32 @@ const authAPI = {
         const response = await client.post(`${defaultUri}/register`, data);
         return response.data;
     },
+    logout: async (): Promise<ResponseSuccessType> =>  {
+        const response = await client.post(`${defaultUri}/logout`);
+        return response.data;
+    },
     user: async (): Promise<UserResponse> =>  {
-        const response = await client.get(`/user`);
+        const response = await client.get(`${defaultUri}/user`);
         return response.data;
     },
     setLang: async (lang: _LanguageCode): Promise<ResponseSuccessType> =>  {
-        const response = await client.post(`/set-lang`, {lang});
+        const response = await client.post(`${defaultUri}/set-lang`, {lang});
+        return response.data;
+    },
+    editInfo: async (data: EditInfoRequest): Promise<UserResponse> =>  {
+        const response = await client.post(`${defaultUri}/edit-info`, data);
+        return response.data;
+    },
+    editAvatar: async (data:FormData): Promise<UserResponse> =>  {
+        const response = await client.post(`${defaultUri}/edit-avatar`, data, {
+            headers: {
+                "Content-Type": "multipart/form-data"
+            }
+        });
+        return response.data;
+    },
+    deleteAvatar: async (): Promise<UserResponse> =>  {
+        const response = await client.delete(`${defaultUri}/delete-avatar`);
         return response.data;
     },
 }

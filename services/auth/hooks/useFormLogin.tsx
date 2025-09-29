@@ -19,9 +19,7 @@ const useFormLogin = () => {
             email: z.email({ message: t('auth.error.invalid_email') }),
             password: z
                 .string()
-                .min(8, { message: t('auth.error.invalid_password') })
-                .regex(/[A-Z]/, { message: t('auth.error.invalid_password') })
-                .regex(/[a-z]/, { message: t('auth.error.invalid_password') }),
+                .min(8, { message: t('auth.error.invalid_password') }),
             organizer_id: z.number().int().min(1, {message: t('auth.error.invalid_organizer')}),
         })),
     })

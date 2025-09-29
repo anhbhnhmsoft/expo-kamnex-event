@@ -30,7 +30,8 @@ export default function DetailScreen() {
     const [idEvent, setIdEvent] = useState<string | null>(null);
     const [openDesc, setOpenDesc] = useState<boolean>(false);
     const {id} = useLocalSearchParams<{ id?: string }>();
-    const setEventUserHistory = useEventDetailStore(s => s.setEventUserHistory)
+    const setEventUserHistory = useEventDetailStore(s => s.setEventUserHistory);
+
     const {t} = useTranslation();
     const {event, loading} = useGetDataEventDetail(idEvent);
     const language = useAppStore(s => s.language);
@@ -94,7 +95,7 @@ export default function DetailScreen() {
                                 <Typo weight={"700"} fontSize={DefaultSize.xl}>{event.name}</Typo>
                                 <View alignSelf={"flex-start"} paddingHorizontal={10} paddingVertical={2}
                                       borderRadius={10} backgroundColor={
-                                    event.status === _EventStatus.UPCOMING ? DefaultColor.yellow["500"] : DefaultColor.primary_color["500"]
+                                    event.status === _EventStatus.UPCOMING ? DefaultColor.yellow["500"] : DefaultColor.primary_color
                                 }>
                                     <Typo
                                         color={event.status === _EventStatus.UPCOMING ? DefaultColor.black : DefaultColor.white}>
@@ -224,10 +225,11 @@ export const HeaderDetailScreen = () => {
     const {error} = useToast();
     const handleError = useToastErrorHandler();
     const setLoading = useAppStore(s => s.setLoading);
-
+    const event = useEventDetailStore(s => s.event);
     const {event_user_history, setEventUserHistory} = useEventDetailStore();
     const user = useAuthStore(s => s.user);
     const {mutate} = useMutateRegisterEventHistory();
+
     return (
         <XStack paddingTop={insets.top + 10} paddingHorizontal={DefaultSize.md} alignItems={"center"}
                 justifyContent="space-between" paddingBottom={10}>
@@ -236,7 +238,7 @@ export const HeaderDetailScreen = () => {
             </TouchableOpacity>
             <XStack alignItems={"center"} gap={"$2"}>
                 <Typo color={DefaultColor.primary_color} weight={"700"}>{t('common.free_to_join')}</Typo>
-                {event_user_history &&
+                {(event_user_history && event && event.status === _EventStatus.UPCOMING) &&
                     <Button size={"$3"} paddingHorizontal={DefaultSize.md} borderRadius={DefaultSize["4xl"]}
                             color={DefaultColor.white} theme={"blue"} backgroundColor={DefaultColor.primary_color}
                             disabled={![_EventUserHistory.SEENED, _EventUserHistory.CANCELLED].includes(event_user_history.status)}

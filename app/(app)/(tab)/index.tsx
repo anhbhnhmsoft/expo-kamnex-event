@@ -1,8 +1,8 @@
-import {Button, Card,  Spinner, View, XStack, YStack} from "tamagui";
+import {Button, Card,  Spinner, View, XStack, YStack, Image} from "tamagui";
 import Typo from "@/components/libs/Typo";
 import DefaultColor from "@/components/ui/defaultColor";
 import {FontAwesome, FontAwesome5} from '@expo/vector-icons';
-import {FlatList, RefreshControl, TouchableOpacity, Image} from "react-native";
+import {FlatList, RefreshControl, TouchableOpacity} from "react-native";
 import {DefaultSize} from "@/components/ui/defaultStyle";
 import {useTranslation} from "react-i18next";
 import {router} from "expo-router";
@@ -225,7 +225,7 @@ const EventItem: FC<{ item: EventListItem }> = ({item}) => {
                                width:"100%",
                                borderRadius: 10
                            }}
-                           resizeMode={"cover"}
+                           objectFit={"cover"}
                     />
                     <XStack position="absolute" top={10} right={10} left={10} justifyContent={"space-between"}
                             alignItems={"center"}
@@ -249,7 +249,7 @@ const EventItem: FC<{ item: EventListItem }> = ({item}) => {
                     >
                         <View alignSelf={"flex-start"} paddingHorizontal={10} paddingVertical={2}
                               borderRadius={10} backgroundColor={
-                            item.status === _EventStatus.UPCOMING ? DefaultColor.yellow["500"] : DefaultColor.primary_color["500"]
+                            item.status === _EventStatus.UPCOMING ? DefaultColor.yellow["500"] : DefaultColor.primary_color
                         }>
                             <Typo
                                 color={item.status === _EventStatus.UPCOMING ? DefaultColor.black : DefaultColor.white}>

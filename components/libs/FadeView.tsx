@@ -24,7 +24,7 @@ const FadeView: React.FC<FadeViewProps> = ({
     }, [visible, duration]);
 
     return (
-        <Animated.View style={{ opacity }}>
+        <Animated.View style={{ opacity, display: visible ? "flex" : "none" }}>
             <YStack {...props}>{children}</YStack>
         </Animated.View>
     );

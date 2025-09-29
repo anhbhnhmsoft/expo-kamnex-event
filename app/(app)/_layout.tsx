@@ -23,6 +23,7 @@ export default function AppLayout(){
             >
                 <Stack.Screen name="(tab)"/>
                 <Stack.Screen name="(event)"/>
+                <Stack.Screen name="(account)"/>
             </Stack>
         </>
     )

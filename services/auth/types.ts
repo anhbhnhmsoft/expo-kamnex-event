@@ -16,9 +16,9 @@ export type User = {
     id: string;
     name: string;
     email: string;
-    phone: string | null;
-    address: string;
-    introduce: string | null;
+    phone?: string;
+    address?: string;
+    introduce?: string;
     gender: 'male' | 'female' | 'other';
     avatar_url: string | null;
     organizer_id: number;
@@ -36,3 +36,13 @@ export type RegisterRequest = {
 }
 
 export type UserResponse = ResponseDataSuccessType<User>
+
+export type EditInfoRequest = {
+    name: string;
+    phone?: string;
+    address?: string;
+    introduce?:string;
+    password?:string;
+    confirm_password?:string;
+}
+
