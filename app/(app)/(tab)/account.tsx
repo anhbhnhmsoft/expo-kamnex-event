@@ -10,6 +10,8 @@ import useSyncLang from "@/services/auth/hooks/useSyncLang";
 import DefaultColor from "@/components/ui/defaultColor";
 import Empty from "@/components/libs/Empty";
 import {FontAwesome, FontAwesome5, FontAwesome6} from '@expo/vector-icons';
+import NotificationBadge from '@/components/libs/NotificationBadge';
+import { useNotificationStore } from "@/services/notifications/stores/useNotificationStore";
 import Alert from "@/components/libs/Alert";
 import {router} from "expo-router";
 import useGetInfoUser from "@/services/auth/hooks/useGetInfoUser";
@@ -21,13 +23,14 @@ export default function AccountScreen() {
     const logout = useLogout();
     const {language} = useLanguage();
     const syncLang = useSyncLang();
+    const unreadCount = useNotificationStore(state => state.unreadCount);
 
     return (
         <LayoutScrollApp>
             {/*Header*/}
             <XStack alignItems={"center"} justifyContent={"space-between"} marginBottom={DefaultSize["3xl"]} gap={"$4"}>
                 <Typo weight={"700"} fontSize={DefaultSize["4xl"]}>{t('common.account')}</Typo>
-                <XStack gap={"$2"}>
+                <XStack gap={"$2"} alignItems={"center"}>
                     <TouchableOpacity
                         onPress={() => {
                             syncLang(_LanguageCode.VI);
@@ -59,6 +62,15 @@ export default function AccountScreen() {
                                 objectFit="cover"
                             />
                         </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity 
+                        style={{marginLeft: 18, position: 'relative'}}
+                        onPress={() => {
+                            router.push('/(app)/notifications');
+                        }}
+                    >
+                        <FontAwesome name="bell" size={DefaultSize["3xl"]} color="#A20000" />
+                        <NotificationBadge count={unreadCount} style={{ position: 'absolute', top: -2, right: -4 }} />
                     </TouchableOpacity>
                 </XStack>
             </XStack>

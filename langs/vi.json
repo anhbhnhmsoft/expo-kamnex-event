@@ -101,6 +101,10 @@
       "INACTIVE": "Chưa hoạt động",
       "ACTIVE": "Hoạt động",
       "EXPIRED": "Hết hạn"
+    },
+    "_NotificationRecipientStatus": {
+      "UNREAD": "Chưa đọc",
+      "READ": "Đã đọc"
     }
   },
   "component": {
@@ -213,5 +217,9 @@
       "empty_trans": "Không có giao dịch để thực hiện",
       "error_save_qr": "Có lỗi xảy ra khi lưu QR code"
     }
+  },
+  "notifications": {
+    "mark_as_read_success": "Đánh dấu thông báo đã đọc thành công",
+    "mark_all_as_read_success": "Đánh dấu tất cả thông báo đã đọc thành công"
   }
 }
