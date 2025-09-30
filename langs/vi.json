@@ -80,6 +80,10 @@
       "PARTICIPATED": "Đã tham gia",
       "CANCELLED": "Đã hủy",
       "SEENED": "Đã xem"
+    },
+    "_NotificationRecipientStatus": {
+      "UNREAD": "Chưa đọc",
+      "READ": "Đã đọc"
     }
   },
   "component": {
@@ -178,5 +182,9 @@
       "invalid_phone": "Số điện thoại không hợp lệ",
       "invalid_address": "Địa chỉ tối đa 255 ký tự"
     }
+  },
+  "notifications": {
+    "mark_as_read_success": "Đánh dấu thông báo đã đọc thành công",
+    "mark_all_as_read_success": "Đánh dấu tất cả thông báo đã đọc thành công"
   }
 }
