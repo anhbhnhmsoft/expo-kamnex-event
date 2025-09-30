@@ -142,7 +142,9 @@ export default function AccountScreen() {
                         <Typo textAlign={"center"} weight={"700"} color={DefaultColor.white}
                               fontSize={DefaultSize.md}>{t('tab.page.account.register_membership_2')}</Typo>
                     </YStack>
-                    <Button size={"$3"} theme={"white"} backgroundColor={DefaultColor.white} paddingVertical={0}>
+                    <Button
+                        onPress={() => router.push('/(app)/(account)/membership/register-list')}
+                        size={"$3"} theme={"white"} backgroundColor={DefaultColor.white} paddingVertical={0}>
                         <Typo weight={"500"}>{t('common.upgrade_now')}</Typo>
                     </Button>
                 </Card>
@@ -186,7 +188,9 @@ export default function AccountScreen() {
                 </TouchableOpacity>
                 <Separator marginVertical={15} borderColor={DefaultColor.slate[300]}/>
 
-                <TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => router.push('/(app)/(account)/membership/list')}
+                >
                     <XStack gap={"$3"} alignItems={"center"}>
                         <View width={DefaultSize["3xl"]} height={DefaultSize["3xl"]} alignItems={"center"}
                               justifyContent={"center"}>

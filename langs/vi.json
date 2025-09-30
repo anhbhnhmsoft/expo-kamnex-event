@@ -4,6 +4,7 @@
     "logout": "Đăng xuất",
     "register": "Đăng ký",
     "had_register": "Đã đăng ký",
+    "register_now": "Đăng ký ngay",
     "had_join": "Đã tham gia",
     "had_cancel": "Đã hủy",
     "full_name": "Họ và tên",
@@ -34,7 +35,19 @@
     "see_more": "Xem thêm",
     "area_name": "Tên khu vực",
     "seat_code": "Mã ghế",
-    "ticket_code": "Mã vé"
+    "ticket_code": "Mã vé",
+    "month": "Tháng",
+    "membership": "Thành viên",
+    "download_qr_code": "Lưu QR",
+    "desc": "Ghi chú",
+    "account_number": "STK",
+    "duration": "Thời hạn",
+    "to": "đến"
+  },
+  "common_success": {
+    "save_image_success": "Lưu trữ ảnh thành công",
+    "copy_success": "Copy thành công",
+    "payment_success": "Thanh toán thành công, cảm ơn bạn đã sử dụng dịch vụ của chúng tôi"
   },
   "common_error": {
     "server_error": "Đã xảy ra lỗi trên máy chủ, vui lòng liên hệ quản trị viên để được hỗ trợ.",
@@ -50,8 +63,6 @@
     "data_not_found": "Dữ liệu trống, vui lòng thử lại sau.",
     "data_not_fields": "Có một số dữ liệu chưa được điền, vui lòng thử lại.",
     "data_exists": "Dữ liệu đã tồn tại, vui lòng thử lại.",
-    "vm_error_general": "VM hiện đang không sử dụng được, vui lòng liên hệ với admin",
-    "project_unauthorized": "Project hoặc VM của bạn đang có lỗi về xác thực, vui lòng kiểm tra lại sau",
     "copy_error": "Lỗi khi copy",
     "warning_location": "Hiện tại bạn chưa bật định vị, vui lòng bật định vị để sử dụng chức năng này."
   },
@@ -80,6 +91,16 @@
       "PARTICIPATED": "Đã tham gia",
       "CANCELLED": "Đã hủy",
       "SEENED": "Đã xem"
+    },
+    "_ConfigMembership": {
+      "ALLOW_COMMENT": "Bình luận và đặt câu hỏi ngay trong sự kiện",
+      "ALLOW_CHOOSE_SEAT": "Ưu tiên khu và ghế ngồi",
+      "ALLOW_DOCUMENTARY": "Download tài liệu trước và sau sự kiện"
+    },
+    "_MembershipUserStatus": {
+      "INACTIVE": "Chưa hoạt động",
+      "ACTIVE": "Hoạt động",
+      "EXPIRED": "Hết hạn"
     },
     "_NotificationRecipientStatus": {
       "UNREAD": "Chưa đọc",
@@ -172,6 +193,18 @@
         "choose_from_lib": "Chọn từ thư viện",
         "delete_avatar_title": "Xóa ảnh đại diện",
         "delete_avatar_desc": "Bạn có chắc muốn xóa ảnh đại diện của bạn"
+      },
+      "membership": {
+        "list": {
+          "title": "Gói thành viên",
+          "register": "Đăng ký gói thành viên"
+        },
+        "register_list": {
+          "title": "Đăng ký gói thành viên"
+        },
+        "check_trans": {
+          "title": "Thông tin thanh toán"
+        }
       }
     },
     "error": {
@@ -180,7 +213,9 @@
       "invalid_password": "Mật khẩu phải có ít nhất 8 kí tự",
       "invalid_confirm_password": "Mật khẩu nhập lại không giống với mật khẩu",
       "invalid_phone": "Số điện thoại không hợp lệ",
-      "invalid_address": "Địa chỉ tối đa 255 ký tự"
+      "invalid_address": "Địa chỉ tối đa 255 ký tự",
+      "empty_trans": "Không có giao dịch để thực hiện",
+      "error_save_qr": "Có lỗi xảy ra khi lưu QR code"
     }
   },
   "notifications": {
