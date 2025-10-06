@@ -10,12 +10,11 @@ import useSyncLang from "@/services/auth/hooks/useSyncLang";
 import DefaultColor from "@/components/ui/defaultColor";
 import Empty from "@/components/libs/Empty";
 import {FontAwesome, FontAwesome5, FontAwesome6} from '@expo/vector-icons';
-import NotificationBadge from '@/components/libs/NotificationBadge';
-import { useNotificationStore } from "@/services/notifications/stores/useNotificationStore";
 import Alert from "@/components/libs/Alert";
 import {router} from "expo-router";
 import useGetInfoUser from "@/services/auth/hooks/useGetInfoUser";
 import useLogout from "@/services/auth/hooks/useLogout";
+import {useGetUnreadCount} from "@/services/notifications/hooks/use-query-notification";
 
 export default function AccountScreen() {
     const {t} = useTranslation();
@@ -23,8 +22,7 @@ export default function AccountScreen() {
     const logout = useLogout();
     const {language} = useLanguage();
     const syncLang = useSyncLang();
-    const unreadCount = useNotificationStore(state => state.unreadCount);
-
+    const {unread_count} = useGetUnreadCount();
     return (
         <LayoutScrollApp>
             {/*Header*/}
@@ -62,15 +60,6 @@ export default function AccountScreen() {
                                 objectFit="cover"
                             />
                         </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity 
-                        style={{marginLeft: 18, position: 'relative'}}
-                        onPress={() => {
-                            router.push('/(app)/notifications');
-                        }}
-                    >
-                        <FontAwesome name="bell" size={DefaultSize["3xl"]} color="#A20000" />
-                        <NotificationBadge count={unreadCount} style={{ position: 'absolute', top: -2, right: -4 }} />
                     </TouchableOpacity>
                 </XStack>
             </XStack>
@@ -165,14 +154,28 @@ export default function AccountScreen() {
                 </TouchableOpacity>
                 <Separator marginVertical={15} borderColor={DefaultColor.slate[300]}/>
 
-                <TouchableOpacity>
-                    <XStack gap={"$3"} alignItems={"center"}>
-                        <View width={DefaultSize["3xl"]} height={DefaultSize["3xl"]} alignItems={"center"}
-                              justifyContent={"center"}>
-                            <FontAwesome name="bell" size={DefaultSize["3xl"]} color={DefaultColor.red['600']}/>
-                        </View>
-                        <Typo fontSize={DefaultSize.md}
-                              weight={"500"}>{t('tab.page.account.manager_notification')}</Typo>
+                {/*Notification*/}
+                <TouchableOpacity
+                    onPress={() => router.push('/(app)/(account)/notifications')}
+                >
+                    <XStack gap={"$3"} alignItems={"center"} justifyContent={"space-between"}>
+                        <XStack gap={"$3"} alignItems={"center"}>
+                            <View width={DefaultSize["3xl"]} height={DefaultSize["3xl"]} alignItems={"center"}
+                                  justifyContent={"center"}>
+                                <FontAwesome name="bell" size={DefaultSize["3xl"]} color={DefaultColor.red['600']}/>
+                            </View>
+                            <Typo fontSize={DefaultSize.md}
+                                  weight={"500"}>{t('tab.page.account.manager_notification')}
+                            </Typo>
+                        </XStack>
+                        {unread_count > 0 &&
+                            <View width={DefaultSize["3xl"]} height={DefaultSize["3xl"]} borderRadius={DefaultSize['3xl']} alignItems={"center"}
+                                  justifyContent={"center"} backgroundColor={DefaultColor.primary_color}>
+                                <Typo color={DefaultColor.white} weight={"500"}>
+                                    {unread_count}
+                                </Typo>
+                            </View>
+                        }
                     </XStack>
                 </TouchableOpacity>
                 <Separator marginVertical={15} borderColor={DefaultColor.slate[300]}/>

@@ -1,41 +1,38 @@
-import { client } from '@/utils/axiosClient';
-import { 
-  NotificationListResponse, 
-  PushTokenRequest, 
-  PushTokenResponse,
-  CreateNotificationRequest,
-  CreateNotificationResponse 
-} from './types';
+import {client} from '@/utils/axiosClient';
+import {ResponseSuccessType} from "@/utils/@types";
+import {
+    MarkAsReadRequest,
+    NotificationListRequest,
+    NotificationListResponse,
+    PushTokenRequest,
+    PushTokenResponse,
+    UnreadCountResponse
+} from "@/services/notifications/types";
 
-class NotificationAPI {
-  async getNotifications(params?: {
-    page?: number;
-    limit?: number;
-    status?: number;
-    notification_type?: number;
-  }): Promise<NotificationListResponse> {
-    const response = await client.get('/notifications', { params });
-    return response.data;
-  }
 
-  async markAsRead(notificationId: string): Promise<{ message: string; data: any }> {
-    const response = await client.post('/notifications', { notification_id: notificationId });
-    return response.data;
-  }
+const defaultUri = '/notifications';
 
-  async markAllAsRead(): Promise<{ message: string; data: any }> {
-    const response = await client.post('/notifications/read-all');
-    return response.data;
-  }
-
-  /**
-   * Gửi Expo Push Token lên server
-   */
-  async sendPushToken(data: PushTokenRequest): Promise<PushTokenResponse> {
-    const response = await client.post('/notifications/push-token', data);
-    return response.data;
-  }
+const notificationAPI = {
+    list: async (params: NotificationListRequest): Promise<NotificationListResponse> => {
+        const response = await client.get(`${defaultUri}`, {params});
+        return response.data;
+    },
+    unreadCount: async (): Promise<UnreadCountResponse> => {
+        const response = await client.get(`${defaultUri}/unread`);
+        return response.data;
+    },
+    sendPushToken: async (data: PushTokenRequest): Promise<PushTokenResponse> => {
+        const response = await client.post(`${defaultUri}/push-token`, data);
+        return response.data;
+    },
+    markAsRead: async (data: MarkAsReadRequest): Promise<ResponseSuccessType> => {
+        const response = await client.post(`${defaultUri}/read`, data);
+        return response.data;
+    },
+    markAllAsRead: async (): Promise<ResponseSuccessType> => {
+        const response = await client.post(`${defaultUri}/read-all`);
+        return response.data;
+    },
 }
 
-const notificationAPI = new NotificationAPI();
 export default notificationAPI;

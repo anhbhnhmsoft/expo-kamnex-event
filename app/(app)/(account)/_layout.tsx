@@ -25,6 +25,13 @@ export default function AccountLayout() {
                     backgroundColor: DefaultColor.white
                 }
             }}/>
+            <Stack.Screen
+                name="notifications"
+                options={{
+                    header: () => <DefaultHeader title={'account.page.notifications.title'}/>,
+                    animation: "slide_from_right",
+                }}
+            />
         </Stack>
     );
 

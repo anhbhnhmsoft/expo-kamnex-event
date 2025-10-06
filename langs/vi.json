@@ -205,6 +205,10 @@
         "check_trans": {
           "title": "Thông tin thanh toán"
         }
+      },
+      "notifications": {
+        "title": "Thông báo",
+        "mask_all_read": "Đọc tất cả"
       }
     },
     "error": {

@@ -1,7 +1,8 @@
 export enum _UserNotificationStatus {
-    SENT = 1,  // chưa đọc (đã gửi)
-    READ = 2,  // đã đọc
-    FAILED = 3 // gửi thất bại
+    PENDING = 1,
+    SENT = 2,  // chưa đọc (đã gửi)
+    READ = 3,  // đã đọc
+    FAILED = 4 // gửi thất bại
 }
 
 export enum _UserNotificationType {

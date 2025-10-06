@@ -17,6 +17,7 @@ const useToast = () => {
             position:'top',
             visibilityTime:3000,
             autoHide: true,
+            onPress: () => Toast.hide(),
             ...option
         })
     },[]);
@@ -28,6 +29,7 @@ const useToast = () => {
             position:'top',
             visibilityTime:3000,
             autoHide: true,
+            onPress: () => Toast.hide(),
             ...option
         })
     },[]);
@@ -40,6 +42,7 @@ const useToast = () => {
             position:'top',
             visibilityTime:3000,
             autoHide: true,
+            onPress: () => Toast.hide(),
             ...option
         })
     },[]);
@@ -52,6 +55,7 @@ const useToast = () => {
             position:'top',
             visibilityTime:3000,
             autoHide: true,
+            onPress: () => Toast.hide(),
             ...option
         })
     },[]);

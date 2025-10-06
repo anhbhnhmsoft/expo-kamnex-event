@@ -3,15 +3,14 @@ import {useAppStore} from "@/services/app/stores/useAppStore";
 import FullScreenLoading from "@/components/libs/FullScreenLoading";
 import DefaultColor from "@/components/ui/defaultColor";
 import useCheckStatusLogin from "@/services/auth/hooks/useCheckStatusLogin";
-import {useNotifications} from "@/services/notifications/hooks/useNotifications";
-
+import useNotification from "@/services/notifications/hooks/useNotification";
 
 export default function AppLayout(){
     const loading = useAppStore(state => state.loading);
 
     useCheckStatusLogin('app');
-    useNotifications();
-
+    // sử dụng thông báo
+    useNotification();
     return (
         <>
             <FullScreenLoading loading={loading} />
@@ -26,12 +25,6 @@ export default function AppLayout(){
                 <Stack.Screen name="(tab)"/>
                 <Stack.Screen name="(event)"/>
                 <Stack.Screen name="(account)"/>
-                <Stack.Screen
-                    name="notifications"
-                    options={{
-                        animation: "slide_from_right",
-                    }}
-                />
             </Stack>
         </>
     )

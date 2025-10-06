@@ -14,8 +14,10 @@ export default function IndexScreen() {
     const scaleAnim = useRef(new Animated.Value(0.5)).current;
     const {t} = useTranslation();
     const {hydrate, logout, setUser} = useAuthStore();
-    const requestLocationPermission = useLocation();
     const {warning} = useToast();
+
+    // Các permission
+    const requestLocationPermission = useLocation();
 
     // Xin cấp quyền các quyền cần thiết
     const grandPermission = useCallback(async () => {
