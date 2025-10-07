@@ -9,10 +9,11 @@ import {
 import FocusAwareStatusBar from "@/components/libs/FocusAwareStatusBar";
 import LayoutView from "@/components/libs/LayoutView";
 
-export default function LayoutScrollApp({children, style, padded = true}: {
+export default function LayoutScrollApp({children, style, padded = true, paddedTop}: {
     children: ReactNode,
     style?: StyleProp<ViewStyle>,
-    padded?: boolean
+    padded?: boolean,
+    paddedTop?:boolean
 }) {
     const scrollY = useRef(new Animated.Value(0)).current;
     const [showHeader, setShowHeader] = useState<boolean>(false);
@@ -34,7 +35,7 @@ export default function LayoutScrollApp({children, style, padded = true}: {
                 scrollEventThrottle={16}
                 style={style}
             >
-                <LayoutView padded={padded}>
+                <LayoutView padded={padded} paddedTop={paddedTop}>
                     {children}
                 </LayoutView>
             </Animated.ScrollView>

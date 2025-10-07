@@ -1,4 +1,5 @@
 import {_LanguageCode, ResponseDataSuccessType} from "@/utils/@types";
+import {ConfigMembership} from "@/services/membership/type";
 
 
 export type LoginRequest = {
@@ -23,7 +24,11 @@ export type User = {
     avatar_url: string | null;
     organizer_id: number;
     lang: _LanguageCode,
-    membership: {id: string; name: string;} | null
+    membership: {
+        id: string;
+        name: string;
+        config: ConfigMembership
+    } | null
 }
 
 export type RegisterRequest = {

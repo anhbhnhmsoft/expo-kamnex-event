@@ -42,7 +42,9 @@
     "desc": "Ghi chú",
     "account_number": "STK",
     "duration": "Thời hạn",
-    "to": "đến"
+    "to": "đến",
+    "document": "Tài liệu",
+    "file_assign": "File đính kèm"
   },
   "common_success": {
     "save_image_success": "Lưu trữ ảnh thành công",
@@ -53,7 +55,7 @@
     "server_error": "Đã xảy ra lỗi trên máy chủ, vui lòng liên hệ quản trị viên để được hỗ trợ.",
     "request_error": "Không nhận được phản hồi từ máy chủ, vui lòng liên hệ quản trị viên để được hỗ trợ.",
     "program_error": "Đã xảy ra lỗi trên chương trình, vui lòng liên hệ quản trị viên để được hỗ trợ.",
-    "unknown_error": "Đã xảy ra lỗi, vui lòng liên hệ quản trị viên để được hỗ trợ.",
+    "unknown_error": "Đã xảy ra lỗi không xác định, vui lòng liên hệ quản trị viên để được hỗ trợ.",
     "invalid_or_expired_token": "Tài khoản của bạn đã hết hạn hoặc không hợp lệ. Vui lòng đăng nhập lại.",
     "api_not_found": "Nguồn không xác định đã xảy ra, vui lòng liên hệ quản trị viên để được hỗ trợ.",
     "method_not_allowed": "API không đúng định dạng, vui lòng liên hệ quản trị viên để được hỗ trợ.",
@@ -64,7 +66,9 @@
     "data_not_fields": "Có một số dữ liệu chưa được điền, vui lòng thử lại.",
     "data_exists": "Dữ liệu đã tồn tại, vui lòng thử lại.",
     "copy_error": "Lỗi khi copy",
-    "warning_location": "Hiện tại bạn chưa bật định vị, vui lòng bật định vị để sử dụng chức năng này."
+    "warning_location": "Hiện tại bạn chưa bật định vị, vui lòng bật định vị để sử dụng chức năng này.",
+    "download_failed": "Download file thất bại, vui lòng liên hệ với quản trị viên để được hỗ trợ",
+    "file_already_exist": "File này đã tồn tại trong máy của bạn"
   },
   "permission": {
     "camera": {
@@ -175,6 +179,8 @@
         "time_of_organization": "Thời gian tổ chức",
         "agenda_event": "Lịch trình sự kiện",
         "question_label": "Đặt câu hỏi và nhận xét",
+        "register_membership_to_comment": "Hãy đăng ký gói thành viên để có thể bình luận về sự kiện này",
+        "register_membership_to_document": "Hãy đăng ký gói thành viên để có thể xem tài liệu về sự kiện này",
         "question_placeholder": "Nhập câu hỏi hoặc nhận xét của bạn",
         "event_overview": "Tổng quan sự kiện",
         "event_more": "Sự kiện liên quan",

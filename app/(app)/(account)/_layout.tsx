@@ -32,6 +32,13 @@ export default function AccountLayout() {
                     animation: "slide_from_right",
                 }}
             />
+            <Stack.Screen
+                name="list-document"
+                options={{
+                    header: () => <DefaultHeader title={'account.page.notifications.title'}/>,
+                    animation: "slide_from_right",
+                }}
+            />
         </Stack>
     );
 

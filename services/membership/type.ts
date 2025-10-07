@@ -4,6 +4,12 @@ import {_ConfigMembership, _MembershipUserStatus} from "@/services/membership/co
 
 export type MembershipListRequest = BaseSearchRequest<object>
 
+export type ConfigMembership = {
+    [_ConfigMembership.ALLOW_COMMENT]: boolean;
+    [_ConfigMembership.ALLOW_CHOOSE_SEAT]: boolean;
+    [_ConfigMembership.ALLOW_DOCUMENTARY]: boolean;
+}
+
 export type MembershipListItem = {
     id: string;
     name: string;
@@ -14,11 +20,7 @@ export type MembershipListItem = {
     sort: number;
     badge_color_background: string | null;
     badge_color_text: string | null;
-    config: {
-        [_ConfigMembership.ALLOW_COMMENT]: boolean;
-        [_ConfigMembership.ALLOW_CHOOSE_SEAT]: boolean;
-        [_ConfigMembership.ALLOW_DOCUMENTARY]: boolean;
-    };
+    config: ConfigMembership;
     status: boolean;
 }
 

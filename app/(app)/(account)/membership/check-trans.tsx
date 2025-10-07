@@ -60,7 +60,9 @@ export default function CheckTransScreen() {
         const destination = new Directory(Paths.cache, 'qrimage');
         try {
             // uri của thư mục cache
-            destination.create();
+            if (!destination.exists) {
+                destination.create();
+            }
             const qrFile = new File(destination, `vietqr_${Date.now()}_${Math.floor(Math.random() * 10000)}.png`);
             // download file
             const output = await File.downloadFileAsync(url, qrFile);

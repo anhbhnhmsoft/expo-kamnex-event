@@ -11,7 +11,7 @@ import Typo from "@/components/libs/Typo";
 import {useGetDataEventDetail} from "@/services/event/hooks/use-query-event";
 import LoadingList from "@/components/libs/LoadingList";
 import {useAppStore} from "@/services/app/stores/useAppStore";
-import {formatDate} from "@/utils/helper";
+import {checkMembershipConfig, formatDate} from "@/utils/helper";
 import {EventDetail} from "@/services/event/types";
 import useAuthStore from "@/services/auth/stores/useAuthStore";
 import {_EventStatus, _EventUserHistory, getLabelEventStatus, getLabelEventUserRole} from "@/services/event/const";
@@ -25,13 +25,14 @@ import {useMutateRegisterEventHistory} from "@/services/event/hooks/use-mutate-e
 import useToastErrorHandler from "@/services/app/hooks/useToastErrorHandler";
 import useEventDetailStore from "@/services/event/stores/useEventDetailStore";
 import useToast from "@/services/app/hooks/useToast";
+import {_ConfigMembership} from "@/services/membership/const";
 
 export default function DetailScreen() {
     const [idEvent, setIdEvent] = useState<string | null>(null);
     const [openDesc, setOpenDesc] = useState<boolean>(false);
     const {id} = useLocalSearchParams<{ id?: string }>();
     const setEventUserHistory = useEventDetailStore(s => s.setEventUserHistory);
-
+    const user = useAuthStore(s => s.user);
     const {t} = useTranslation();
     const {event, loading} = useGetDataEventDetail(idEvent);
     const language = useAppStore(s => s.language);
@@ -130,6 +131,14 @@ export default function DetailScreen() {
                                     <View width={"50%"} backgroundColor={"transparent"} paddingVertical={10}
                                           paddingHorizontal={5} key={schedule.id}>
                                         <Button theme={"white"} justifyContent={"flex-start"}
+                                                onPress={() => {
+                                                    router.push({
+                                                        pathname: '/(app)/(event)/detail-schedule',
+                                                        params: {
+                                                            id: schedule.id,
+                                                        }
+                                                    })
+                                                }}
                                                 backgroundColor={DefaultColor.white} borderRadius={50}>
                                             <Typo weight={"500"}
                                                   fontSize={DefaultSize.sm}>{index + 1}. {schedule.name}</Typo>
@@ -138,28 +147,61 @@ export default function DetailScreen() {
                                 ))}
                             </XStack>
                             {/*Đặt câu hỏi và nhận xét*/}
-                            <Typo weight={"700"} marginTop={10}
-                                  fontSize={DefaultSize.xl}>
-                                {t('event.page.detail.question_label')}
-                            </Typo>
-                            <TextArea
-                                placeholder={t('event.page.detail.question_placeholder')}
-                                placeholderTextColor={DefaultColor.slate["400"]}
-                                borderWidth={0}
-                                rows={5}
-                                size={"$4"}
-                                backgroundColor={DefaultColor.white}
-                            />
-                            <View alignItems={"center"} justifyContent={"center"}>
-                                <Button size={"$3"} paddingHorizontal={DefaultSize['5xl']} paddingVertical={0}
-                                        borderRadius={DefaultSize["4xl"]}
-                                        color={DefaultColor.white} theme={"blue"}
-                                        backgroundColor={DefaultColor.primary_color}>
-                                    <Typo color={DefaultColor.white} fontSize={DefaultSize.base}>
-                                        {t('common.send')}
-                                    </Typo>
-                                </Button>
-                            </View>
+                            <YStack marginTop={10} gap={"$4"} position={"relative"}>
+                                {/*Nếu user chưa mua gói thành viên*/}
+                                {!checkMembershipConfig(user, _ConfigMembership.ALLOW_COMMENT) && (
+                                    <>
+                                        <View position={"absolute"} top={-10} bottom={-10} left={-10} right={-10}
+                                              opacity={0.8}
+                                              backgroundColor={DefaultColor.slate[500]} zIndex={1}
+                                              borderRadius={10}>
+                                        </View>
+                                        <View position={"absolute"} top={0} bottom={0} left={0} right={0} zIndex={2}
+                                              alignItems={"center"} justifyContent={"center"} gap={"$4"}>
+                                            <Typo weight={"700"}
+                                                  fontSize={DefaultSize.base}
+                                                  color={DefaultColor.white}
+                                                  textAlign={"center"}
+                                            >
+                                                {t('event.page.detail.register_membership_to_comment')}
+                                            </Typo>
+                                            <Button size={"$3"} paddingHorizontal={DefaultSize['5xl']}
+                                                    paddingVertical={0}
+                                                    borderRadius={DefaultSize["4xl"]}
+                                                    color={DefaultColor.white} theme={"blue"}
+                                                    backgroundColor={DefaultColor.primary_color}
+                                                    onPress={() => router.push('/(app)/(account)/membership/register-list')}
+                                            >
+                                                <Typo color={DefaultColor.white} fontSize={DefaultSize.base}>
+                                                    {t('common.register_now')}
+                                                </Typo>
+                                            </Button>
+                                        </View>
+                                    </>
+                                )}
+                                <Typo weight={"700"}
+                                      fontSize={DefaultSize.xl}>
+                                    {t('event.page.detail.question_label')}
+                                </Typo>
+                                <TextArea
+                                    placeholder={t('event.page.detail.question_placeholder')}
+                                    placeholderTextColor={DefaultColor.slate["400"]}
+                                    borderWidth={0}
+                                    rows={5}
+                                    size={"$4"}
+                                    backgroundColor={DefaultColor.white}
+                                />
+                                <View alignItems={"center"} justifyContent={"center"}>
+                                    <Button size={"$3"} paddingHorizontal={DefaultSize['5xl']} paddingVertical={0}
+                                            borderRadius={DefaultSize["4xl"]}
+                                            color={DefaultColor.white} theme={"blue"}
+                                            backgroundColor={DefaultColor.primary_color}>
+                                        <Typo color={DefaultColor.white} fontSize={DefaultSize.base}>
+                                            {t('common.send')}
+                                        </Typo>
+                                    </Button>
+                                </View>
+                            </YStack>
                             {/*Tổng quan sự kiện*/}
                             <Card padded marginTop={10} backgroundColor={DefaultColor.white}>
                                 <Typo weight={"700"} marginBottom={10} fontSize={DefaultSize.xl}>
@@ -418,3 +460,4 @@ const DescriptionEvent: FC<{ event: EventDetail, open: boolean, setOpen: Dispatc
         </Sheet>
     )
 }
+
