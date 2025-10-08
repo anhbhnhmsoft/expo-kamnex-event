@@ -35,7 +35,14 @@ export default function AccountLayout() {
             <Stack.Screen
                 name="list-document"
                 options={{
-                    header: () => <DefaultHeader title={'account.page.notifications.title'}/>,
+                    header: () => <DefaultHeader title={'account.page.list_document.title'}/>,
+                    animation: "slide_from_right",
+                }}
+            />
+            <Stack.Screen
+                name="gift"
+                options={{
+                    header: () => <DefaultHeader title={'account.page.gift.title'}/>,
                     animation: "slide_from_right",
                 }}
             />

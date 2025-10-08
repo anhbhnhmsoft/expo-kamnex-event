@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import "dayjs/locale/vi";
 import "dayjs/locale/en";
+import relativeTime from 'dayjs/plugin/relativeTime';
 import {_LanguageCode} from "@/utils/@types";
 import {User} from "@/services/auth/types";
 import {_ConfigMembership} from "@/services/membership/const";
@@ -11,6 +12,13 @@ export const formatDate = (date: string | Date, locale: _LanguageCode = _Languag
         ? dayjs(date).format("dd, D [Th]M, YYYY")
         : dayjs(date).format("ddd, D MMM, YYYY");
 }
+
+export const formatDateFormNow = (date: string | Date, locale: _LanguageCode = _LanguageCode.VI) => {
+    dayjs.extend(relativeTime);
+    dayjs.locale(locale);
+    return dayjs(date).fromNow();
+}
+
 export const formatCurrency = (price: string): string => {
     const amount = Number(price);
     if (isNaN(amount)) return price;

@@ -17,6 +17,7 @@ export type DocumentItem = {
     id: string;
     title: string;
     event_schedule_id: string;
+    event_name:string;
     description: string;
     files: {
         id: string,
@@ -27,8 +28,13 @@ export type DocumentItem = {
     }
 }
 
-export type DetailDocumentResponse = ResponseDataSuccessType<DocumentItem[]>
+export type DetailDocumentResponse = ResponseDataSuccessType<DocumentItem>
 
 export type ListDocumentRequest = BaseSearchRequest<object>
 
 export type ListDocumentResponse = ResponsePagingSuccessType<DocumentItem[]>
+
+export type LinkSupportResponse = ResponseDataSuccessType<{
+    LINK_FACEBOOK_SUPPORT: string,
+    LINK_ZALO_SUPPORT: string;
+}>

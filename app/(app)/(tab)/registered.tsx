@@ -2,7 +2,6 @@ import Typo from "@/components/libs/Typo";
 import {Spinner} from "tamagui";
 import {useTranslation} from "react-i18next";
 import {useAppStore} from "@/services/app/stores/useAppStore";
-import useInfiniteEventList from "@/services/event/hooks/useInfiniteEventList";
 import {_EventUserHistory} from "@/services/event/const";
 import {useEffect, useMemo} from "react";
 import LayoutView from "@/components/libs/LayoutView";
@@ -10,6 +9,7 @@ import {DefaultSize} from "@/components/ui/defaultStyle";
 import {FlatList, RefreshControl} from "react-native";
 import EventCard from "@/components/page/EventCard";
 import Empty from "@/components/libs/Empty";
+import {useInfiniteEventList} from "@/services/event/hooks/use-query-event";
 
 export default function RegisteredScreen() {
     const {t} = useTranslation();

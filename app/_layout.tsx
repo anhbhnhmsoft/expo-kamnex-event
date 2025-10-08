@@ -9,6 +9,7 @@ import DefaultColor from "@/components/ui/defaultColor";
 import {createTamagui, TamaguiProvider} from "tamagui";
 import {defaultConfig} from "@tamagui/config/v4";
 import ToastManager from 'toastify-react-native'
+import DefaultHeader from "@/components/page/DefaultHeader";
 SplashScreen.preventAutoHideAsync();
 
 const queryClient = new QueryClient();
@@ -44,13 +45,19 @@ export default function RootLayout() {
                     <Stack
                         initialRouteName="index"
                         screenOptions={{
-                            headerShown: false,
                             contentStyle: {backgroundColor: DefaultColor.primary_bg},
                         }}
                     >
-                        <Stack.Screen name="index"/>
-                        <Stack.Screen name="(app)"/>
-                        <Stack.Screen name="(auth)"/>
+                        <Stack.Screen name="index" options={{headerShown: false}}/>
+                        <Stack.Screen name="(app)" options={{headerShown: false}}/>
+                        <Stack.Screen name="(auth)" options={{headerShown: false}}/>
+                        <Stack.Screen
+                            name="qr-scanner"
+                            options={{
+                                header: () => <DefaultHeader/>,
+                                animation: "slide_from_right",
+                            }}
+                        />
                     </Stack>
                     <ToastManager/>
                 </TamaguiProvider>

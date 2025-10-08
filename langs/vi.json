@@ -44,7 +44,9 @@
     "duration": "Thời hạn",
     "to": "đến",
     "document": "Tài liệu",
-    "file_assign": "File đính kèm"
+    "file_assign": "File đính kèm",
+    "seat_capacity": "Chỗ ngồi",
+    "event": "Sự kiện"
   },
   "common_success": {
     "save_image_success": "Lưu trữ ảnh thành công",
@@ -68,7 +70,8 @@
     "copy_error": "Lỗi khi copy",
     "warning_location": "Hiện tại bạn chưa bật định vị, vui lòng bật định vị để sử dụng chức năng này.",
     "download_failed": "Download file thất bại, vui lòng liên hệ với quản trị viên để được hỗ trợ",
-    "file_already_exist": "File này đã tồn tại trong máy của bạn"
+    "file_already_exist": "File này đã tồn tại trong máy của bạn",
+    "linking_not_support": "Điện thoại của bạn không hỗ trợ Linking nhanh"
   },
   "permission": {
     "camera": {
@@ -86,6 +89,7 @@
       "PRESENTER": "Người dẫn chương trình"
     },
     "_EventStatus": {
+      "FOR_USER": "Dành cho bạn",
       "ACTIVE": "Đang diễn ra",
       "UPCOMING": "Sắp diễn ra",
       "CLOSED": "Đã kết thúc"
@@ -129,13 +133,18 @@
         "register_membership_1": "Nâng cấp tài khoản",
         "register_membership_2": "để nhận nhiều ưu đãi từ chúng tôi",
         "account_info": "Thông tin cá nhân",
+        "qr_scan": "Quét QR code",
         "manager_notification": "Quản lý thông báo",
         "manager_file": "Quản lý tài liệu",
         "manager_membership": "Nâng cấp thành viên",
         "manager_gift": "Xem phần quà sự kiện",
         "support": "Hỗ trợ",
         "title_logout": "Đăng xuất",
-        "desc_logout": "Bạn có chắc là muốn đăng xuất khỏi thiết bị này không ?"
+        "desc_logout": "Bạn có chắc là muốn đăng xuất khỏi thiết bị này không ?",
+        "zalo_support": "Liên hệ qua Zalo",
+        "zalo_support_desc": "Nhắn tin trực tiếp để được hỗ trợ nhanh",
+        "facebook_support": "Liên hệ qua Facebook",
+        "facebook_support_desc": "Chat với đội ngũ hỗ trợ trên Fanpage"
       },
       "seen": {
         "title": "Sự kiện đã xem"
@@ -178,7 +187,7 @@
       "detail": {
         "time_of_organization": "Thời gian tổ chức",
         "agenda_event": "Lịch trình sự kiện",
-        "question_label": "Đặt câu hỏi và nhận xét",
+        "question_label": "Bình luận về sự kiện",
         "register_membership_to_comment": "Hãy đăng ký gói thành viên để có thể bình luận về sự kiện này",
         "register_membership_to_document": "Hãy đăng ký gói thành viên để có thể xem tài liệu về sự kiện này",
         "question_placeholder": "Nhập câu hỏi hoặc nhận xét của bạn",
@@ -186,7 +195,19 @@
         "event_more": "Sự kiện liên quan",
         "thank_for_book_title": "Cảm ơn bạn đã đăng ký tham gia sự kiện",
         "thank_for_book_desc": "Đây là thông tin hàng ghế cũng như số vé của bạn"
+      },
+      "list_comment": {
+        "title": "Bình luận sự kiện"
+      },
+      "booking_area": {
+        "title": "Lựa chọn khu vực"
+      },
+      "booking_seats": {
+        "title": "Lựa chọn chỗ ngồi"
       }
+    },
+    "error": {
+      "invalid_comment": "Bạn hãy nhập nhận xét, và lưu ý nhận xét không quá 1000 từ"
     }
   },
   "account": {
@@ -215,6 +236,12 @@
       "notifications": {
         "title": "Thông báo",
         "mask_all_read": "Đọc tất cả"
+      },
+      "list_document": {
+        "title": "Quản lý tài liệu"
+      },
+      "gift": {
+        "title": "Phần quà đã nhận"
       }
     },
     "error": {

@@ -7,7 +7,7 @@ import i18next from "i18next";
 
 
 export const client = axios.create({
-    baseURL: process.env.EXPO_PUBLIC_BACKEND_URL,
+    baseURL: `${process.env.EXPO_PUBLIC_BACKEND_URL}/api`,
     timeout: 30000, // Set a timeout for requests (30 seconds)
     headers: {
         "Content-Type": "application/json",

@@ -78,9 +78,12 @@ export default function NotificationsScreen() {
                 onEndReached={() => {
                     if (hasNextPage && !isFetchingNextPage) fetchNextPage();
                 }}
+                style={{
+                    flex: 1, // chỉ để FlatList chiếm full vùng bố cục
+                }}
                 contentContainerStyle={{
-                    flex: 1,
-                    gap: 12
+                    gap: 12,
+                    paddingBottom: 40,
                 }}
                 onEndReachedThreshold={0.5}
                 ListFooterComponent={() => {

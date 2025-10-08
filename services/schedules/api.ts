@@ -19,7 +19,7 @@ const schedulesApi = {
         return response.data;
     },
     listDocument: async (params: ListDocumentRequest): Promise<ListDocumentResponse> => {
-        const response = await client.get(`${defaultUri}/list-document`, {params});
+        const response = await client.get(`${defaultUri}/list`, {params});
         return response.data;
     },
 

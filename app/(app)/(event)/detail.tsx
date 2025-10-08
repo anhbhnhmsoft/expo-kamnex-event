@@ -1,6 +1,21 @@
 import {router, useLocalSearchParams} from "expo-router";
-import {Dispatch, FC, SetStateAction, useEffect, useMemo, useState} from "react";
-import {Button, Card, Image, ScrollView, Sheet, TextArea, useWindowDimensions, View, XStack, YStack} from "tamagui";
+import {Dispatch, FC, SetStateAction, useCallback, useEffect, useMemo, useState} from "react";
+import {
+    Button,
+    Card,
+    Form,
+    Image,
+    Label,
+    ScrollView,
+    Separator,
+    Sheet,
+    Spinner,
+    TextArea,
+    useWindowDimensions,
+    View,
+    XStack,
+    YStack
+} from "tamagui";
 import {DefaultSize, DefaultStyle} from "@/components/ui/defaultStyle";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import DefaultColor from "@/components/ui/defaultColor";
@@ -8,24 +23,29 @@ import {Keyboard, TouchableOpacity, TouchableWithoutFeedback} from "react-native
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {useTranslation} from "react-i18next";
 import Typo from "@/components/libs/Typo";
-import {useGetDataEventDetail} from "@/services/event/hooks/use-query-event";
+import {
+    useGetDataEventDetail,
+    useInfiniteCommentList,
+    useInfiniteEventList
+} from "@/services/event/hooks/use-query-event";
 import LoadingList from "@/components/libs/LoadingList";
 import {useAppStore} from "@/services/app/stores/useAppStore";
-import {checkMembershipConfig, formatDate} from "@/utils/helper";
-import {EventDetail} from "@/services/event/types";
+import {checkMembershipConfig, formatDate, formatDateFormNow} from "@/utils/helper";
+import {CommentRequest, EventDetail} from "@/services/event/types";
 import useAuthStore from "@/services/auth/stores/useAuthStore";
 import {_EventStatus, _EventUserHistory, getLabelEventStatus, getLabelEventUserRole} from "@/services/event/const";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 import RenderHtml from 'react-native-render-html';
 import MapView, {Marker} from 'react-native-maps';
-import useInfiniteEventList from "@/services/event/hooks/useInfiniteEventList";
 import Empty from "@/components/libs/Empty";
 import EventCard from "@/components/page/EventCard";
-import {useMutateRegisterEventHistory} from "@/services/event/hooks/use-mutate-event";
+import {useMutateCommentEvent, useMutateRegisterEventHistory} from "@/services/event/hooks/use-mutate-event";
 import useToastErrorHandler from "@/services/app/hooks/useToastErrorHandler";
 import useEventDetailStore from "@/services/event/stores/useEventDetailStore";
 import useToast from "@/services/app/hooks/useToast";
 import {_ConfigMembership} from "@/services/membership/const";
+import {useFormComment} from "@/services/event/hooks/use-form";
+import {Controller} from "react-hook-form";
 
 export default function DetailScreen() {
     const [idEvent, setIdEvent] = useState<string | null>(null);
@@ -76,7 +96,7 @@ export default function DetailScreen() {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <KeyboardAwareScrollView
                 style={{flex: 1}}
-                contentContainerStyle={{flexGrow: 1}}
+                // contentContainerStyle={{flexGrow: 1}}
                 enableOnAndroid={true}
                 scrollEnabled={true}
             >
@@ -179,28 +199,7 @@ export default function DetailScreen() {
                                         </View>
                                     </>
                                 )}
-                                <Typo weight={"700"}
-                                      fontSize={DefaultSize.xl}>
-                                    {t('event.page.detail.question_label')}
-                                </Typo>
-                                <TextArea
-                                    placeholder={t('event.page.detail.question_placeholder')}
-                                    placeholderTextColor={DefaultColor.slate["400"]}
-                                    borderWidth={0}
-                                    rows={5}
-                                    size={"$4"}
-                                    backgroundColor={DefaultColor.white}
-                                />
-                                <View alignItems={"center"} justifyContent={"center"}>
-                                    <Button size={"$3"} paddingHorizontal={DefaultSize['5xl']} paddingVertical={0}
-                                            borderRadius={DefaultSize["4xl"]}
-                                            color={DefaultColor.white} theme={"blue"}
-                                            backgroundColor={DefaultColor.primary_color}>
-                                        <Typo color={DefaultColor.white} fontSize={DefaultSize.base}>
-                                            {t('common.send')}
-                                        </Typo>
-                                    </Button>
-                                </View>
+                                <CommentSection event_id={event.id}/>
                             </YStack>
                             {/*Tổng quan sự kiện*/}
                             <Card padded marginTop={10} backgroundColor={DefaultColor.white}>
@@ -287,7 +286,7 @@ export const HeaderDetailScreen = () => {
                             onPress={() => {
                                 if (event_user_history && user && id) {
                                     // nếu ko có membership
-                                    if (!user.membership) {
+                                    if (!checkMembershipConfig(user, _ConfigMembership.ALLOW_CHOOSE_SEAT)) {
                                         setLoading(true);
                                         mutate({event_id: id, status: _EventUserHistory.BOOKED}, {
                                             onSuccess: (res) => {
@@ -300,7 +299,12 @@ export const HeaderDetailScreen = () => {
                                             }
                                         })
                                     } else {
-                                        // làm sau
+                                        router.push({
+                                            pathname: '/(app)/(event)/booking/area',
+                                            params: {
+                                                event_id: id,
+                                            }
+                                        })
                                     }
                                 } else {
                                     error({message: t('common_error.program_error')})
@@ -412,6 +416,146 @@ const EventHistoryCard = () => {
         }
     }
     return null;
+}
+
+const CommentSection: FC<{
+    event_id: string;
+}> = ({event_id}) => {
+    const {t} = useTranslation();
+    const {control, handleSubmit, formState: {errors, isSubmitting}, setValue} = useFormComment();
+
+    useEffect(() => {
+        setValue("event_id", event_id);
+    }, [event_id]);
+
+    const {data, refetch} = useInfiniteCommentList({
+        filters: {
+            event_id: event_id
+        },
+        limit: 6
+    });
+    const language = useAppStore(s => s.language);
+
+    const listComment = useMemo(() => data?.pages.flatMap((page) => page.data) || [], [data]);
+
+    const {mutate, isPending} = useMutateCommentEvent();
+    const handleError = useToastErrorHandler();
+
+    const submit = useCallback((data: CommentRequest) => {
+        mutate(data,{
+            onSuccess: () => {
+                setValue('content','');
+                refetch();
+            },
+            onError: (error) => {
+                handleError(error)
+            }
+        });
+    }, []);
+
+    return (
+        <>
+            <Typo weight={"700"} fontSize={DefaultSize.xl}>
+                {t('event.page.detail.question_label')}
+            </Typo>
+            <YStack gap={"$4"}>
+                {(listComment && listComment.length > 0) ? (
+                    <>
+                        {listComment.map(((comment,index) => {
+                            if (index < 5){
+                                return (
+                                    <Card padded backgroundColor={DefaultColor.white} key={index} >
+                                            <XStack alignItems={"center"} gap={"$2"}>
+                                                {comment.user_comment.avatar_url ?
+                                                    <Image source={{uri: comment.user_comment.avatar_url}}
+                                                           width={30}
+                                                           height={30}
+                                                           borderRadius={30}
+                                                           objectFit="cover"/>
+                                                    : <View justifyContent={"center"}
+                                                            alignItems={"center"}
+                                                            width={30}
+                                                            height={30}
+                                                            borderRadius={30}
+                                                            backgroundColor={DefaultColor.primary_color}>
+                                                        <Typo color={DefaultColor.white} fontSize={DefaultSize.xl}
+                                                              textTransform={"uppercase"}
+                                                              weight={"700"}>
+                                                            {comment.user_comment.name?.charAt(0)}
+                                                        </Typo>
+                                                    </View>
+                                                }
+                                                <YStack gap={"$2"}>
+                                                    <Typo weight={"700"} color={DefaultColor.primary_color}>{comment.user_comment.name}</Typo>
+                                                    <Typo weight={"500"} fontSize={DefaultSize.sm} color={DefaultColor.slate[500]}>{formatDateFormNow(comment.created_at,language)}</Typo>
+                                                </YStack>
+                                        </XStack>
+                                        <Separator marginVertical={10} />
+                                        <Typo weight={"500"}>{comment.content}</Typo>
+                                    </Card>
+                                )
+                            }
+                        }))}
+                        {listComment.length > 5 && (
+                            <XStack alignItems={"center"} justifyContent={"center"}>
+                                <TouchableOpacity onPress={() => {
+                                    router.push({
+                                        pathname: '/(app)/(event)/list-comment',
+                                        params: {
+                                            event_id: event_id,
+                                        }
+                                    })
+                                }}>
+                                    <Typo weight={"700"} color={DefaultColor.primary_color}>{t('common.see_more')}</Typo>
+                                </TouchableOpacity>
+                            </XStack>
+                        )}
+                    </>
+                ) : <Empty/>}
+            </YStack>
+            <Form gap={"$4"} onSubmit={handleSubmit(submit)}>
+                <Controller
+                    control={control}
+                    name="content"
+                    render={({field: {onChange, onBlur, value}}) => (
+                        <YStack gap={"$2"}>
+                            <TextArea
+                                placeholder={t('event.page.detail.question_placeholder')}
+                                placeholderTextColor={DefaultColor.slate["400"]}
+                                borderWidth={0}
+                                value={value}
+                                onChangeText={onChange}
+                                onBlur={onBlur}
+                                rows={5}
+                                size={"$4"}
+                                backgroundColor={DefaultColor.white}
+                            />
+                            {!!errors.content && (
+                                <Label color="red" size="$2">
+                                    {errors.content.message}
+                                </Label>
+                            )}
+                        </YStack>
+                    )}
+                />
+
+                <View alignItems={"center"} justifyContent={"center"}>
+                    <Form.Trigger asChild disabled={isSubmitting || isPending}>
+                        <Button size={"$3"} paddingHorizontal={DefaultSize['5xl']} paddingVertical={0}
+                                borderRadius={DefaultSize["4xl"]}
+                                color={DefaultColor.white} theme={"blue"}
+                                icon={isSubmitting || isPending ? () => <Spinner/> : undefined}
+                                backgroundColor={DefaultColor.primary_color}>
+                            <Typo color={DefaultColor.white} fontSize={DefaultSize.base}>
+                                {t('common.send')}
+                            </Typo>
+                        </Button>
+                    </Form.Trigger>
+                </View>
+            </Form>
+        </>
+    )
+
 }
 
 const DescriptionEvent: FC<{ event: EventDetail, open: boolean, setOpen: Dispatch<SetStateAction<boolean>> }> = ({

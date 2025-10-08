@@ -1,5 +1,5 @@
 import {BaseSearchRequest, ResponseDataSuccessType, ResponsePagingSuccessType} from "@/utils/@types";
-import {_EventStatus, _EventUserHistory, _EventUserRole} from "@/services/event/const";
+import {_EventSeatStatus, _EventStatus, _EventUserHistory, _EventUserRole} from "@/services/event/const";
 
 export type SearchEventParams = {
     province_code?: string;
@@ -10,7 +10,7 @@ export type SearchEventParams = {
     exclude_id?: string;
     status?: _EventStatus;
     event_history_status?: _EventUserHistory;
-    event_history_statuses? : _EventUserHistory[]
+    event_history_statuses?: _EventUserHistory[]
 }
 
 export type SearchEventRequest = BaseSearchRequest<SearchEventParams>
@@ -81,3 +81,47 @@ export type RegisterEventHistoryRequest = {
 }
 
 export type RegisterEventHistoryResponse = ResponseDataSuccessType<EventUserHistory>
+
+export type CommentRequest = {
+    event_id: string;
+    content: string;
+}
+
+export type ListCommentRequest = BaseSearchRequest<{
+    event_id?: string
+}>
+
+export type CommentListResponse = ResponsePagingSuccessType<{
+    id: string;
+    user_comment: {
+        id: string,
+        name: string,
+        avatar_url: string | null;
+    },
+    content: string,
+    created_at: string
+}[]>
+
+
+export type EventAreaRequest = {
+    event_id: string
+}
+
+export type EventAreaResponse = ResponseDataSuccessType<{
+    id: string;
+    name: string;
+    capacity: number;
+    vip: boolean;
+    seat_available_count: number;
+}[]>;
+
+export type EventSeatRequest = {
+    event_id: string;
+    area_id:string;
+}
+
+export type EventSeatResponse = ResponseDataSuccessType<{
+    id: string;
+    seat_code: string;
+    status: _EventSeatStatus
+}[]>

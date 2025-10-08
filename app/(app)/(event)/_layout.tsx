@@ -14,7 +14,27 @@ export default function EventLayout(){
             <Stack.Screen name="detail" options={{header: () => <HeaderDetailScreen />}}/>
             <Stack.Screen name="detail-schedule" options={{ header: () => <DefaultHeader/> }}/>
             <Stack.Screen name="detail-document" options={{ header: () => <DefaultHeader/> }}/>
-
+            <Stack.Screen
+                name="list-comment"
+                options={{
+                    header: () => <DefaultHeader title={'event.page.list_comment.title'}/>,
+                    animation: "slide_from_right",
+                }}
+            />
+            <Stack.Screen
+                name="booking/area"
+                options={{
+                    header: () => <DefaultHeader title={'event.page.booking_area.title'}/>,
+                    animation: "slide_from_right",
+                }}
+            />
+            <Stack.Screen
+                name="booking/seats"
+                options={{
+                    header: () => <DefaultHeader title={'event.page.booking_seats.title'}/>,
+                    animation: "slide_from_right",
+                }}
+            />
         </Stack>
     );
 }

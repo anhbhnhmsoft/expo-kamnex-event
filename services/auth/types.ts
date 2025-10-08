@@ -1,4 +1,4 @@
-import {_LanguageCode, ResponseDataSuccessType} from "@/utils/@types";
+import {_LanguageCode, BaseSearchRequest, ResponseDataSuccessType, ResponsePagingSuccessType} from "@/utils/@types";
 import {ConfigMembership} from "@/services/membership/type";
 
 
@@ -51,3 +51,18 @@ export type EditInfoRequest = {
     confirm_password?:string;
 }
 
+export type ListGiftRequest = BaseSearchRequest<object>
+
+export type ListGiftResponse = ResponsePagingSuccessType<{
+    id: string,
+    event: {
+        id: string,
+        name: string,
+    },
+    gift: {
+        id: string,
+        name: string,
+        description: string | null,
+    },
+    created_at: string
+}>

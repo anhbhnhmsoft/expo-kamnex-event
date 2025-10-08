@@ -4,6 +4,7 @@ import {create} from "zustand/index";
 interface INotiStore {
     notification: Notification[];
     unread_count: number;
+
     setUnreadCount: (count: number) => void;
     pushNotification: (notification: Notification) => void;
     removeNotification: (notification: Notification) => void;

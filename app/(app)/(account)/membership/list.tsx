@@ -57,9 +57,12 @@ export default function ListScreen() {
                 onEndReached={() => {
                     if (hasNextPage && !isFetchingNextPage) fetchNextPage();
                 }}
+                style={{
+                    flex: 1, // chỉ để FlatList chiếm full vùng bố cục
+                }}
                 contentContainerStyle={{
-                    flex: 1,
-                    gap: 12
+                    gap: 12,
+                    paddingBottom: 40,
                 }}
                 onEndReachedThreshold={0.5}
                 ListFooterComponent={() => {
@@ -71,7 +74,7 @@ export default function ListScreen() {
                 }
                 renderItem={({item, index}) => (
                     <Card padded gap={"$4"} backgroundColor={
-                        [_MembershipUserStatus.INACTIVE,_MembershipUserStatus.EXPIRED].includes(item.status) ? DefaultColor.slate[100] : DefaultColor.white
+                        [_MembershipUserStatus.INACTIVE,_MembershipUserStatus.EXPIRED].includes(item.status) ? DefaultColor.slate[300] : DefaultColor.white
                     } key={index}>
                         <XStack alignItems={"center"} justifyContent={"space-between"}>
                             <XStack alignItems={"center"} gap={"$1"}>

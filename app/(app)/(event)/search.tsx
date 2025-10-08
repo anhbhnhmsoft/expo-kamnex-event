@@ -128,6 +128,11 @@ export default function SearchScreen() {
                             backgroundColor={DefaultColor.white}
                             onPress={() => {
                                 resetFilter();
+                                setLabelSearch({
+                                    province: '',
+                                    district: '',
+                                    ward: ''
+                                })
                                 setAction(_ActionSearchEvent.SEARCH);
                                 router.replace('/(app)/(tab)');
                             }}

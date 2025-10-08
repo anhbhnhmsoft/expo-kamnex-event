@@ -1,6 +1,14 @@
-import {EditInfoRequest, LoginRequest, LoginResponse, RegisterRequest, UserResponse} from "@/services/auth/types";
+import {
+    EditInfoRequest,
+    ListGiftRequest, ListGiftResponse,
+    LoginRequest,
+    LoginResponse,
+    RegisterRequest,
+    UserResponse
+} from "@/services/auth/types";
 import {client} from "@/utils/axiosClient";
 import {_LanguageCode, ResponseSuccessType} from "@/utils/@types";
+import {LinkSupportResponse} from "@/services/schedules/type";
 
 
 const defaultUri = '/auth';
@@ -39,6 +47,14 @@ const authAPI = {
     },
     deleteAvatar: async (): Promise<UserResponse> =>  {
         const response = await client.delete(`${defaultUri}/delete-avatar`);
+        return response.data;
+    },
+    listGift: async (params: ListGiftRequest): Promise<ListGiftResponse> =>  {
+        const response = await client.get(`${defaultUri}/gift`, {params});
+        return response.data;
+    },
+    linkSupport: async (): Promise<LinkSupportResponse> =>  {
+        const response = await client.get(`${defaultUri}/link-support`);
         return response.data;
     },
 }

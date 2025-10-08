@@ -5,7 +5,7 @@ import {_StorageKey} from "@/utils/storages/key";
 import {LocationObject} from "expo-location";
 
 
-interface IAppStore {
+export interface IAppStore {
     language: _LanguageCode;
     loading: boolean;
     location: LocationObject | null;

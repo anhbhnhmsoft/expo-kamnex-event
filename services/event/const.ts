@@ -18,6 +18,8 @@ export const getLabelEventStatus = (param: _EventStatus) => {
             return 'enum._EventStatus.UPCOMING';
         case _EventStatus.CLOSED:
             return 'enum._EventStatus.CLOSED';
+        case _EventStatus.FOR_USER:
+            return 'enum._EventStatus.FOR_USER';
         default:
             return '';
     }
@@ -58,4 +60,9 @@ export const getLabelEventUserHistory = (event: _EventUserHistory) => {
         default:
             return 'enum._EventUserHistory.SEENED';
     }
+}
+
+export enum _EventSeatStatus {
+    AVAILABLE = 1,
+    BOOKED = 2,
 }

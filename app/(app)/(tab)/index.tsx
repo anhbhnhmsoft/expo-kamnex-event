@@ -1,4 +1,4 @@
-import {Button, Card,  Spinner, View, XStack, YStack, Image} from "tamagui";
+import {Button, Card, Image, Spinner, View, XStack, YStack} from "tamagui";
 import Typo from "@/components/libs/Typo";
 import DefaultColor from "@/components/ui/defaultColor";
 import {FontAwesome, FontAwesome5} from '@expo/vector-icons';
@@ -11,12 +11,12 @@ import useSearchEventStore from "@/services/event/stores/useSearchEventStore";
 import {useAppStore} from "@/services/app/stores/useAppStore";
 import HorizontalTabBar from "@/components/libs/HorizontalTabBar";
 import {_ActionSearchEvent, _EventStatus, getLabelEventStatus, getLabelEventUserHistory} from "@/services/event/const";
-import useInfiniteEventList from "@/services/event/hooks/useInfiniteEventList";
 import {FC, useEffect, useMemo} from "react";
 import Empty from "@/components/libs/Empty";
 import {EventListItem} from "@/services/event/types";
 import {formatDate} from "@/utils/helper";
 import useToast from "@/services/app/hooks/useToast";
+import {useInfiniteEventList} from "@/services/event/hooks/use-query-event";
 
 export default function HomeScreen() {
     const {t} = useTranslation();
@@ -46,7 +46,7 @@ export default function HomeScreen() {
     }, [action]);
 
     return (
-        <LayoutView>
+        <LayoutView paddedBottom={false}>
             {/*Search*/}
             <YStack gap={DefaultSize["2xl"]}>
                 <XStack
@@ -109,7 +109,7 @@ export default function HomeScreen() {
                                         fontSize={DefaultSize.base}
                                         weight={isActive ? "700" : "500"}
                                     >
-                                        Dành cho bạn
+                                        {t(getLabelEventStatus(_EventStatus.FOR_USER))}
                                     </Typo>
                                 </Card>
                             ),
@@ -125,7 +125,7 @@ export default function HomeScreen() {
                                         fontSize={DefaultSize.base}
                                         weight={isActive ? "700" : "500"}
                                     >
-                                        Sắp diễn ra
+                                        {t(getLabelEventStatus(_EventStatus.UPCOMING))}
                                     </Typo>
                                 </Card>
                             ),
@@ -141,7 +141,7 @@ export default function HomeScreen() {
                                         fontSize={DefaultSize.base}
                                         weight={isActive ? "700" : "500"}
                                     >
-                                        Đang diễn ra
+                                        {t(getLabelEventStatus(_EventStatus.ACTIVE))}
                                     </Typo>
                                 </Card>
                             ),
@@ -157,7 +157,7 @@ export default function HomeScreen() {
                                         fontSize={DefaultSize.base}
                                         weight={isActive ? "700" : "500"}
                                     >
-                                        Đã diễn ra
+                                        {t(getLabelEventStatus(_EventStatus.CLOSED))}
                                     </Typo>
                                 </Card>
                             ),
@@ -186,6 +186,9 @@ export default function HomeScreen() {
                     showsHorizontalScrollIndicator={false}
                     onEndReached={() => {
                         if (hasNextPage && !isFetchingNextPage) fetchNextPage();
+                    }}
+                    style={{
+                        flex: 1
                     }}
                     onEndReachedThreshold={0.5}
                     ListFooterComponent={() => {

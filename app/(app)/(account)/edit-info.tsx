@@ -22,10 +22,10 @@ import {
 import useToast from "@/services/app/hooks/useToast";
 import useToastErrorHandler from "@/services/app/hooks/useToastErrorHandler";
 import {router} from "expo-router";
-import {useCameraPermissions} from "expo-camera";
 import * as ImagePicker from "expo-image-picker";
 import {useAppStore} from "@/services/app/stores/useAppStore";
 import AlertFC from "@/components/libs/Alert";
+import useRequestPermissionCamera from "@/services/app/hooks/useRequestPermissionCamera";
 
 export default function EditInfoScreen() {
     const {t} = useTranslation();
@@ -349,28 +349,12 @@ const EditAvatarSheet: FC<{
     setOpen: Dispatch<SetStateAction<boolean>>,
 }> = ({open, setOpen}) => {
     const {t} = useTranslation();
-    const [permission, requestPermission] = useCameraPermissions();
     const mutationEditAvatar = useMutationEditAvatar();
     const mutationDeleteAvatar =  useMutationDeleteAvatar();
     const setLoading = useAppStore(state => state.setLoading);
     const {set} = useGetInfoUser();
     const errorHandle = useToastErrorHandler();
-
-    // Yêu cầu quyền camera
-    const requestPermissionCamera = useCallback(async () => {
-        // Nếu chưa có quyền, yêu cầu
-        if (!permission?.granted) {
-            const res = await requestPermission();
-            if (!res.granted) {
-                Alert.alert(
-                    t('permission.camera.title'),
-                    t('permission.camera.message')
-                );
-                return false;
-            }
-        }
-        router.push('/(app)/(account)/take-picture')
-    }, [permission?.granted, t]);
+    const requestPermissionCamera = useRequestPermissionCamera();
 
     // Yêu cầu chọn ảnh
     const chooseImageFormLib = useCallback(async () => {
@@ -441,8 +425,8 @@ const EditAvatarSheet: FC<{
             <Sheet.Handle/>
             <Sheet.Frame padding="$2" gap="$2">
                 {/*Chụp ảnh*/}
-                <TouchableOpacity style={styles.btn_edit_photo} onPress={() => {
-                    requestPermissionCamera()
+                <TouchableOpacity style={styles.btn_edit_photo} onPress={async () => {
+                    await requestPermissionCamera('take-picture')
                 }}>
                     <Typo weight={"700"}>{t('account.page.edit_info.take_photo')}</Typo>
                 </TouchableOpacity>

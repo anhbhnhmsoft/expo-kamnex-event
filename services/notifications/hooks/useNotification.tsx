@@ -45,8 +45,8 @@ const registerForPushNotificationsAsync = async () => {
             }
             return token;
         }
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
     }catch (error) {
-        console.log(error);
     }
     return null;
 }
@@ -73,8 +73,7 @@ const useNotification = () => {
         // Lắng Nghe Phản hồi Thông báo
         // Hoạt động ở cả trong app, trong nền hoặc tắt app
         responseListener.current = Notifications.addNotificationResponseReceivedListener((response) => {
-            // lắng nghe response thông báo
-            console.log(response);
+           // do nothing
         });
         return () => {
             if (notificationListener.current){

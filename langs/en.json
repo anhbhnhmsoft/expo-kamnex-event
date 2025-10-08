@@ -2,13 +2,261 @@
   "common": {
     "login": "Login",
     "logout": "Logout",
-    "register": "Register"
+    "register": "Register",
+    "had_register": "Already Registered",
+    "register_now": "Register Now",
+    "had_join": "Joined",
+    "had_cancel": "Cancelled",
+    "full_name": "Full Name",
+    "email": "Email",
+    "phone": "Phone Number",
+    "address": "Your Address",
+    "introduce": "About Yourself",
+    "password": "Password",
+    "re_password": "Confirm Password",
+    "placeholder_search": "Search...",
+    "empty": "No data to display...",
+    "select": "Select",
+    "search": "Search",
+    "press_to_search": "Press to search",
+    "press_to_see_detail": "Press to see detail",
+    "province": "Province/City",
+    "district": "District",
+    "ward": "Ward/Commune",
+    "free_to_join": "Free to join",
+    "account": "Account",
+    "vip": "VIP",
+    "upgrade_now": "Upgrade Now",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "accept": "Accept",
+    "send": "Send",
+    "save": "Save",
+    "see_more": "See More",
+    "area_name": "Area Name",
+    "seat_code": "Seat Code",
+    "ticket_code": "Ticket Code",
+    "month": "Month",
+    "membership": "Membership",
+    "download_qr_code": "Save QR",
+    "desc": "Note",
+    "account_number": "Account Number",
+    "duration": "Duration",
+    "to": "to",
+    "document": "Document",
+    "file_assign": "Attached File",
+    "seat_capacity": "Seats",
+    "event": "Event"
+  },
+  "common_success": {
+    "save_image_success": "Image saved successfully",
+    "copy_success": "Copied successfully",
+    "payment_success": "Payment successful, thank you for using our service"
+  },
+  "common_error": {
+    "server_error": "An error occurred on the server, please contact the administrator for support.",
+    "request_error": "No response received from the server, please contact the administrator for support.",
+    "program_error": "An error occurred in the program, please contact the administrator for support.",
+    "unknown_error": "An unknown error occurred, please contact the administrator for support.",
+    "invalid_or_expired_token": "Your account has expired or is invalid. Please log in again.",
+    "api_not_found": "Unknown source occurred, please contact the administrator for support.",
+    "method_not_allowed": "API is in the wrong format, please contact the administrator for support.",
+    "permission_error": "You do not have permission to perform this task, please contact the administrator for support.",
+    "authorization_header_not_found": "Authorization header not found, please contact the administrator for support.",
+    "refresh_token_fail": "Your account has expired or is invalid. Please log in again.",
+    "data_not_found": "Data is empty, please try again later.",
+    "data_not_fields": "Some data has not been filled in, please try again.",
+    "data_exists": "Data already exists, please try again.",
+    "copy_error": "Error when copying",
+    "warning_location": "Location service is currently off, please turn on location service to use this function.",
+    "download_failed": "File download failed, please contact the administrator for support",
+    "file_already_exist": "This file already exists on your device",
+    "linking_not_support": "Your phone does not support quick linking"
+  },
+  "permission": {
+    "camera": {
+      "title": "Application requires camera access permission",
+      "message": "This feature requires camera access, please go to settings -> applications -> grant camera access to use it"
+    },
+    "picture_lib": {
+      "title": "Application requires gallery access permission",
+      "message": "This feature requires gallery access, please go to settings -> applications -> grant gallery access to use it"
+    }
+  },
+  "enum": {
+    "_EventUserRole": {
+      "ORGANIZER": "Organizer",
+      "PRESENTER": "Presenter"
+    },
+    "_EventStatus": {
+      "FOR_USER": "For you",
+      "ACTIVE": "Happening",
+      "UPCOMING": "Upcoming",
+      "CLOSED": "Closed"
+    },
+    "_EventUserHistory": {
+      "BOOKED": "Registered",
+      "PARTICIPATED": "Participated",
+      "CANCELLED": "Cancelled",
+      "SEENED": "Viewed"
+    },
+    "_ConfigMembership": {
+      "ALLOW_COMMENT": "Comment and ask questions directly during the event",
+      "ALLOW_CHOOSE_SEAT": "Priority area and seat selection",
+      "ALLOW_DOCUMENTARY": "Download documents before and after the event"
+    },
+    "_MembershipUserStatus": {
+      "INACTIVE": "Inactive",
+      "ACTIVE": "Active",
+      "EXPIRED": "Expired"
+    },
+    "_NotificationRecipientStatus": {
+      "UNREAD": "Unread",
+      "READ": "Read"
+    }
+  },
+  "component": {
+    "choose_organizer": {
+      "placeholder_search": "Search for organizer..."
+    }
+  },
+  "tab": {
+    "home": "Home",
+    "seen": "Viewed",
+    "registered": "Registered",
+    "account": "Account",
+    "page": {
+      "index": {
+        "search_placeholder": "Search by location"
+      },
+      "account": {
+        "register_membership_1": "Upgrade your account",
+        "register_membership_2": "to receive more benefits from us",
+        "account_info": "Personal Information",
+        "qr_scan": "Scan QR code",
+        "manager_notification": "Manage Notifications",
+        "manager_file": "Manage Documents",
+        "manager_membership": "Upgrade Membership",
+        "manager_gift": "View Event Gifts",
+        "support": "Support",
+        "title_logout": "Logout",
+        "desc_logout": "Are you sure you want to log out from this device?",
+        "zalo_support": "Contact via Zalo",
+        "zalo_support_desc": "Message directly for quick support",
+        "facebook_support": "Contact via Facebook",
+        "facebook_support_desc": "Chat with the support team on Fanpage"
+      },
+      "seen": {
+        "title": "Viewed Events"
+      },
+      "registered": {
+        "title": "Registered Events"
+      }
+    }
   },
   "auth": {
     "page": {
       "index": {
         "logo_desc": "Welcome to Kamnex"
+      },
+      "login": {
+        "title_1": "Hello",
+        "title_2": "Please log in!",
+        "have_no_account": "Don't have an account?"
+      },
+      "register": {
+        "title_1": "Create a new",
+        "title_2": "Account",
+        "choose_org": "Choose event organizer",
+        "have_account": "Already have an account?"
       }
+    },
+    "error": {
+      "invalid_name": "Name must be at least 4 characters and not exceed 50 characters",
+      "invalid_email": "Invalid email",
+      "invalid_password": "Password must be at least 8 characters",
+      "invalid_confirm_password": "Confirm password does not match the password",
+      "invalid_organizer": "Please select an organizer"
+    },
+    "success": {
+      "login_success": "Login successful, welcome back!"
     }
+  },
+  "event": {
+    "page": {
+      "detail": {
+        "time_of_organization": "Organization Time",
+        "agenda_event": "Event Schedule",
+        "question_label": "Event Comments",
+        "register_membership_to_comment": "Please register for a membership plan to comment on this event",
+        "register_membership_to_document": "Please register for a membership plan to view documents for this event",
+        "question_placeholder": "Enter your question or comment",
+        "event_overview": "Event Overview",
+        "event_more": "Related Events",
+        "thank_for_book_title": "Thank you for registering to participate in the event",
+        "thank_for_book_desc": "Here is your row and ticket number information"
+      },
+      "list_comment": {
+        "title": "Event Comments"
+      },
+      "booking_area": {
+        "title": "Area Selection"
+      },
+      "booking_seats": {
+        "title": "Seat Selection"
+      }
+    },
+    "error": {
+      "invalid_comment": "Please enter a comment, and note that the comment should not exceed 1000 words"
+    }
+  },
+  "account": {
+    "page": {
+      "edit_info": {
+        "change_avatar": "Change Avatar",
+        "active_change_password": "Cancel Change Password",
+        "unactive_change_password": "Change Password",
+        "take_photo": "Take Photo",
+        "choose_from_lib": "Choose from Gallery",
+        "delete_avatar_title": "Delete Avatar",
+        "delete_avatar_desc": "Are you sure you want to delete your avatar?"
+      },
+      "membership": {
+        "list": {
+          "title": "Membership Plans",
+          "register": "Register Membership Plan"
+        },
+        "register_list": {
+          "title": "Register Membership Plan"
+        },
+        "check_trans": {
+          "title": "Payment Information"
+        }
+      },
+      "notifications": {
+        "title": "Notifications",
+        "mask_all_read": "Mark All as Read"
+      },
+      "list_document": {
+        "title": "Manage Documents"
+      },
+      "gift": {
+        "title": "Received Gifts"
+      }
+    },
+    "error": {
+      "invalid_name": "Name must be at least 4 characters and not exceed 50 characters",
+      "invalid_email": "Invalid email",
+      "invalid_password": "Password must be at least 8 characters",
+      "invalid_confirm_password": "Confirm password does not match the password",
+      "invalid_phone": "Invalid phone number",
+      "invalid_address": "Address maximum 255 characters",
+      "empty_trans": "No transaction to perform",
+      "error_save_qr": "An error occurred while saving the QR code"
+    }
+  },
+  "notifications": {
+    "mark_as_read_success": "Notification marked as read successfully",
+    "mark_all_as_read_success": "All notifications marked as read successfully"
   }
 }

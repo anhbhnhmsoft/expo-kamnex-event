@@ -1,17 +1,21 @@
-import {Image, StyleSheet, TouchableOpacity, View} from "react-native";
+import {Image, StyleSheet, TouchableOpacity} from "react-native";
 import Typo from "@/components/libs/Typo";
 import {useTranslation} from "react-i18next";
 import {DefaultSize} from "@/components/ui/defaultStyle";
-import {Button} from "tamagui";
+import {Button, View} from "tamagui";
 import DefaultColor from "@/components/ui/defaultColor";
 import useLanguage from "@/services/app/hooks/useLanguage";
 import {_LanguageCode} from "@/utils/@types";
 import {router} from "expo-router";
+import {MaterialCommunityIcons} from "@expo/vector-icons";
+import useRequestPermissionCamera from "@/services/app/hooks/useRequestPermissionCamera";
+import {useSafeAreaInsets} from "react-native-safe-area-context";
 
 export default function OnboardScreen() {
     const {t} = useTranslation();
     const {setLanguage, language} = useLanguage();
-
+    const requestPermission = useRequestPermissionCamera();
+    const inset = useSafeAreaInsets();
     return (
         <View style={styles.container}>
             <View style={styles.content}>
@@ -68,6 +72,15 @@ export default function OnboardScreen() {
                     </TouchableOpacity>
                 </View>
             </View>
+            <View position={"absolute"} bottom={inset.bottom + 10} right={inset.right + 20}>
+                <Button theme={"blue"}
+                        padding={10}
+                        onPress={() => requestPermission('QR-scanner')}
+                        backgroundColor={DefaultColor.primary_color}
+                        icon={<MaterialCommunityIcons name="qrcode-scan" size={DefaultSize["xl"]} color={DefaultColor.white} />}
+                >
+                </Button>
+            </View>
         </View>
     )
 }
@@ -77,6 +90,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: "center",
         justifyContent: "center",
+        position: "relative",
     },
     content:{
         alignItems: "center",
