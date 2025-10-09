@@ -5,7 +5,7 @@ import {ConfigMembership} from "@/services/membership/type";
 export type LoginRequest = {
     email: string;
     password: string;
-    organizer_id: number;
+    organizer_id: string;
     locate?: _LanguageCode
 
 }
@@ -22,7 +22,7 @@ export type User = {
     introduce?: string;
     gender: 'male' | 'female' | 'other';
     avatar_url: string | null;
-    organizer_id: number;
+    organizer_id: string;
     lang: _LanguageCode,
     membership: {
         id: string;
@@ -36,7 +36,7 @@ export type RegisterRequest = {
     email: string;
     password: string;
     confirm_password: string;
-    organizer_id: number;
+    organizer_id: string;
     locate?: _LanguageCode
 }
 

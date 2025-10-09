@@ -7,7 +7,7 @@ export type GetOrganizersRequest = {
     locate?: _LanguageCode
 }
 
-export type GetOrganizersResponse = ResponseDataSuccessType<{id:number, name:string}[]>
+export type GetOrganizersResponse = ResponseDataSuccessType<{id:string, name:string}[]>
 
 export type Province = {
     code: string,

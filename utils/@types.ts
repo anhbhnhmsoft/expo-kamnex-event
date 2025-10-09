@@ -1,4 +1,4 @@
-export const BackendURL = process.env.EXPO_PUBLIC_BACKEND_URL as string;
+export const BackendURL = "https://michec.vn" as string;
 
 export enum _LanguageCode {
     VI = 'vi',

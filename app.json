@@ -8,6 +8,9 @@
     "scheme": "kamnexevent",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+    "androidNavigationBar": {
+      "visible": "immersive"
+    },
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.huyanhbui.kamnexevent",

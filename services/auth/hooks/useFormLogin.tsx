@@ -13,14 +13,16 @@ const useFormLogin = () => {
         defaultValues: {
             email: "",
             password: "",
-            organizer_id: 0
+            organizer_id: ""
         },
         resolver: zodResolver(z.object({
             email: z.email({ message: t('auth.error.invalid_email') }),
             password: z
                 .string()
                 .min(8, { message: t('auth.error.invalid_password') }),
-            organizer_id: z.number().int().min(1, {message: t('auth.error.invalid_organizer')}),
+            organizer_id: z.string()
+                .nonempty(t('auth.error.invalid_organizer'))
+                .regex(/^\d+$/, t('auth.error.invalid_organizer')),
         })),
     })
 }

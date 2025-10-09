@@ -224,8 +224,7 @@ export default function EditInfoScreen() {
                                                 >
                                                     {t('common.introduce')}
                                                 </Typo>
-                                                <TextArea
-                                                    rows={10}
+                                                <Input
                                                     size={"$5"}
                                                     value={value}
                                                     onChangeText={onChange}
@@ -423,7 +422,7 @@ const EditAvatarSheet: FC<{
             <Sheet.Overlay animation="lazy" backgroundColor="$shadow6" enterStyle={{opacity: 0}}
                            exitStyle={{opacity: 0}}/>
             <Sheet.Handle/>
-            <Sheet.Frame padding="$2" gap="$2">
+            <Sheet.Frame padding="$2" gap="$2" marginBottom={30}>
                 {/*Chụp ảnh*/}
                 <TouchableOpacity style={styles.btn_edit_photo} onPress={async () => {
                     await requestPermissionCamera('take-picture')

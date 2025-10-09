@@ -1,13 +1,12 @@
 import axios from "axios";
 import {SecureStorage} from "@/utils/storages";
 import {_StorageKey} from "@/utils/storages/key";
-import {_HTTPStatus} from "@/utils/@types";
+import {_HTTPStatus, BackendURL} from "@/utils/@types";
 import ErrorAPIServer, { IValidationErrors } from "./error_type";
 import i18next from "i18next";
 
-
 export const client = axios.create({
-    baseURL: `${process.env.EXPO_PUBLIC_BACKEND_URL}/api`,
+    baseURL: `${BackendURL}/api`,
     timeout: 30000, // Set a timeout for requests (30 seconds)
     headers: {
         "Content-Type": "application/json",

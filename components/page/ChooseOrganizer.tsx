@@ -15,8 +15,8 @@ import LoadingList from "@/components/libs/LoadingList";
 type Props = {
     open: boolean,
     setOpen: Dispatch<SetStateAction<boolean>>,
-    value: number | null,
-    onChange: (value: { item: number, label: string }) => void
+    value: string | null,
+    onChange: (value: { item: string, label: string }) => void
 }
 
 const ChooseOrganizer: FC<Props> = ({open, setOpen, value, onChange}) => {
@@ -39,14 +39,13 @@ const ChooseOrganizer: FC<Props> = ({open, setOpen, value, onChange}) => {
 
     return (
         <Sheet
-            forceRemoveScrollEnabled={false}
             modal={true}
             open={open}
             disableDrag={true}
             onOpenChange={setOpen}
             snapPoints={[90]}
             dismissOnSnapToBottom
-            zIndex={100_000}
+            zIndex={999_999}
             animation="medium"
         >
             <Sheet.Overlay

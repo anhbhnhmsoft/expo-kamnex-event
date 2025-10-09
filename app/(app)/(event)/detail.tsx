@@ -59,7 +59,7 @@ export default function DetailScreen() {
     const setLoading = useAppStore(s => s.setLoading);
     const {mutate, isPending} = useMutateRegisterEventHistory();
     const handleError = useToastErrorHandler();
-
+    const inset = useSafeAreaInsets();
     const {data} = useInfiniteEventList({
         filters: {
             exclude_id: id
@@ -96,7 +96,7 @@ export default function DetailScreen() {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <KeyboardAwareScrollView
                 style={{flex: 1}}
-                // contentContainerStyle={{flexGrow: 1}}
+                contentContainerStyle={{flexGrow: 1, paddingBottom: inset.bottom + 40}}
                 enableOnAndroid={true}
                 scrollEnabled={true}
             >
@@ -383,7 +383,7 @@ const EventHistoryCard = () => {
                         <Typo color={DefaultColor.white}>{t('event.page.detail.thank_for_book_desc')}</Typo>
                         {event_user_history.seat &&
                             <Card padded marginTop={10} gap={"$4"} backgroundColor={DefaultColor.white}>
-                                <XStack gap={"$2"}>
+                                <XStack gap={"$2"}  flexWrap="wrap">
                                     <Typo color={DefaultColor.black}>
                                         {t('common.ticket_code')}:
                                     </Typo>
@@ -391,15 +391,15 @@ const EventHistoryCard = () => {
                                         {event_user_history.ticket_code}
                                     </Typo>
                                 </XStack>
-                                <XStack gap={"$2"}>
+                                <XStack gap={"$2"} flexWrap="wrap">
                                     <Typo color={DefaultColor.black}>
                                         {t('common.area_name')}:
                                     </Typo>
-                                    <Typo color={DefaultColor.black} weight={"700"}>
+                                    <Typo color={DefaultColor.black} weight={"700"} >
                                         {event_user_history.seat.area_name}
                                     </Typo>
                                 </XStack>
-                                <XStack gap={"$2"}>
+                                <XStack gap={"$2"} flexWrap="wrap">
                                     <Typo color={DefaultColor.black}>
                                         {t('common.seat_code')}:
                                     </Typo>

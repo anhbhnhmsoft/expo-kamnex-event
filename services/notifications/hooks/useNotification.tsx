@@ -65,6 +65,8 @@ const useNotification = () => {
                     device_type: Platform.OS
                 });
             }
+        }).catch((_) => {
+            // do nothing
         });
         // Lắng nghe khi thông báo nhận dc (chỉ khi chạy trong app)
         notificationListener.current = Notifications.addNotificationReceivedListener((notification) => {

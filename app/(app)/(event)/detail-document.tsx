@@ -1,5 +1,5 @@
 import {useQueryDetailDocument} from "@/services/schedules/hooks/use-query-schedule";
-import {router, useLocalSearchParams} from "expo-router";
+import {useLocalSearchParams} from "expo-router";
 import {useAppStore} from "@/services/app/stores/useAppStore";
 import {useEffect} from "react";
 import LayoutScrollApp from "@/components/libs/LayoutScrollApp";
@@ -10,8 +10,6 @@ import DefaultColor from "@/components/ui/defaultColor";
 import {DefaultSize} from "@/components/ui/defaultStyle";
 import Typo from "@/components/libs/Typo";
 import {TouchableOpacity} from "react-native";
-import {checkMembershipConfig} from "@/utils/helper";
-import {_ConfigMembership} from "@/services/membership/const";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import Empty from "@/components/libs/Empty";
 import RenderHtml from "react-native-render-html";
@@ -51,12 +49,12 @@ export default function DetailDocumentScreen() {
                                         setLoading(false);
                                     }
                                 }}
-                                key={document.id}
+                                key={document.id + Math.random().toString()}
                             >
                                 <Card backgroundColor={DefaultColor.slate[100]} padded flexDirection={"row"}
                                       alignItems={"center"} gap={"$2"}>
                                     <FontAwesome name="file-text-o" size={24} color="black"/>
-                                    <Typo weight={"700"} fontSize={DefaultSize.base}>{file.file_name}</Typo>
+                                    <Typo weight={"700"} fontSize={DefaultSize.base} numberOfLines={2}>{file.file_name}</Typo>
                                 </Card>
                             </TouchableOpacity>
                         )) : <Empty/>}

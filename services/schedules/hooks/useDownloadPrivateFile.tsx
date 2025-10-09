@@ -11,7 +11,7 @@ import {Platform} from "react-native";
 const useDownloadPrivateFile = () => {
     const token = useAuthStore(s => s.token);
     const {t} = useTranslation();
-    const {error,warning} = useToast();
+    const {error} = useToast();
 
     return useCallback(async (fileUrl: string, fileName: string) => {
         if (!token) {
@@ -31,22 +31,16 @@ const useDownloadPrivateFile = () => {
                     'Authorization': `Bearer ${token}`,
                 }
             });
+
             const uri = downloadedFile.uri;
             if (!uri) {
                 throw new Error("No URI returned from download");
             }
-            if (Platform.OS === 'android') {
-                // Trên Android, dùng Intent để mở file
-                await IntentLauncher.startActivityAsync('android.intent.action.VIEW', {
-                    data: uri,
-                    flags: 1, // FLAG_GRANT_READ_URI_PERMISSION
-                });
-            } else if (Platform.OS === 'ios') {
-                const available = await Sharing.isAvailableAsync();
-                if (available) {
-                    // iOS: dùng share sheet / open bằng app tương ứng
-                    await Sharing.shareAsync(uri);
-                }
+            // Dùng Sharing.shareAsync cho cả Android và iOS
+            const available = await Sharing.isAvailableAsync();
+            if (available) {
+                // iOS: dùng share sheet / open bằng app tương ứng
+                await Sharing.shareAsync(uri);
             }
         } catch (e) {
             error({

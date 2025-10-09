@@ -12,7 +12,7 @@ const useFormRegister = () => {
             email: "",
             password: "",
             confirm_password: "",
-            organizer_id: 0
+            organizer_id: ""
         },
         resolver: zodResolver(z.object({
                 name: z.string()
@@ -23,7 +23,9 @@ const useFormRegister = () => {
                     .string()
                     .min(8, {message: t('auth.error.invalid_password')}),
                 confirm_password: z.string(),
-                organizer_id: z.number().int().min(1, {message: t('auth.error.invalid_organizer')}),
+            organizer_id: z.string()
+                .nonempty(t('auth.error.invalid_organizer'))
+                .regex(/^\d+$/, t('auth.error.invalid_organizer')),
             }).refine((data) => data.password === data.confirm_password, {
                 message: t('auth.error.invalid_confirm_password'),
                 path: ['confirm_password'],

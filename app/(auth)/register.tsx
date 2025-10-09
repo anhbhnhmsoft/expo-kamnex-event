@@ -265,7 +265,9 @@ export default function RegisterScreen() {
                                 <YStack gap={"$2"} alignItems={"flex-end"}>
                                     <Typo>{t('auth.page.register.have_account')}</Typo>
                                     <TouchableOpacity
-                                        onPress={() => router.replace("/(auth)/login")}
+                                        onPress={() => {
+                                            router.push("/(auth)/login");
+                                        }}
                                     >
                                         <Typo fontSize={DefaultSize["4xl"]} color={DefaultColor.primary_color}
                                               weight={"700"} textTransform={"uppercase"}>{t('common.login')}</Typo>

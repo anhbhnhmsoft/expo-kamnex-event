@@ -59,7 +59,6 @@ export default function LoginScreen() {
         });
     },[lang]);
 
-
     return (
         <>
             <SafeAreaView style={[styles.container, {paddingTop: insets.top}]} edges={['top', 'bottom']}>
@@ -207,7 +206,7 @@ export default function LoginScreen() {
                                 <YStack gap={"$2"} alignItems={"flex-end"}>
                                     <Typo>{t('auth.page.login.have_no_account')}</Typo>
                                     <TouchableOpacity
-                                        onPress={() => router.replace("/(auth)/register")}
+                                        onPress={() => router.push("/(auth)/register")}
                                     >
                                         <Typo fontSize={DefaultSize["4xl"]} color={DefaultColor.primary_color}
                                               weight={"700"} textTransform={"uppercase"}>{t('common.register')}</Typo>
