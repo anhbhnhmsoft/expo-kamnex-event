@@ -1,5 +1,5 @@
 import {Dispatch, FC, SetStateAction, useEffect, useState} from "react";
-import {Card, Input, Separator, Sheet, YStack} from "tamagui";
+import {Card, Input, ScrollView, Separator, Sheet, YStack} from "tamagui";
 import useQueryGetOrganizers from "@/services/app/hooks/useQueryGetOrganizers";
 import {useTranslation} from "react-i18next";
 import useDebounce from "@/services/app/hooks/useDebounce";
@@ -39,9 +39,10 @@ const ChooseOrganizer: FC<Props> = ({open, setOpen, value, onChange}) => {
 
     return (
         <Sheet
-            forceRemoveScrollEnabled={true}
+            forceRemoveScrollEnabled={false}
             modal={true}
             open={open}
+            disableDrag={true}
             onOpenChange={setOpen}
             snapPoints={[90]}
             dismissOnSnapToBottom
@@ -64,27 +65,29 @@ const ChooseOrganizer: FC<Props> = ({open, setOpen, value, onChange}) => {
                     onChangeText={(text) => filterDebounce(text)}
                 />
                 <Separator marginVertical={15}/>
-                <YStack gap={"$2"}>
-                    {isLoading || isRefetching ? <LoadingList/> : (
-                        (data && data.length > 0) ?
-                            data.map((item, index) => (
-                                <TouchableOpacity key={`${item.id}-${index}`} onPress={() => {
-                                    onChange({item: item.id, label: item.name});
-                                    setOpen(false);
-                                }}>
-                                    <Card bordered padded backgroundColor={"transparent"} flexDirection={"row"} gap={"$2"} alignItems={"center"}>
-                                        {item.id === value ?
-                                            <FontAwesome5 name="check-circle" size={DefaultSize.lg}
-                                                          color={DefaultColor.green[500]}/> :
-                                            <FontAwesome5 name="circle" size={DefaultSize.lg}
-                                                          color={DefaultColor.green[500]}/>}
-                                        <Typo numberOfLines={1}>{item.name}</Typo>
-                                    </Card>
-                                </TouchableOpacity>
-                            ))
-                            : <Empty/>
-                    )}
-                </YStack>
+                <ScrollView>
+                    <YStack gap={"$2"}>
+                        {isLoading || isRefetching ? <LoadingList/> : (
+                            (data && data.length > 0) ?
+                                data.map((item, index) => (
+                                    <TouchableOpacity key={`${item.id}-${index}`} onPress={() => {
+                                        onChange({item: item.id, label: item.name});
+                                        setOpen(false);
+                                    }}>
+                                        <Card bordered padded backgroundColor={"transparent"} flexDirection={"row"} gap={"$2"} alignItems={"center"}>
+                                            {item.id === value ?
+                                                <FontAwesome5 name="check-circle" size={DefaultSize.lg}
+                                                              color={DefaultColor.green[500]}/> :
+                                                <FontAwesome5 name="circle" size={DefaultSize.lg}
+                                                              color={DefaultColor.green[500]}/>}
+                                            <Typo numberOfLines={1}>{item.name}</Typo>
+                                        </Card>
+                                    </TouchableOpacity>
+                                ))
+                                : <Empty/>
+                        )}
+                    </YStack>
+                </ScrollView>
             </Sheet.Frame>
         </Sheet>
     )

@@ -193,11 +193,6 @@ export default function LoginScreen() {
                                             </View>
                                         )}
                                     />
-                                    <View alignSelf={"flex-end"}>
-                                        <TouchableOpacity>
-                                            <Typo weight={"500"}>Quên mật khẩu ?</Typo>
-                                        </TouchableOpacity>
-                                    </View>
                                     <Form.Trigger asChild disabled={isSubmitting || isPending}>
                                         <Button marginTop={DefaultSize.md} borderRadius={DefaultSize["4xl"]} theme={"blue"}
                                                 backgroundColor={DefaultColor.primary_color}
