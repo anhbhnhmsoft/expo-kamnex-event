@@ -1,6 +1,6 @@
-import {useEffect, useRef} from 'react';
-import { View, Image, StyleSheet, Animated } from 'react-native';
 import DefaultColor from "@/components/ui/defaultColor";
+import { useEffect, useRef } from 'react';
+import { Animated, Image, StyleSheet, View } from 'react-native';
 
 const styles = StyleSheet.create({
     overlay: {
@@ -53,7 +53,7 @@ const FullScreenLoading = ({loading} : {loading:boolean}) => {
         <>
             {loading &&  <View style={styles.overlay}>
                 <Image
-                    source={require('@/assets/images/logo/logo-kamnex.png')}
+                    source={require('@/assets/images/logo/logo-michec.png')}
                     style={{
                         height: 100,
                         width: 200

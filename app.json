@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "kamnex",
-    "slug": "kamnex",
+    "name": "michec",
+    "slug": "michec",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "assets/images/logo/logo-kamnex.png",
-    "scheme": "kamnexevent",
+    "icon": "assets/images/logo/logo-michec-icon.png",
+    "scheme": "michecevent",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "androidNavigationBar": {
@@ -13,13 +13,14 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.huyanhbui.kamnexevent",
+      "bundleIdentifier": "com.kamnex.michecevent",
       "infoPlist": {
         "NSCameraUsageDescription": "Ứng dụng cần truy cập camera để chụp ảnh và quét mã QR.",
         "NSMicrophoneUsageDescription": "Ứng dụng cần sử dụng micro để ghi âm khi quay video.",
         "NSPhotoLibraryUsageDescription": "Ứng dụng cần quyền truy cập thư viện ảnh để bạn chọn và tải ảnh lên.",
         "NSLocationWhenInUseUsageDescription": "Ứng dụng cần truy cập vị trí để hiển thị bản đồ và gợi ý địa điểm.",
-        "NSUserTrackingUsageDescription": "Cho phép ứng dụng theo dõi hoạt động của bạn để cải thiện trải nghiệm người dùng."
+        "NSUserTrackingUsageDescription": "Cho phép ứng dụng theo dõi hoạt động của bạn để cải thiện trải nghiệm người dùng.",
+        "ITSAppUsesNonExemptEncryption": false
       },
       "config": {
         "googleMapsApiKey": "AIzaSyDc5gJqICVzNvMKQrs7UEgRBpVF89le6lo"
@@ -28,9 +29,9 @@
     "android": {
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
-        "foregroundImage": "assets/images/logo/logo-kamnex.png",
-        "backgroundImage": "assets/images/logo/logo-kamnex.png",
-        "monochromeImage": "assets/images/logo/logo-kamnex.png"
+        "foregroundImage": "assets/images/logo/logo-michec-icon.png",
+        "backgroundImage": "assets/images/logo/logo-michec-icon.png",
+        "monochromeImage": "assets/images/logo/logo-michec-icon.png"
       },
       "edgeToEdgeEnabled": true,
       "config": {
@@ -46,18 +47,18 @@
         "android.permission.INTERNET",
         "android.permission.ACCESS_NETWORK_STATE"
       ],
-      "package": "com.huyanhbui.kamnexevent"
+      "package": "com.kamnex.michecevent"
     },
     "web": {
       "output": "static",
-      "favicon": "assets/images/logo/logo-kamnex.png"
+      "favicon": "assets/images/logo/logo-michec-icon.png"
     },
     "plugins": [
       "expo-router",
       [
         "expo-splash-screen",
         {
-          "image": "assets/images/logo/logo-kamnex.png",
+          "image": "assets/images/logo/logo-michec-icon.png",
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff",
@@ -87,7 +88,7 @@
       [
         "expo-notifications",
         {
-          "icon": "assets/images/icon.png",
+          "icon": "assets/images/logo/logo-michec-icon.png",
           "color": "#ffffff",
           "defaultChannel": "default"
         }
@@ -106,7 +107,7 @@
     "extra": {
       "router": {},
       "eas": {
-        "projectId": "96b588ff-c82a-48fb-9bc2-2e124f5583de"
+        "projectId": "700dc4d9-7f51-47d1-bd1f-e4d4e8935201"
       }
     },
     "owner": "nhmsoftbujhuyanh"

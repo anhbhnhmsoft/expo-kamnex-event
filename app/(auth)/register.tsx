@@ -61,7 +61,7 @@ export default function RegisterScreen() {
                         <View flex={1}>
                             <TouchableOpacity
                                 style={styles.btn_close}
-                                onPress={() => router.replace("/(auth)")}
+                                onPress={() => router.back()}
                             >
                                 <FontAwesome6 name="xmark" size={DefaultSize["5xl"]} color="black"/>
                             </TouchableOpacity>

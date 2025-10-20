@@ -21,7 +21,7 @@ export default function OnboardScreen() {
             <View style={styles.content}>
                 <View style={styles.logo_container}>
                     <Image
-                        source={require('@/assets/images/logo/logo-kamnex.png')}
+                        source={require('@/assets/images/logo/logo-michec-icon.png')}
                         style={styles.logo}
                         resizeMode="contain"
                     />
@@ -31,14 +31,14 @@ export default function OnboardScreen() {
                 </View>
                 <View style={styles.btn_container}>
                     <Button width={"100%"} borderRadius={DefaultSize["4xl"]} theme={"blue"} backgroundColor={"transparent"} bordered borderColor={DefaultColor.primary_color}
-                            onPress={() => router.replace("/(auth)/register")}
+                            onPress={() => router.push("/(auth)/register")}
                     >
                         <Typo textTransform={"uppercase"} color={DefaultColor.primary_color} weight={"700"}>
                             {t('common.register')}
                         </Typo>
                     </Button>
                     <Button width={"100%"} borderRadius={DefaultSize["4xl"]} theme={"blue"} backgroundColor={DefaultColor.primary_color}
-                            onPress={() => router.replace("/(auth)/login")}
+                            onPress={() => router.push("/(auth)/login")}
                     >
                         <Typo textTransform={"uppercase"} color={DefaultColor.white} weight={"700"}>
                             {t('common.login')}

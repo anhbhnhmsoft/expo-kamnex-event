@@ -88,7 +88,7 @@ export default function IndexScreen() {
                 ]}
             >
                 <Image
-                    source={require('@/assets/images/logo/logo-kamnex.png')}
+                    source={require('@/assets/images/logo/logo-michec.png')}
                     style={styles.logo}
                     resizeMode="contain"
                 />

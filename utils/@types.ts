@@ -89,9 +89,10 @@ export type ResponseSuccessType = {
     message: string;
 }
 
-export type BaseSearchRequest<TFilter> = {
-    filters: TFilter;
+export type QueryPagination<TFilter> = {
+    filter: TFilter;
     sort_by?: string;
     page?: number;
-    limit?: number;
+    direction?: 'desc' | 'asc'
+    per_page?: number;
 }

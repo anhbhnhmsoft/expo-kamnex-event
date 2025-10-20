@@ -81,6 +81,7 @@ export default function DetailScreen() {
                     setEventUserHistory(res.data);
                 },
                 onError: (error) => {
+                    console.log(error);
                     handleError(error);
                 }
             })

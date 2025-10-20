@@ -1,25 +1,25 @@
-import LayoutView from "@/components/libs/LayoutView";
-import useStoreTransactionMembership from "@/services/membership/stores/useStoreTransactionMembership";
-import {useCallback, useEffect, useMemo} from "react";
-import {router} from "expo-router";
-import useToast from "@/services/app/hooks/useToast";
-import {useTranslation} from "react-i18next";
-import {generateQRCodeImageUrl} from "@/utils/helper";
-import {Button, Image, View, XGroup, XStack} from "tamagui";
-import LoadingList from "@/components/libs/LoadingList";
-import DefaultColor from "@/components/ui/defaultColor";
-import useDisableBackGesture from "@/services/app/hooks/useDisableBackGesture";
-import AntDesign from '@expo/vector-icons/AntDesign';
-import {DefaultSize} from "@/components/ui/defaultStyle";
-import {Paths, File, Directory} from "expo-file-system";
-import * as MediaLibrary from "expo-media-library";
-import {Alert} from "react-native";
-import useCountDown from "@/services/app/hooks/useCountDown";
-import Typo from "@/components/libs/Typo";
-import * as Clipboard from 'expo-clipboard';
 import FocusAwareStatusBar from "@/components/libs/FocusAwareStatusBar";
-import {useQueryCheckPayment} from "@/services/membership/hooks/use-query-membership";
+import LayoutView from "@/components/libs/LayoutView";
+import LoadingList from "@/components/libs/LoadingList";
+import Typo from "@/components/libs/Typo";
+import DefaultColor from "@/components/ui/defaultColor";
+import { DefaultSize } from "@/components/ui/defaultStyle";
+import useCountDown from "@/services/app/hooks/useCountDown";
+import useDisableBackGesture from "@/services/app/hooks/useDisableBackGesture";
+import useToast from "@/services/app/hooks/useToast";
 import useGetInfoUser from "@/services/auth/hooks/useGetInfoUser";
+import { useQueryCheckPayment } from "@/services/membership/hooks/use-query-membership";
+import useStoreTransactionMembership from "@/services/membership/stores/useStoreTransactionMembership";
+import { generateQRCodeImageUrl } from "@/utils/helper";
+import AntDesign from '@expo/vector-icons/AntDesign';
+import * as Clipboard from 'expo-clipboard';
+import { Directory, File, Paths } from "expo-file-system";
+import * as MediaLibrary from "expo-media-library";
+import { router } from "expo-router";
+import { useCallback, useEffect, useMemo } from "react";
+import { useTranslation } from "react-i18next";
+import { Alert } from "react-native";
+import { Button, Image, View, XGroup, XStack } from "tamagui";
 
 export default function CheckTransScreen() {
     useDisableBackGesture();
@@ -72,7 +72,7 @@ export default function CheckTransScreen() {
             } else {
                 error({message: t('account.error.error_save_qr')})
             }
-        } catch (_) {
+        } catch {
             error({
                 message: t('account.error.error_save_qr')
             })
@@ -84,7 +84,7 @@ export default function CheckTransScreen() {
             error({message: t('account.error.empty_trans')})
             router.replace("/(app)/(tab)/account");
         }
-    }, [trans]);
+    }, [trans, t]);
 
     useEffect(() => {
         if (data){
@@ -95,7 +95,7 @@ export default function CheckTransScreen() {
                 });
             }
         }
-    }, [data,t]);
+    }, [data, t]);
 
     return (
         <LayoutView>
