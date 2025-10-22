@@ -24,6 +24,7 @@
     "district": "District",
     "ward": "Ward/Commune",
     "free_to_join": "Free to join",
+    "paid_event": "Paid event",
     "account": "Account",
     "vip": "VIP",
     "upgrade_now": "Upgrade Now",
@@ -204,6 +205,9 @@
       },
       "booking_seats": {
         "title": "Seat Selection"
+      },
+      "booking_check_trans": {
+        "title": "Payment Information"
       }
     },
     "error": {

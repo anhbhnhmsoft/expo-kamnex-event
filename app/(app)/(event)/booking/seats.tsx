@@ -1,5 +1,5 @@
 import {router, useLocalSearchParams} from "expo-router";
-import {useQueryGetEventSeat} from "@/services/event/hooks/use-query-event";
+import {useQueryGetEventSeat, useGetDataEventDetail} from "@/services/event/hooks/use-query-event";
 import {useAppStore} from "@/services/app/stores/useAppStore";
 import {useEffect} from "react";
 import {Card, XStack} from "tamagui";
@@ -11,20 +11,25 @@ import {_EventSeatStatus, _EventUserHistory} from "@/services/event/const";
 import DefaultColor from "@/components/ui/defaultColor";
 import {useMutateRegisterEventHistory} from "@/services/event/hooks/use-mutate-event";
 import useEventDetailStore from "@/services/event/stores/useEventDetailStore";
+import useStoreTransactionEventSeat from "@/services/event/stores/useStoreTransactionEventSeat";
 import useToastErrorHandler from "@/services/app/hooks/useToastErrorHandler";
 import useToast from "@/services/app/hooks/useToast";
 
 export default function SeatsScreen() {
     const {event_id, area_id} = useLocalSearchParams<{ event_id?: string, area_id?: string }>();
     const {event_seat, loading} = useQueryGetEventSeat(event_id, area_id);
+    const {event, loading: eventLoading} = useGetDataEventDetail(event_id || null);
     const setLoading = useAppStore(s => s.setLoading);
+    
     useEffect(() => {
-        setLoading(loading);
-    }, [loading]);
+        setLoading(loading || eventLoading);
+    }, [loading, eventLoading]);
+    
     const handleError = useToastErrorHandler();
     const {success} = useToast();
     const {mutate} = useMutateRegisterEventHistory();
     const setEventUserHistory = useEventDetailStore(s => s.setEventUserHistory);
+    const setTrans = useStoreTransactionEventSeat(s => s.setTrans);
 
 
     return (
@@ -44,15 +49,21 @@ export default function SeatsScreen() {
                                         status: _EventUserHistory.BOOKED
                                     }, {
                                         onSuccess: (res) => {
-                                            success({message: res.message});
-                                            setEventUserHistory(res.data);
                                             setLoading(false);
-                                            router.replace({
-                                                pathname: '/(app)/(event)/detail',
-                                                params: {
-                                                    event_id: event_id,
-                                                }
-                                            })
+                                            
+                                            if (res.payment_required && res.data) {
+                                                setTrans({...res.data as any, event_id: event_id});
+                                                router.replace('/(app)/(event)/booking/check-trans');
+                                            } else {
+                                                success({message: res.message});
+                                                setEventUserHistory(res.data || null);
+                                                router.replace({
+                                                    pathname: '/(app)/(event)/detail',
+                                                    params: {
+                                                        id: event_id,
+                                                    }
+                                                });
+                                            }
                                         },
                                         onError: (err) => {
                                             handleError(err);
@@ -60,7 +71,6 @@ export default function SeatsScreen() {
                                         }
                                     })
                                 }
-
                             }}
                         >
                             <Card padded gap={"$2"}

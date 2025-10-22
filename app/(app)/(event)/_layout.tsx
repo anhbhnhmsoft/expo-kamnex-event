@@ -35,6 +35,12 @@ export default function EventLayout(){
                     animation: "slide_from_right",
                 }}
             />
+            <Stack.Screen
+                name="booking/check-trans"
+                options={{
+                    header: () => <DefaultHeader title={'event.page.booking_check_trans.title'} centerTitle={true}/>,
+                }}
+            />
         </Stack>
     );
 }

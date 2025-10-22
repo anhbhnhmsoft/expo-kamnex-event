@@ -1,4 +1,4 @@
-export const BackendURL = "https://michec.vn" as string;
+export const BackendURL = process.env.EXPO_PUBLIC_BACKEND_URL || "https://michec.vn";
 
 export enum _LanguageCode {
     VI = 'vi',
@@ -89,10 +89,9 @@ export type ResponseSuccessType = {
     message: string;
 }
 
-export type QueryPagination<TFilter> = {
-    filter: TFilter;
+export type BaseSearchRequest<TFilter> = {
+    filters: TFilter;
     sort_by?: string;
     page?: number;
-    direction?: 'desc' | 'asc'
-    per_page?: number;
+    limit?: number;
 }
