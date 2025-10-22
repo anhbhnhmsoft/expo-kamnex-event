@@ -279,7 +279,9 @@ export const HeaderDetailScreen = () => {
                 <FontAwesome name="chevron-left" size={12} color={DefaultColor.primary_color}/>
             </TouchableOpacity>
             <XStack alignItems={"center"} gap={"$2"}>
-                <Typo color={DefaultColor.primary_color} weight={"700"}>{t('common.free_to_join')}</Typo>
+                <Typo color={DefaultColor.primary_color} weight={"700"}>
+                    {event?.free_to_join ? t('common.free_to_join') : t('common.paid_event')}
+                </Typo>
                 {(event_user_history && event && event.status === _EventStatus.UPCOMING) &&
                     <Button size={"$3"} paddingHorizontal={DefaultSize.md} borderRadius={DefaultSize["4xl"]}
                             color={DefaultColor.white} theme={"blue"} backgroundColor={DefaultColor.primary_color}

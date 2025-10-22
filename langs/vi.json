@@ -24,6 +24,7 @@
     "district": "Quận/Huyện",
     "ward": "Phường/Xã",
     "free_to_join": "Miễn phí tham gia",
+    "paid_event": "Sự kiện có phí",
     "account": "Tài khoản",
     "vip": "vip",
     "upgrade_now": "Nâng cấp ngay",
@@ -204,6 +205,9 @@
       },
       "booking_seats": {
         "title": "Lựa chọn chỗ ngồi"
+      },
+      "booking_check_trans": {
+        "title": "Thông tin thanh toán"
       }
     },
     "error": {

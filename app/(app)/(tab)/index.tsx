@@ -245,7 +245,7 @@ const EventItem: FC<{ item: EventListItem }> = ({item}) => {
                             </Typo>
                         </Button>
                         <Typo color={DefaultColor.white} weight={"700"}
-                              fontSize={DefaultSize.md}>{t('common.free_to_join')}</Typo>
+                              fontSize={DefaultSize.md}>{item.free_to_join ? t('common.free_to_join') : t('common.paid_event')}</Typo>
                     </XStack>
                     <XStack position="absolute" bottom={10} right={10} left={10} justifyContent={"space-between"}
                             alignItems={"center"}

@@ -23,6 +23,7 @@ export type EventListItem = {
     address: string;
     day_represent: string;
     status_history: _EventUserHistory | null;
+    free_to_join: boolean;
 }
 
 export type EventListResponse = ResponsePagingSuccessType<EventListItem[]>
@@ -40,6 +41,7 @@ export type EventDetail = {
     status: _EventStatus;
     latitude: string; // float
     longitude: string; // float
+    free_to_join: boolean;
     user_event: {
         id: string;
         name: string;
@@ -80,7 +82,14 @@ export type RegisterEventHistoryRequest = {
     status: _EventUserHistory.BOOKED | _EventUserHistory.SEENED;
 }
 
-export type RegisterEventHistoryResponse = ResponseDataSuccessType<EventUserHistory>
+export type RegisterEventHistoryResponse = ResponseDataSuccessType<EventUserHistory> & {
+    payment_required?: boolean;
+    payment_data?: {
+        transaction_id: string;
+        payment_link_id: string;
+        payment_url: string;
+    };
+}
 
 export type CommentRequest = {
     event_id: string;

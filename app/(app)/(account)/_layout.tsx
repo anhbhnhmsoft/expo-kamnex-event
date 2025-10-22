@@ -19,8 +19,7 @@ export default function AccountLayout() {
                 header: () => <DefaultHeader title={'account.page.membership.register_list.title'}/>
             }}/>
             <Stack.Screen name="membership/check-trans" options={{
-                headerShown: false,
-                gestureEnabled: false,
+                header: () => <DefaultHeader title={'account.page.membership.check_trans.title'} centerTitle={true}/>,
                 contentStyle: {
                     backgroundColor: DefaultColor.white
                 }
