@@ -28,12 +28,14 @@ import {
     useInfiniteCommentList,
     useInfiniteEventList
 } from "@/services/event/hooks/use-query-event";
+import useAuthStore from "@/services/auth/stores/useAuthStore";
+import {checkMembershipConfig} from "@/utils/helper";
+import {_ConfigMembership} from "@/services/membership/const";
 import LoadingList from "@/components/libs/LoadingList";
 import {useAppStore} from "@/services/app/stores/useAppStore";
-import {checkMembershipConfig, formatDate, formatDateFormNow} from "@/utils/helper";
+import {formatDate, formatDateFormNow} from "@/utils/helper";
 import {CommentRequest, EventDetail} from "@/services/event/types";
-import useAuthStore from "@/services/auth/stores/useAuthStore";
-import {_EventStatus, _EventUserHistory, getLabelEventStatus, getLabelEventUserRole} from "@/services/event/const";
+import {_EventStatus, _EventUserHistory, _EventCommentType, getLabelEventStatus, getLabelEventUserRole} from "@/services/event/const";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 import RenderHtml from 'react-native-render-html';
 import MapView, {Marker} from 'react-native-maps';
@@ -43,7 +45,6 @@ import {useMutateCommentEvent, useMutateRegisterEventHistory} from "@/services/e
 import useToastErrorHandler from "@/services/app/hooks/useToastErrorHandler";
 import useEventDetailStore from "@/services/event/stores/useEventDetailStore";
 import useToast from "@/services/app/hooks/useToast";
-import {_ConfigMembership} from "@/services/membership/const";
 import {useFormComment} from "@/services/event/hooks/use-form";
 import {Controller} from "react-hook-form";
 
@@ -169,37 +170,6 @@ export default function DetailScreen() {
                             </XStack>
                             {/*Đặt câu hỏi và nhận xét*/}
                             <YStack marginTop={10} gap={"$4"} position={"relative"}>
-                                {/*Nếu user chưa mua gói thành viên*/}
-                                {!checkMembershipConfig(user, _ConfigMembership.ALLOW_COMMENT) && (
-                                    <>
-                                        <View position={"absolute"} top={-10} bottom={-10} left={-10} right={-10}
-                                              opacity={0.8}
-                                              backgroundColor={DefaultColor.slate[500]} zIndex={1}
-                                              borderRadius={10}>
-                                        </View>
-                                        <View position={"absolute"} top={0} bottom={0} left={0} right={0} zIndex={2}
-                                              alignItems={"center"} justifyContent={"center"} gap={"$4"}>
-                                            <Typo weight={"700"}
-                                                  fontSize={DefaultSize.base}
-                                                  color={DefaultColor.white}
-                                                  textAlign={"center"}
-                                            >
-                                                {t('event.page.detail.register_membership_to_comment')}
-                                            </Typo>
-                                            <Button size={"$3"} paddingHorizontal={DefaultSize['5xl']}
-                                                    paddingVertical={0}
-                                                    borderRadius={DefaultSize["4xl"]}
-                                                    color={DefaultColor.white} theme={"blue"}
-                                                    backgroundColor={DefaultColor.primary_color}
-                                                    onPress={() => router.push('/(app)/(account)/membership/register-list')}
-                                            >
-                                                <Typo color={DefaultColor.white} fontSize={DefaultSize.base}>
-                                                    {t('common.register_now')}
-                                                </Typo>
-                                            </Button>
-                                        </View>
-                                    </>
-                                )}
                                 <CommentSection event_id={event.id}/>
                             </YStack>
                             {/*Tổng quan sự kiện*/}
@@ -280,7 +250,7 @@ export const HeaderDetailScreen = () => {
             </TouchableOpacity>
             <XStack alignItems={"center"} gap={"$2"}>
                 <Typo color={DefaultColor.primary_color} weight={"700"}>
-                    {event?.free_to_join ? t('common.free_to_join') : t('common.paid_event')}
+                    {event?.free_to_join ? t('common.free_to_join') : ''}
                 </Typo>
                 {(event_user_history && event && event.status === _EventStatus.UPCOMING) &&
                     <Button size={"$3"} paddingHorizontal={DefaultSize.md} borderRadius={DefaultSize["4xl"]}
@@ -426,6 +396,8 @@ const CommentSection: FC<{
 }> = ({event_id}) => {
     const {t} = useTranslation();
     const {control, handleSubmit, formState: {errors, isSubmitting}, setValue} = useFormComment();
+    const [showModal, setShowModal] = useState(false);
+    const user = useAuthStore(s => s.user);
 
     useEffect(() => {
         setValue("event_id", event_id);
@@ -433,7 +405,8 @@ const CommentSection: FC<{
 
     const {data, refetch} = useInfiniteCommentList({
         filters: {
-            event_id: event_id
+            event_id: event_id,
+            type: _EventCommentType.PUBLIC
         },
         limit: 6
     });
@@ -458,9 +431,39 @@ const CommentSection: FC<{
 
     return (
         <>
-            <Typo weight={"700"} fontSize={DefaultSize.xl}>
-                {t('event.page.detail.question_label')}
-            </Typo>
+            <XStack alignItems="center" justifyContent="space-between" marginBottom={DefaultSize.md}>
+                <Typo weight={"700"} fontSize={DefaultSize.xl}>
+                    {t('event.page.detail.question_label')}
+                </Typo>
+                <Button
+                    size={"$3"}
+                    minWidth={100}
+                    paddingHorizontal={DefaultSize['3xl']}
+                    paddingVertical={0}
+                    borderRadius={DefaultSize["4xl"]}
+                    color={DefaultColor.white}
+                    theme={"blue"}
+                    backgroundColor={DefaultColor.primary_color}
+                    onPress={() => {
+                        if (!checkMembershipConfig(user, _ConfigMembership.ALLOW_COMMENT)) {
+                            setShowModal(true);
+                        } else {
+                            router.push({
+                                pathname: '/(app)/(event)/list-comment',
+                                params: {
+                                    event_id: event_id,
+                                    type: _EventCommentType.PRIVATE.toString()
+                                }
+                            });
+                        }
+                    }}
+                    alignSelf="flex-end"
+                >
+                    <Typo color={DefaultColor.white} fontSize={DefaultSize.base} numberOfLines={1}>
+                        {t('event.page.detail.private_comment')}
+                    </Typo>
+                </Button>
+            </XStack>
             <YStack gap={"$4"}>
                 {(listComment && listComment.length > 0) ? (
                     <>
@@ -556,6 +559,55 @@ const CommentSection: FC<{
                     </Form.Trigger>
                 </View>
             </Form>
+            
+            <Sheet
+                modal
+                open={showModal}
+                onOpenChange={setShowModal}
+                snapPoints={[50]}
+                dismissOnSnapToBottom
+            >
+                <Sheet.Overlay />
+                <Sheet.Handle />
+                <Sheet.Frame padding="$4" gap="$4">
+                    <YStack gap="$4" alignItems="center">
+                        <Typo weight="700" fontSize={DefaultSize.xl} textAlign="center">
+                            {t('event.page.detail.register_membership_to_comment')}
+                        </Typo>
+                        <Button
+                            size="$3"
+                            paddingHorizontal={DefaultSize['5xl']}
+                            paddingVertical={0}
+                            borderRadius={DefaultSize["4xl"]}
+                            color={DefaultColor.white}
+                            theme="blue"
+                            backgroundColor={DefaultColor.primary_color}
+                            onPress={() => {
+                                setShowModal(false);
+                                router.push('/(app)/(account)/membership/register-list');
+                            }}
+                        >
+                            <Typo color={DefaultColor.white} fontSize={DefaultSize.base}>
+                                {t('common.register_now')}
+                            </Typo>
+                        </Button>
+                        <Button
+                            size="$3"
+                            paddingHorizontal={DefaultSize['5xl']}
+                            paddingVertical={0}
+                            borderRadius={DefaultSize["4xl"]}
+                            color={DefaultColor.slate[600]}
+                            theme="blue"
+                            backgroundColor={DefaultColor.slate[200]}
+                            onPress={() => setShowModal(false)}
+                        >
+                            <Typo color={DefaultColor.slate[600]} fontSize={DefaultSize.base}>
+                                Đóng
+                            </Typo>
+                        </Button>
+                    </YStack>
+                </Sheet.Frame>
+            </Sheet>
         </>
     )
 

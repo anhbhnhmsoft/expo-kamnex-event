@@ -3,6 +3,7 @@ import {useForm} from "react-hook-form";
 import {CommentRequest} from "@/services/event/types";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {z} from "zod";
+import { _EventCommentType } from "../const";
 
 
 export const useFormComment = () => {
@@ -10,7 +11,8 @@ export const useFormComment = () => {
     return useForm<CommentRequest>({
         defaultValues: {
             event_id: "",
-            content: ""
+            content: "",
+            type: _EventCommentType.PUBLIC as _EventCommentType
         },
         resolver: zodResolver(z.object({
             event_id: z
@@ -22,6 +24,8 @@ export const useFormComment = () => {
                 .trim()
                 .nonempty(t("event.error.invalid_comment") )
                 .max(1000, t("event.error.invalid_comment")),
+            type: z
+                .nativeEnum(_EventCommentType)
         })),
     })
 }

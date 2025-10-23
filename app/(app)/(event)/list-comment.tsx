@@ -1,4 +1,5 @@
 import {useLocalSearchParams} from "expo-router";
+import {_EventCommentType} from "@/services/event/const";
 import {useInfiniteCommentList} from "@/services/event/hooks/use-query-event";
 import LayoutView from "@/components/libs/LayoutView";
 import {useCallback, useEffect, useMemo} from "react";
@@ -28,12 +29,16 @@ import useToastErrorHandler from "@/services/app/hooks/useToastErrorHandler";
 
 export default function ListCommentScreen() {
     const {t} = useTranslation();
-    const {event_id} = useLocalSearchParams<{ event_id?: string }>();
+    const {event_id, type} = useLocalSearchParams<{ event_id?: string; type?: string }>();
     const setLoading = useAppStore(s => s.setLoading);
     const {control, handleSubmit, formState: {errors, isSubmitting}, setValue} = useFormComment();
     const {mutate, isPending} = useMutateCommentEvent();
     const handleError = useToastErrorHandler();
 
+    const filters = {
+        event_id: event_id,
+        type: type ? parseInt(type) : undefined
+    };
     const {
         data,
         fetchNextPage,
@@ -43,9 +48,7 @@ export default function ListCommentScreen() {
         isRefetching,
         isLoading,
     } = useInfiniteCommentList({
-        filters: {
-            event_id: event_id
-        },
+        filters: filters,
         limit: 10,
         page: 1
     });
@@ -54,13 +57,22 @@ export default function ListCommentScreen() {
         if (event_id) {
             setValue("event_id", event_id);
         }
-    }, [event_id]);
+        if (type) {
+            setValue("type", parseInt(type) as _EventCommentType);
+        }
+    }, [event_id, type]);
 
     useEffect(() => {
         setLoading(isLoading || isRefetching || isPending);
     }, [isRefetching, isLoading, isPending]);
 
-    const listComment = useMemo(() => data?.pages.flatMap((page) => page.data) || [], [data]);
+    const listComment = useMemo(() => {
+        const allComments = data?.pages.flatMap((page) => page.data) || [];
+        const uniqueComments = allComments.filter((comment, index, self) =>
+            index === self.findIndex(c => c.id === comment.id)
+        );
+        return uniqueComments;
+    }, [data]);
     const language = useAppStore(s => s.language);
     const submit = useCallback((data: CommentRequest) => {
         mutate(data,{
@@ -81,9 +93,22 @@ export default function ListCommentScreen() {
         >
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <LayoutView paddedTop={false}>
+                    <YStack padding={DefaultSize.md} gap={"$2"}>
+                        <Typo weight={"700"} fontSize={DefaultSize.xl}>
+                            {parseInt(type || '0') === _EventCommentType.PRIVATE
+                                ? t('event.page.detail.private_comment')
+                                : t('event.page.detail.question_label')
+                            }
+                        </Typo>
+                        {parseInt(type || '0') === _EventCommentType.PRIVATE && (
+                            <Typo color={DefaultColor.slate[500]} fontSize={DefaultSize.sm}>
+                                {t('event.page.detail.private_comment_desc')}
+                            </Typo>
+                        )}
+                    </YStack>
                     <FlatList
                         data={listComment}
-                        keyExtractor={(item) => item.id.toString()}
+                        keyExtractor={(item, index) => `comment-${item.id}-${index}`}
                         showsVerticalScrollIndicator={false}
                         showsHorizontalScrollIndicator={false}
                         onEndReached={() => {
