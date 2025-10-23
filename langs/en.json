@@ -183,12 +183,20 @@
       "login_success": "Login successful, welcome back!"
     }
   },
+  "membership": {
+    "page": {
+      "title": "Membership Plans",
+      "description": "Choose the right membership plan to experience all features"
+    }
+  },
   "event": {
     "page": {
       "detail": {
         "time_of_organization": "Organization Time",
         "agenda_event": "Event Schedule",
         "question_label": "Event Comments",
+        "private_comment": "Private Comments",
+        "private_comment_desc": "Private comments are for registered members only",
         "register_membership_to_comment": "Please register for a membership plan to comment on this event",
         "register_membership_to_document": "Please register for a membership plan to view documents for this event",
         "question_placeholder": "Enter your question or comment",

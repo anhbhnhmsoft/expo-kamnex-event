@@ -1,5 +1,5 @@
 import {BaseSearchRequest, ResponseDataSuccessType, ResponsePagingSuccessType} from "@/utils/@types";
-import {_EventSeatStatus, _EventStatus, _EventUserHistory, _EventUserRole} from "@/services/event/const";
+import {_EventCommentType, _EventSeatStatus, _EventStatus, _EventUserHistory, _EventUserRole} from "@/services/event/const";
 
 export type SearchEventParams = {
     province_code?: string;
@@ -94,10 +94,12 @@ export type RegisterEventHistoryResponse = ResponseDataSuccessType<EventUserHist
 export type CommentRequest = {
     event_id: string;
     content: string;
+    type: _EventCommentType;
 }
 
 export type ListCommentRequest = BaseSearchRequest<{
     event_id?: string
+    type?: _EventCommentType;
 }>
 
 export type CommentListResponse = ResponsePagingSuccessType<{
@@ -107,6 +109,7 @@ export type CommentListResponse = ResponsePagingSuccessType<{
         name: string,
         avatar_url: string | null;
     },
+    type: _EventCommentType,
     content: string,
     created_at: string
 }[]>

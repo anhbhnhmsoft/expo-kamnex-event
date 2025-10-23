@@ -33,15 +33,7 @@ export default function HomeScreen() {
         isLoading,
     } = useInfiniteEventList(request);
 
-    const listEvent = useMemo(() => {
-        const allEvents = data?.pages.flatMap((page) => page.data) || [];
-        
-        const uniqueEvents = allEvents.filter((event, index, self) => 
-            index === self.findIndex(e => e.id === event.id)
-        );
-        
-        return uniqueEvents;
-    }, [data]);
+    const listEvent = useMemo(() => data?.pages.flatMap((page) => page.data) || [], [data]);
     useEffect(() => {
         setLoading(isLoading || isRefetching);
     }, [isRefetching, isLoading]);
@@ -253,7 +245,7 @@ const EventItem: FC<{ item: EventListItem }> = ({item}) => {
                             </Typo>
                         </Button>
                         <Typo color={DefaultColor.white} weight={"700"}
-                              fontSize={DefaultSize.md}>{item.free_to_join ? t('common.free_to_join') : t('common.paid_event')}</Typo>
+                              fontSize={DefaultSize.md}>{item.free_to_join ? t('common.free_to_join') : ''}</Typo>
                     </XStack>
                     <XStack position="absolute" bottom={10} right={10} left={10} justifyContent={"space-between"}
                             alignItems={"center"}

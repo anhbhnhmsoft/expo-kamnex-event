@@ -66,3 +66,8 @@ export enum _EventSeatStatus {
     AVAILABLE = 1,
     BOOKED = 2,
 }
+
+export enum _EventCommentType {
+    PUBLIC = 1,
+    PRIVATE = 2,
+}

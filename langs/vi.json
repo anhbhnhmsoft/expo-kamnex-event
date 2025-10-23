@@ -45,6 +45,7 @@
     "duration": "Thời hạn",
     "to": "đến",
     "document": "Tài liệu",
+    "buy_document": "Mua tài liệu",
     "file_assign": "File đính kèm",
     "seat_capacity": "Chỗ ngồi",
     "event": "Sự kiện"
@@ -183,12 +184,20 @@
       "login_success": "Đăng nhập thành công, chào mừng bạn trở lại!"
     }
   },
+  "membership": {
+    "page": {
+      "title": "Gói thành viên",
+      "description": "Chọn gói thành viên phù hợp để trải nghiệm đầy đủ các tính năng"
+    }
+  },
   "event": {
     "page": {
       "detail": {
         "time_of_organization": "Thời gian tổ chức",
         "agenda_event": "Lịch trình sự kiện",
         "question_label": "Bình luận về sự kiện",
+        "private_comment": "Bình luận kín",
+        "private_comment_desc": "Bình luận riêng tư chỉ dành cho thành viên đăng ký thành viên",
         "register_membership_to_comment": "Hãy đăng ký gói thành viên để có thể bình luận về sự kiện này",
         "register_membership_to_document": "Hãy đăng ký gói thành viên để có thể xem tài liệu về sự kiện này",
         "question_placeholder": "Nhập câu hỏi hoặc nhận xét của bạn",

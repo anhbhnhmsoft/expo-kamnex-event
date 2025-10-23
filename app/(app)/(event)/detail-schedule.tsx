@@ -61,17 +61,30 @@ export default function DetailScheduleScreen() {
                                     >
                                         {t('event.page.detail.register_membership_to_document')}
                                     </Typo>
-                                    <Button size={"$3"} paddingHorizontal={DefaultSize['5xl']}
-                                            paddingVertical={0}
-                                            borderRadius={DefaultSize["4xl"]}
-                                            color={DefaultColor.white} theme={"blue"}
-                                            backgroundColor={DefaultColor.primary_color}
-                                            onPress={() => router.push('/(app)/(account)/membership/register-list')}
-                                    >
-                                        <Typo color={DefaultColor.white} fontSize={DefaultSize.base}>
-                                            {t('common.register_now')}
-                                        </Typo>
-                                    </Button>
+                                    <View flexDirection="row" gap={"$3"}>
+                                        <Button size={"$3"} paddingHorizontal={DefaultSize['5xl']}
+                                                paddingVertical={0}
+                                                borderRadius={DefaultSize["4xl"]}
+                                                color={DefaultColor.white} theme={"blue"}
+                                                backgroundColor={DefaultColor.primary_color}
+                                                onPress={() => router.push('/(app)/(account)/membership/register-list')}
+                                        >
+                                            <Typo color={DefaultColor.white} fontSize={DefaultSize.base}>
+                                                {t('common.register_now')}
+                                            </Typo>
+                                        </Button>
+                                        <Button size={"$3"} paddingHorizontal={DefaultSize['5xl']}
+                                                paddingVertical={0}
+                                                borderRadius={DefaultSize["4xl"]}
+                                                color={DefaultColor.white} theme={"blue"}
+                                                backgroundColor={DefaultColor.white}
+                                                onPress={() => router.push('/')}
+                                        >
+                                            <Typo color={DefaultColor.black} fontSize={DefaultSize.base}>
+                                                {t('common.buy_document')}
+                                            </Typo>
+                                        </Button>
+                                    </View>
                                 </View>
                             </>
                         )}
