@@ -33,7 +33,15 @@ export default function HomeScreen() {
         isLoading,
     } = useInfiniteEventList(request);
 
-    const listEvent = useMemo(() => data?.pages.flatMap((page) => page.data) || [], [data]);
+    const listEvent = useMemo(() => {
+        const allEvents = data?.pages.flatMap((page) => page.data) || [];
+        
+        const uniqueEvents = allEvents.filter((event, index, self) => 
+            index === self.findIndex(e => e.id === event.id)
+        );
+        
+        return uniqueEvents;
+    }, [data]);
     useEffect(() => {
         setLoading(isLoading || isRefetching);
     }, [isRefetching, isLoading]);
