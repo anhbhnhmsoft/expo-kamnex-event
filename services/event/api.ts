@@ -5,7 +5,9 @@ import {
     EventListResponse, EventSeatRequest, EventSeatResponse, ListCommentRequest,
     RegisterEventHistoryRequest,
     RegisterEventHistoryResponse,
-    SearchEventRequest
+    SearchEventRequest,
+    RegisterDocumentRequest,
+    RegisterDocumentResponse
 } from "@/services/event/types";
 import {client} from "@/utils/axiosClient";
 import {ResponseSuccessType} from "@/utils/@types";
@@ -39,6 +41,10 @@ const eventApi = {
     },
     eventSeat: async (params: EventSeatRequest): Promise<EventSeatResponse> => {
         const response = await client.get(`${defaultUri}/${params.event_id}/area/${params.area_id}`);
+        return response.data;
+    },
+    registerDocument: async (data: RegisterDocumentRequest): Promise<RegisterDocumentResponse> => {
+        const response = await client.post('/schedule/document/register', data);
         return response.data;
     }
 }
