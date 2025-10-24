@@ -564,13 +564,26 @@ const CommentSection: FC<{
                 modal
                 open={showModal}
                 onOpenChange={setShowModal}
-                snapPoints={[50]}
+                snapPoints={[60]}
                 dismissOnSnapToBottom
             >
-                <Sheet.Overlay />
+                <Sheet.Overlay 
+                    backgroundColor="rgba(0,0,0,0.5)"
+                    onPress={() => setShowModal(false)}
+                />
                 <Sheet.Handle />
                 <Sheet.Frame padding="$4" gap="$4">
                     <YStack gap="$4" alignItems="center">
+                    <View 
+                            width={50} 
+                            height={50} 
+                            borderRadius={25} 
+                            backgroundColor={DefaultColor.primary_color}
+                            alignItems="center" 
+                            justifyContent="center"
+                        >
+                            <FontAwesome name="lock" size={24} color={DefaultColor.white} />
+                        </View>
                         <Typo weight="700" fontSize={DefaultSize.xl} textAlign="center">
                             {t('event.page.detail.register_membership_to_comment')}
                         </Typo>
