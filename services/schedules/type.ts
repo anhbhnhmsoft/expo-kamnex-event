@@ -10,7 +10,8 @@ export type DetailScheduleResponse = ResponseDataSuccessType<{
     documents: {
         id: string,
         title: string,
-    }[]
+        allowDocument: boolean;
+    }[];
 }>
 
 export type DocumentItem = {
