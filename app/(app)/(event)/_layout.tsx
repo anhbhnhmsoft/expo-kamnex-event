@@ -41,6 +41,12 @@ export default function EventLayout(){
                     header: () => <DefaultHeader title={'event.page.booking_check_trans.title'} centerTitle={true}/>,
                 }}
             />
+            <Stack.Screen
+                name="check-document-payment"
+                options={{
+                    header: () => <DefaultHeader />,
+                }}
+            />
         </Stack>
     );
 }

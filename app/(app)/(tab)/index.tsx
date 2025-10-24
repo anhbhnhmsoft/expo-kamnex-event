@@ -226,7 +226,8 @@ const EventItem: FC<{ item: EventListItem }> = ({item}) => {
                            style={{
                                height: 230,
                                width:"100%",
-                               borderRadius: 10
+                               borderRadius: 10,
+                               backgroundColor: DefaultColor.slate["100"]
                            }}
                            objectFit={"cover"}
                     />

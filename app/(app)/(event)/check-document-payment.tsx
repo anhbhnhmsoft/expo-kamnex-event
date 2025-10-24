@@ -80,15 +80,20 @@ export default function CheckDocumentPaymentScreen() {
         }
     }, [trans, t]);
 
+
     useEffect(() => {
         if (data){
             if (data.status === true){
                 success({message: t('common_success.payment_success')})
                 router.dismissAll();
-                router.push("/");
+                if (trans?.document_id) {
+                    router.replace(`/(app)/(event)/detail-document?id=${trans.document_id}`);
+                }else{
+                    router.replace("/");
+                }
             }
         }
-    }, [data, t]);
+    }, [data, t, trans]);
 
     return (
         <LayoutView>

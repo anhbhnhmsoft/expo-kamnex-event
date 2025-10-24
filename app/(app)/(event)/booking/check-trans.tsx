@@ -85,7 +85,16 @@ export default function CheckEventSeatTransScreen() {
             if (data.status === true){
                 success({message: t('common_success.payment_success')})
                 router.dismissAll();
-                router.push("/(app)/(tab)/registered");
+                if (trans?.event_id) {
+                    router.push({
+                        pathname: '/(app)/(event)/detail',
+                        params: {
+                            id: trans?.event_id,
+                        }
+                    })
+                }else{
+                    router.replace("/");
+                }
             }
         }
     }, [data, t]);

@@ -8,11 +8,13 @@ import DefaultColor from "@/components/ui/defaultColor";
 import {FC} from "react";
 import Typo from "@/components/libs/Typo";
 import {useTranslation} from "react-i18next";
+import {useNavigationState} from "@react-navigation/core";
 
 
 const DefaultHeader: FC<{ title?: string, onBack?: () => void, centerTitle?: boolean }> = ({title, onBack, centerTitle = false}) => {
 	const {t} = useTranslation();
 	const insets = useSafeAreaInsets();
+	const state = useNavigationState((s) => s);
 	return (
 		<XStack paddingTop={insets.top + 10} paddingHorizontal={DefaultSize.md}
 					alignItems={"center"}
@@ -24,7 +26,11 @@ const DefaultHeader: FC<{ title?: string, onBack?: () => void, centerTitle?: boo
 						if (onBack) {
 							onBack();
 						}else {
-							router.back();
+							if (state.index > 0) {
+								router.back();
+							} else {
+								router.replace("/")
+							}
 						}
 					}}
 			>

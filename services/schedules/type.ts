@@ -11,6 +11,7 @@ export type DetailScheduleResponse = ResponseDataSuccessType<{
         id: string,
         title: string,
         allowDocument: boolean;
+        price: string;
     }[];
 }>
 

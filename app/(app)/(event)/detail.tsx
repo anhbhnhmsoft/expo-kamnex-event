@@ -29,11 +29,10 @@ import {
     useInfiniteEventList
 } from "@/services/event/hooks/use-query-event";
 import useAuthStore from "@/services/auth/stores/useAuthStore";
-import {checkMembershipConfig} from "@/utils/helper";
 import {_ConfigMembership} from "@/services/membership/const";
 import LoadingList from "@/components/libs/LoadingList";
 import {useAppStore} from "@/services/app/stores/useAppStore";
-import {formatDate, formatDateFormNow} from "@/utils/helper";
+import {formatDate, formatDateFormNow, checkMembershipConfig} from "@/utils/helper";
 import {CommentRequest, EventDetail} from "@/services/event/types";
 import {_EventStatus, _EventUserHistory, _EventCommentType, getLabelEventStatus, getLabelEventUserRole} from "@/services/event/const";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
@@ -53,7 +52,6 @@ export default function DetailScreen() {
     const [openDesc, setOpenDesc] = useState<boolean>(false);
     const {id} = useLocalSearchParams<{ id?: string }>();
     const setEventUserHistory = useEventDetailStore(s => s.setEventUserHistory);
-    const user = useAuthStore(s => s.user);
     const {t} = useTranslation();
     const {event, loading} = useGetDataEventDetail(idEvent);
     const language = useAppStore(s => s.language);
@@ -82,7 +80,6 @@ export default function DetailScreen() {
                     setEventUserHistory(res.data);
                 },
                 onError: (error) => {
-                    console.log(error);
                     handleError(error);
                 }
             })
@@ -258,27 +255,12 @@ export const HeaderDetailScreen = () => {
                             disabled={![_EventUserHistory.SEENED, _EventUserHistory.CANCELLED].includes(event_user_history.status)}
                             onPress={() => {
                                 if (event_user_history && user && id) {
-                                    // nếu ko có membership
-                                    if (!checkMembershipConfig(user, _ConfigMembership.ALLOW_CHOOSE_SEAT)) {
-                                        setLoading(true);
-                                        mutate({event_id: id, status: _EventUserHistory.BOOKED}, {
-                                            onSuccess: (res) => {
-                                                setEventUserHistory(res.data);
-                                                setLoading(false);
-                                            },
-                                            onError: (err) => {
-                                                handleError(err);
-                                                setLoading(false);
-                                            }
-                                        })
-                                    } else {
-                                        router.push({
-                                            pathname: '/(app)/(event)/booking/area',
-                                            params: {
-                                                event_id: id,
-                                            }
-                                        })
-                                    }
+                                    router.push({
+                                        pathname: '/(app)/(event)/booking/area',
+                                        params: {
+                                            event_id: id,
+                                        }
+                                    })
                                 } else {
                                     error({message: t('common_error.program_error')})
                                 }
@@ -431,7 +413,7 @@ const CommentSection: FC<{
 
     return (
         <>
-            <XStack alignItems="center" justifyContent="space-between" marginBottom={DefaultSize.md}>
+            <XStack alignItems="center" justifyContent="space-between" marginBottom={DefaultSize.md} gap={"$2"} flexWrap={"wrap"}>
                 <Typo weight={"700"} fontSize={DefaultSize.xl}>
                     {t('event.page.detail.question_label')}
                 </Typo>
@@ -615,7 +597,7 @@ const CommentSection: FC<{
                             onPress={() => setShowModal(false)}
                         >
                             <Typo color={DefaultColor.slate[600]} fontSize={DefaultSize.base}>
-                                Đóng
+                                {t('common.cancel')}
                             </Typo>
                         </Button>
                     </YStack>

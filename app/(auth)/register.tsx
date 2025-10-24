@@ -43,7 +43,7 @@ export default function RegisterScreen() {
             },
             onSuccess: (res) => {
                 success({message: res.message});
-                router.replace('/(auth)/login')
+                router.push('/(auth)/login')
             }
         });
     },[lang]);

@@ -48,7 +48,8 @@
     "buy_document": "Mua tài liệu",
     "file_assign": "File đính kèm",
     "seat_capacity": "Chỗ ngồi",
-    "event": "Sự kiện"
+    "event": "Sự kiện",
+    "price": "Giá"
   },
   "common_success": {
     "save_image_success": "Lưu trữ ảnh thành công",
@@ -204,7 +205,11 @@
         "event_overview": "Tổng quan sự kiện",
         "event_more": "Sự kiện liên quan",
         "thank_for_book_title": "Cảm ơn bạn đã đăng ký tham gia sự kiện",
-        "thank_for_book_desc": "Đây là thông tin hàng ghế cũng như số vé của bạn"
+        "thank_for_book_desc": "Đây là thông tin hàng ghế cũng như số vé của bạn",
+        "please_register_membership_or_buy_document_to_access": "Hãy đăng ký gói thành viên hoặc mua tài liệu để có thể truy cập tài liệu này"
+      },
+      "detail-schedule": {
+        "accessible": "Trung tâm tổ chức có thể truy cập"
       },
       "list_comment": {
         "title": "Bình luận sự kiện"

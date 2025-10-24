@@ -8,7 +8,6 @@ import {DefaultSize} from "@/components/ui/defaultStyle";
 import DefaultColor from "@/components/ui/defaultColor";
 import {useEffect, useState} from "react";
 import {useAppStore} from "@/services/app/stores/useAppStore";
-import useAuthStore from "@/services/auth/stores/useAuthStore";
 import RenderHtml from "react-native-render-html";
 import {useTranslation} from "react-i18next";
 import Empty from "@/components/libs/Empty";
@@ -16,6 +15,7 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 import {TouchableOpacity} from "react-native";
 import { useMutateRegisterDocument } from "@/services/event/hooks/use-mutate-event";
 import { useStoreTransactionDocument } from "@/services/event/stores/useStoreTransactionDocument";
+import useToastErrorHandler from "@/services/app/hooks/useToastErrorHandler";
 
 export default function DetailScheduleScreen() {
     const {t} = useTranslation();
@@ -23,12 +23,12 @@ export default function DetailScheduleScreen() {
     const {schedule, loading} = useQueryDetailScheduler(id);
     const {width} = useWindowDimensions();
     const setLoading = useAppStore(s => s.setLoading);
-    const user = useAuthStore(s => s.user);
     const [showModal, setShowModal] = useState(false);
     const [selectedDocumentId, setSelectedDocumentId] = useState<string | null>(null);
-    
+    const handleError = useToastErrorHandler();
+
     const registerDocumentMutation = useMutateRegisterDocument();
-    const setTrans = useStoreTransactionDocument((s: any) => s.setTrans);
+    const setTrans = useStoreTransactionDocument((s) => s.setTrans);
 
     useEffect(() => {
         setLoading(loading);
@@ -68,18 +68,27 @@ export default function DetailScheduleScreen() {
                                 activeOpacity={0.7}
                             >
                                 <Card backgroundColor={DefaultColor.slate[100]} padded flexDirection={"row"}
-                                      alignItems={"center"} gap={"$2"}>
+                                      alignItems={"center"} gap={"$3"}>
                                     <FontAwesome name="file-text-o" size={24} color="black"/>
-                                    <View flex={1}>
-                                        <Typo 
-                                            weight={"700"} 
-                                            fontSize={DefaultSize.base}
-                                            numberOfLines={2}
-                                            ellipsizeMode="tail"
-                                        >
-                                            {document.title}
-                                        </Typo>
-                                    </View>
+                                    <YStack>
+                                        <View flex={1}>
+                                            <Typo
+                                                weight={"700"}
+                                                fontSize={DefaultSize.base}
+                                                numberOfLines={2}
+                                                ellipsizeMode="tail"
+                                            >
+                                                {document.title}
+                                            </Typo>
+                                            {!document.allowDocument && (
+                                                <>
+                                                    <Typo>
+                                                        {t('common.price')}: {Number(document.price).toLocaleString("vi-VN")} VND
+                                                    </Typo>
+                                                </>
+                                            )}
+                                        </View>
+                                    </YStack>
                                 </Card>
                             </TouchableOpacity>
                         )) : <Empty/>}
@@ -96,7 +105,7 @@ export default function DetailScheduleScreen() {
                 modal
                 open={showModal}
                 onOpenChange={setShowModal}
-                snapPoints={[60]}
+                snapPointsMode={"fit"}
                 dismissOnSnapToBottom
             >
                 <Sheet.Overlay 
@@ -128,7 +137,7 @@ export default function DetailScheduleScreen() {
                                 {t('event.page.detail.register_membership_to_document')}
                             </Typo>
                             <Typo fontSize={DefaultSize.base} textAlign="center" color={DefaultColor.slate[600]}>
-                                Bạn cần đăng ký gói thành viên để truy cập tài liệu này
+                                {t('event.page.detail.please_register_membership_or_buy_document_to_access')}
                             </Typo>
                         </YStack>
                         
@@ -163,22 +172,22 @@ export default function DetailScheduleScreen() {
                                 borderColor={DefaultColor.black}
                                 onPress={async () => {
                                     if (selectedDocumentId) {
-                                        try {
-                                            const response = await registerDocumentMutation.mutateAsync({
-                                                document_id: selectedDocumentId
-                                            });
-                                            
-                                            if (response.data) {
+                                        setLoading(true);
+                                        registerDocumentMutation.mutate({
+                                            document_id: selectedDocumentId,
+                                        }, {
+                                            onSuccess: (response) => {
                                                 setTrans(response.data);
                                                 setShowModal(false);
+                                                setLoading(false);
                                                 router.push('/(app)/(event)/check-document-payment');
-                                            } else if (response.document) {
+                                            },
+                                            onError: (error) => {
                                                 setShowModal(false);
-                                                router.push(`/(app)/(event)/detail-document?id=${response.document.id}`);
+                                                handleError(error);
+                                                setLoading(false);
                                             }
-                                        } catch (error) {
-                                            console.error('Error registering document:', error);
-                                        }
+                                        })
                                     }
                                 }}
                                 disabled={registerDocumentMutation.isPending}
@@ -199,7 +208,7 @@ export default function DetailScheduleScreen() {
                                 onPress={() => setShowModal(false)}
                             >
                                 <Typo color={DefaultColor.slate[600]} fontSize={DefaultSize.base}>
-                                    Đóng
+                                    {t('common.cancel')}
                                 </Typo>
                             </Button>
                         </YStack>

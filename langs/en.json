@@ -3,7 +3,7 @@
     "login": "Login",
     "logout": "Logout",
     "register": "Register",
-    "had_register": "Already Registered",
+    "had_register": "Registered",
     "register_now": "Register Now",
     "had_join": "Joined",
     "had_cancel": "Cancelled",
@@ -13,7 +13,7 @@
     "address": "Your Address",
     "introduce": "About Yourself",
     "password": "Password",
-    "re_password": "Confirm Password",
+    "re_password": "Re-enter Password",
     "placeholder_search": "Search...",
     "empty": "No data to display...",
     "select": "Select",
@@ -23,8 +23,8 @@
     "province": "Province/City",
     "district": "District",
     "ward": "Ward/Commune",
-    "free_to_join": "Free to join",
-    "paid_event": "Paid event",
+    "free_to_join": "Free to Join",
+    "paid_event": "Paid Event",
     "account": "Account",
     "vip": "VIP",
     "upgrade_now": "Upgrade Now",
@@ -39,15 +39,17 @@
     "ticket_code": "Ticket Code",
     "month": "Month",
     "membership": "Membership",
-    "download_qr_code": "Save QR",
+    "download_qr_code": "Save QR Code",
     "desc": "Note",
     "account_number": "Account Number",
     "duration": "Duration",
     "to": "to",
     "document": "Document",
+    "buy_document": "Buy Document",
     "file_assign": "Attached File",
-    "seat_capacity": "Seats",
-    "event": "Event"
+    "seat_capacity": "Seat Capacity",
+    "event": "Event",
+    "price": "Price"
   },
   "common_success": {
     "save_image_success": "Image saved successfully",
@@ -55,33 +57,33 @@
     "payment_success": "Payment successful, thank you for using our service"
   },
   "common_error": {
-    "server_error": "An error occurred on the server, please contact the administrator for support.",
+    "server_error": "A server error occurred, please contact the administrator for support.",
     "request_error": "No response received from the server, please contact the administrator for support.",
-    "program_error": "An error occurred in the program, please contact the administrator for support.",
+    "program_error": "A program error occurred, please contact the administrator for support.",
     "unknown_error": "An unknown error occurred, please contact the administrator for support.",
     "invalid_or_expired_token": "Your account has expired or is invalid. Please log in again.",
     "api_not_found": "Unknown source occurred, please contact the administrator for support.",
-    "method_not_allowed": "API is in the wrong format, please contact the administrator for support.",
-    "permission_error": "You do not have permission to perform this task, please contact the administrator for support.",
+    "method_not_allowed": "Incorrect API format, please contact the administrator for support.",
+    "permission_error": "You do not have permission to perform this action, please contact the administrator for support.",
     "authorization_header_not_found": "Authorization header not found, please contact the administrator for support.",
     "refresh_token_fail": "Your account has expired or is invalid. Please log in again.",
     "data_not_found": "Data is empty, please try again later.",
-    "data_not_fields": "Some data has not been filled in, please try again.",
+    "data_not_fields": "Some data fields are missing, please try again.",
     "data_exists": "Data already exists, please try again.",
-    "copy_error": "Error when copying",
-    "warning_location": "Location service is currently off, please turn on location service to use this function.",
+    "copy_error": "Error copying",
+    "warning_location": "Currently, your location service is not enabled. Please enable location to use this feature.",
     "download_failed": "File download failed, please contact the administrator for support",
     "file_already_exist": "This file already exists on your device",
     "linking_not_support": "Your phone does not support quick linking"
   },
   "permission": {
     "camera": {
-      "title": "Application requires camera access permission",
-      "message": "This feature requires camera access, please go to settings -> applications -> grant camera access to use it"
+      "title": "The app needs camera access permission",
+      "message": "This feature requires camera access. Please go to settings -> applications -> grant camera access to use it"
     },
     "picture_lib": {
-      "title": "Application requires gallery access permission",
-      "message": "This feature requires gallery access, please go to settings -> applications -> grant gallery access to use it"
+      "title": "The app needs library access permission",
+      "message": "This feature requires library access. Please go to settings -> applications -> grant library access to use it"
     }
   },
   "enum": {
@@ -90,13 +92,13 @@
       "PRESENTER": "Presenter"
     },
     "_EventStatus": {
-      "FOR_USER": "For you",
-      "ACTIVE": "Happening",
+      "FOR_USER": "For You",
+      "ACTIVE": "Happening Now",
       "UPCOMING": "Upcoming",
       "CLOSED": "Closed"
     },
     "_EventUserHistory": {
-      "BOOKED": "Registered",
+      "BOOKED": "Booked",
       "PARTICIPATED": "Participated",
       "CANCELLED": "Cancelled",
       "SEENED": "Viewed"
@@ -131,13 +133,13 @@
         "search_placeholder": "Search by location"
       },
       "account": {
-        "register_membership_1": "Upgrade your account",
-        "register_membership_2": "to receive more benefits from us",
+        "register_membership_1": "Upgrade account",
+        "register_membership_2": "to receive many offers from us",
         "account_info": "Personal Information",
-        "qr_scan": "Scan QR code",
-        "manager_notification": "Manage Notifications",
-        "manager_file": "Manage Documents",
-        "manager_membership": "Upgrade Membership",
+        "qr_scan": "Scan QR Code",
+        "manager_notification": "Notification Management",
+        "manager_file": "Document Management",
+        "manager_membership": "Membership Upgrade",
         "manager_gift": "View Event Gifts",
         "support": "Support",
         "title_logout": "Logout",
@@ -176,8 +178,8 @@
       "invalid_name": "Name must be at least 4 characters and not exceed 50 characters",
       "invalid_email": "Invalid email",
       "invalid_password": "Password must be at least 8 characters",
-      "invalid_confirm_password": "Confirm password does not match the password",
-      "invalid_organizer": "Please select an organizer"
+      "invalid_confirm_password": "Re-entered password does not match the password",
+      "invalid_organizer": "Please choose an organizer"
     },
     "success": {
       "login_success": "Login successful, welcome back!"
@@ -185,41 +187,45 @@
   },
   "membership": {
     "page": {
-      "title": "Membership Plans",
-      "description": "Choose the right membership plan to experience all features"
+      "title": "Membership Packages",
+      "description": "Choose the suitable membership package to experience full features"
     }
   },
   "event": {
     "page": {
       "detail": {
         "time_of_organization": "Organization Time",
-        "agenda_event": "Event Schedule",
-        "question_label": "Event Comments",
-        "private_comment": "Private Comments",
-        "private_comment_desc": "Private comments are for registered members only",
-        "register_membership_to_comment": "Please register for a membership plan to comment on this event",
-        "register_membership_to_document": "Please register for a membership plan to view documents for this event",
+        "agenda_event": "Event Agenda",
+        "question_label": "Comment on the event",
+        "private_comment": "Private Comment",
+        "private_comment_desc": "Private comments are only for registered members",
+        "register_membership_to_comment": "Please register for a membership package to comment on this event",
+        "register_membership_to_document": "Please register for a membership package to view documents for this event",
         "question_placeholder": "Enter your question or comment",
         "event_overview": "Event Overview",
         "event_more": "Related Events",
-        "thank_for_book_title": "Thank you for registering to participate in the event",
-        "thank_for_book_desc": "Here is your row and ticket number information"
+        "thank_for_book_title": "Thank you for registering to attend the event",
+        "thank_for_book_desc": "This is your row and ticket number information",
+        "please_register_membership_or_buy_document_to_access": "Please register for a membership package or buy the document to access this document"
+      },
+      "detail-schedule": {
+        "accessible": "Organizing center is accessible"
       },
       "list_comment": {
         "title": "Event Comments"
       },
       "booking_area": {
-        "title": "Area Selection"
+        "title": "Select Area"
       },
       "booking_seats": {
-        "title": "Seat Selection"
+        "title": "Select Seats"
       },
       "booking_check_trans": {
         "title": "Payment Information"
       }
     },
     "error": {
-      "invalid_comment": "Please enter a comment, and note that the comment should not exceed 1000 words"
+      "invalid_comment": "Please enter a comment, and note that the comment must not exceed 1000 words"
     }
   },
   "account": {
@@ -229,17 +235,17 @@
         "active_change_password": "Cancel Change Password",
         "unactive_change_password": "Change Password",
         "take_photo": "Take Photo",
-        "choose_from_lib": "Choose from Gallery",
+        "choose_from_lib": "Choose from Library",
         "delete_avatar_title": "Delete Avatar",
         "delete_avatar_desc": "Are you sure you want to delete your avatar?"
       },
       "membership": {
         "list": {
-          "title": "Membership Plans",
-          "register": "Register Membership Plan"
+          "title": "Membership Packages",
+          "register": "Register Membership Package"
         },
         "register_list": {
-          "title": "Register Membership Plan"
+          "title": "Register Membership Package"
         },
         "check_trans": {
           "title": "Payment Information"
@@ -250,7 +256,7 @@
         "mask_all_read": "Mark All as Read"
       },
       "list_document": {
-        "title": "Manage Documents"
+        "title": "Document Management"
       },
       "gift": {
         "title": "Received Gifts"
@@ -260,7 +266,7 @@
       "invalid_name": "Name must be at least 4 characters and not exceed 50 characters",
       "invalid_email": "Invalid email",
       "invalid_password": "Password must be at least 8 characters",
-      "invalid_confirm_password": "Confirm password does not match the password",
+      "invalid_confirm_password": "Re-entered password does not match the password",
       "invalid_phone": "Invalid phone number",
       "invalid_address": "Address maximum 255 characters",
       "empty_trans": "No transaction to perform",
@@ -268,7 +274,7 @@
     }
   },
   "notifications": {
-    "mark_as_read_success": "Notification marked as read successfully",
-    "mark_all_as_read_success": "All notifications marked as read successfully"
+    "mark_as_read_success": "Notification successfully marked as read",
+    "mark_all_as_read_success": "All notifications successfully marked as read"
   }
 }

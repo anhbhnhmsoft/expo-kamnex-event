@@ -1,16 +1,7 @@
 import { create } from 'zustand';
+import {RegisterDocumentResponse} from "@/services/event/types";
 
-export type TransactionDocumentData = {
-    trans_id: string;
-    expired_at: string;
-    config_pay: {
-        name: string;
-        bin: string;
-        number: string;
-    };
-    money: string;
-    description: string;
-};
+export type TransactionDocumentData = RegisterDocumentResponse['data'];
 
 type StoreTransactionDocument = {
     trans: TransactionDocumentData | null;

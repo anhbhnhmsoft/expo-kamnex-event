@@ -142,31 +142,16 @@ export type RegisterDocumentRequest = {
     document_id: string;
 }
 
-export type RegisterDocumentResponse = {
-    message: string;
-    document?: {
-        id: string;
-        title: string;
-        event_schedule_id: string;
-        event_name: string;
-        description: string;
-        files: {
-            id: string;
-            file_path: string;
-            file_name: string;
-            file_size: string;
-            file_type: string;
-        }[];
+
+export type RegisterDocumentResponse = ResponseDataSuccessType<{
+    document_id:string;
+    trans_id: string;
+    expired_at: string;
+    config_pay: {
+        name: string;
+        bin: string;
+        number: string;
     };
-    data?: {
-        trans_id: string;
-        expired_at: string;
-        config_pay: {
-            name: string;
-            bin: string;
-            number: string;
-        };
-        money: string;
-        description: string;
-    };
-}
+    money: string;
+    description: string;
+}>

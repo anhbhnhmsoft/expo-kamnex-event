@@ -18,7 +18,7 @@ import useToast from "@/services/app/hooks/useToast";
 export default function SeatsScreen() {
     const {event_id, area_id} = useLocalSearchParams<{ event_id?: string, area_id?: string }>();
     const {event_seat, loading} = useQueryGetEventSeat(event_id, area_id);
-    const {event, loading: eventLoading} = useGetDataEventDetail(event_id || null);
+    const { loading: eventLoading} = useGetDataEventDetail(event_id || null);
     const setLoading = useAppStore(s => s.setLoading);
     
     useEffect(() => {
