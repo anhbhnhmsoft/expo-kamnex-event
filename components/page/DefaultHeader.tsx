@@ -26,7 +26,7 @@ const DefaultHeader: FC<{ title?: string, onBack?: () => void, centerTitle?: boo
 						if (onBack) {
 							onBack();
 						}else {
-							if (state.index > 0) {
+							if (state.routeNames.length > 0) {
 								router.back();
 							} else {
 								router.replace("/")

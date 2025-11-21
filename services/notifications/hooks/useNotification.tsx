@@ -9,8 +9,8 @@ import useNotiStore from "@/services/notifications/stores/useNotiStore";
 
 Notifications.setNotificationHandler({
     handleNotification: async () => ({
-        shouldPlaySound: false,
-        shouldSetBadge: false,
+        shouldPlaySound: true,
+        shouldSetBadge: true,
         shouldShowBanner: true,
         shouldShowList: true,
         shouldShowAlert:true,
@@ -24,7 +24,15 @@ const registerForPushNotificationsAsync = async () => {
         if (Device.isDevice) {
             // Yêu cầu Quyền
             const { status: existingStatus } = await Notifications.getPermissionsAsync();
+            let finalStatus = existingStatus;
+
+            // QUAN TRỌNG: Nếu chưa có quyền, phải XIN QUYỀN
             if (existingStatus !== 'granted') {
+                const { status } = await Notifications.requestPermissionsAsync();
+                finalStatus = status;
+            }
+            // Nếu xin rồi mà vẫn không cho -> Return null
+            if (finalStatus !== 'granted') {
                 return null;
             }
             // Lấy Expo Push Token
@@ -61,7 +69,7 @@ const useNotification = () => {
             if (token){
                 notificationAPI.sendPushToken({
                     expo_push_token: token,
-                    device_id: Device.osInternalBuildId ,
+                    device_id: Device.osInternalBuildId || 'unknown_device_id' ,
                     device_type: Platform.OS
                 });
             }

@@ -57,6 +57,9 @@ export default function RegisterScreen() {
                         contentContainerStyle={{flexGrow: 1}}
                         enableOnAndroid={true}
                         scrollEnabled={true}
+                        bounces={false}
+                        overScrollMode="never"
+                        showsVerticalScrollIndicator={false}
                     >
                         <View flex={1}>
                             <TouchableOpacity

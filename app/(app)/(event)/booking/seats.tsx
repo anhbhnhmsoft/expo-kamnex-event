@@ -2,7 +2,7 @@ import {router, useLocalSearchParams} from "expo-router";
 import {useQueryGetEventSeat, useGetDataEventDetail} from "@/services/event/hooks/use-query-event";
 import {useAppStore} from "@/services/app/stores/useAppStore";
 import {useEffect} from "react";
-import {Card, XStack} from "tamagui";
+import {Card, View, XStack} from "tamagui";
 import {TouchableOpacity} from "react-native";
 import Typo from "@/components/libs/Typo";
 import Empty from "@/components/libs/Empty";
@@ -35,56 +35,66 @@ export default function SeatsScreen() {
     return (
         <LayoutScrollApp paddedTop={false}>
             {event_id && area_id && event_seat && event_seat.length > 0 ? (
-                <XStack flexWrap={"wrap"} alignItems={"center"} justifyContent={"space-between"} gap={"$2"}>
-                    {event_seat.map((item) => (
-                        <TouchableOpacity
-                            disabled={item.status === _EventSeatStatus.BOOKED}
-                            key={item.id} style={{width: "22%"}}
-                            onPress={() => {
-                                if (event_id) {
-                                    setLoading(true);
-                                    mutate({
-                                        event_id: event_id,
-                                        event_seat_id: item.id,
-                                        status: _EventUserHistory.BOOKED
-                                    }, {
-                                        onSuccess: (res) => {
-                                            setLoading(false);
-                                            
-                                            if (res.payment_required && res.data) {
-                                                setTrans({...res.data as any, event_id: event_id});
-                                                router.replace('/(app)/(event)/booking/check-trans');
-                                            } else {
-                                                success({message: res.message});
-                                                setEventUserHistory(res.data || null);
-                                                router.replace({
-                                                    pathname: '/(app)/(event)/detail',
-                                                    params: {
-                                                        id: event_id,
-                                                    }
-                                                });
+                <View flex={1} justifyContent={"center"} alignItems={"center"}>
+                    <XStack
+                        flexWrap={"wrap"}
+                        // 1. Đổi thành flex-start để các ô luôn căn trái đều nhau
+                        alignItems={"flex-start"}
+                        justifyContent={"flex-start"}
+                        gap={"$2"}
+                    >
+                        {event_seat.map((item) => (
+                            <TouchableOpacity
+                                disabled={item.status === _EventSeatStatus.BOOKED}
+                                key={item.id}
+                                style={{ width: "23%" }}
+                                onPress={() => {
+                                    if (event_id) {
+                                        setLoading(true);
+                                        mutate({
+                                            event_id: event_id,
+                                            event_seat_id: item.id,
+                                            status: _EventUserHistory.BOOKED
+                                        }, {
+                                            onSuccess: (res) => {
+                                                setLoading(false);
+
+                                                if (res.payment_required && res.data) {
+                                                    setTrans({...res.data as any, event_id: event_id});
+                                                    router.replace('/(app)/(event)/booking/check-trans');
+                                                } else {
+                                                    success({message: res.message});
+                                                    setEventUserHistory(res.data || null);
+                                                    router.replace({
+                                                        pathname: '/(app)/(event)/detail',
+                                                        params: {
+                                                            id: event_id,
+                                                        }
+                                                    });
+                                                }
+                                            },
+                                            onError: (err) => {
+                                                handleError(err);
+                                                setLoading(false);
                                             }
-                                        },
-                                        onError: (err) => {
-                                            handleError(err);
-                                            setLoading(false);
-                                        }
-                                    })
-                                }
-                            }}
-                        >
-                            <Card padded gap={"$2"}
-                                  alignItems={"center"}
-                                  backgroundColor={item.status === _EventSeatStatus.BOOKED ? DefaultColor.red[500] : DefaultColor.white}
-                                  justifyContent={"center"}
+                                        })
+                                    }
+                                }}
                             >
-                                <Typo weight={"700"}
-                                      color={item.status === _EventSeatStatus.BOOKED ? DefaultColor.white : DefaultColor.black}
-                                >{item.seat_code}</Typo>
-                            </Card>
-                        </TouchableOpacity>
-                    ))}
-                </XStack>
+                                <Card padded gap={"$2"}
+                                      alignItems={"center"}
+                                      height={60}
+                                      backgroundColor={item.status === _EventSeatStatus.BOOKED ? DefaultColor.red[500] : DefaultColor.white}
+                                      justifyContent={"center"}
+                                >
+                                    <Typo weight={"700"}
+                                          color={item.status === _EventSeatStatus.BOOKED ? DefaultColor.white : DefaultColor.black}
+                                    >{item.seat_code}</Typo>
+                                </Card>
+                            </TouchableOpacity>
+                        ))}
+                    </XStack>
+                </View>
             ) : <Empty/>}
         </LayoutScrollApp>
     )
