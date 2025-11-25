@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "979669550960",
+    "project_id": "michec-event",
+    "storage_bucket": "michec-event.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:979669550960:android:25dc6998be94aeae5731b5",
+        "android_client_info": {
+          "package_name": "com.kamnex.michecevent"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjjblr4HaUBfyURmdgvahYragz-p_KOSE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

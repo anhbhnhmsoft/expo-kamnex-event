@@ -21,40 +21,37 @@ Notifications.setNotificationHandler({
 const registerForPushNotificationsAsync = async () => {
     // chỉ dùng dc cho thiết bị điện thoại
     try {
-        if (Device.isDevice) {
-            // Yêu cầu Quyền
-            const { status: existingStatus } = await Notifications.getPermissionsAsync();
-            let finalStatus = existingStatus;
-
-            // QUAN TRỌNG: Nếu chưa có quyền, phải XIN QUYỀN
-            if (existingStatus !== 'granted') {
-                const { status } = await Notifications.requestPermissionsAsync();
-                finalStatus = status;
-            }
-            // Nếu xin rồi mà vẫn không cho -> Return null
-            if (finalStatus !== 'granted') {
-                return null;
-            }
-            // Lấy Expo Push Token
-            const projectId = Constants.expoConfig?.extra?.eas?.projectId;
-            if (!projectId) {
-                return null;
-            }
-            const token = (await Notifications.getExpoPushTokenAsync({ projectId: projectId })).data;
-
-            // Cấu hình Channel cho Android
-            if (Platform.OS === 'android') {
-                await Notifications.setNotificationChannelAsync('default', {
-                    name: 'default',
-                    importance: Notifications.AndroidImportance.MAX,
-                    vibrationPattern: [0, 250, 250, 250],
-                    lightColor: DefaultColor.primary_color,
-                });
-            }
-            return token;
+        // Yêu cầu Quyền
+        const { status: existingStatus } = await Notifications.getPermissionsAsync();
+        let finalStatus = existingStatus;
+        // QUAN TRỌNG: Nếu chưa có quyền, phải XIN QUYỀN
+        if (existingStatus !== 'granted') {
+            const { status } = await Notifications.requestPermissionsAsync();
+            finalStatus = status;
         }
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        // Nếu xin rồi mà vẫn không cho -> Return null
+        if (finalStatus !== 'granted') {
+            return null;
+        }
+        // Lấy Expo Push Token
+        const projectId = Constants.expoConfig?.extra?.eas?.projectId;
+        if (!projectId) {
+            return null;
+        }
+        const token = (await Notifications.getExpoPushTokenAsync({ projectId: projectId })).data;
+
+        // Cấu hình Channel cho Android
+        if (Platform.OS === 'android') {
+            await Notifications.setNotificationChannelAsync('default', {
+                name: 'default',
+                importance: Notifications.AndroidImportance.MAX,
+                vibrationPattern: [0, 250, 250, 250],
+                lightColor: DefaultColor.primary_color,
+            });
+        }
+        return token;
     }catch (error) {
+        console.log('registerForPushNotificationsAsync error:', error);
     }
     return null;
 }
@@ -65,6 +62,7 @@ const useNotification = () => {
     const pushNotification = useNotiStore(s => s.pushNotification);
     useEffect(() => {
         registerForPushNotificationsAsync().then((token) => {
+            console.log(token)
             // send token
             if (token){
                 notificationAPI.sendPushToken({
@@ -73,7 +71,7 @@ const useNotification = () => {
                     device_type: Platform.OS
                 });
             }
-        }).catch((_) => {
+        }).catch(() => {
             // do nothing
         });
         // Lắng nghe khi thông báo nhận dc (chỉ khi chạy trong app)
