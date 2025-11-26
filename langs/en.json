@@ -206,7 +206,13 @@
         "event_more": "Related Events",
         "thank_for_book_title": "Thank you for registering to attend the event",
         "thank_for_book_desc": "This is your row and ticket number information",
-        "please_register_membership_or_buy_document_to_access": "Please register for a membership package or buy the document to access this document"
+        "please_register_membership_or_buy_document_to_access": "Please register for a membership package or buy the document to access this document",
+        "poll_event": "Event Poll",
+        "over_time_poll": "Poll has expired",
+        "not_started_poll": "Poll has not started yet",
+        "number_question_poll": "Number of questions",
+        "start_time_poll": "Start time",
+        "end_time_poll": "End time"
       },
       "detail-schedule": {
         "accessible": "Organizing center is accessible"
@@ -222,10 +228,19 @@
       },
       "booking_check_trans": {
         "title": "Payment Information"
+      },
+      "event_poll": {
+        "title": "Event Poll",
+        "choose_answer": "Choose an answer",
+        "write_answer": "Write an answer",
+        "submit": "Submit Poll",
+        "poll_success": "Thank you for polling the event"
       }
     },
     "error": {
-      "invalid_comment": "Please enter a comment, and note that the comment must not exceed 1000 words"
+      "invalid_comment": "Please enter a comment, and note that the comment must not exceed 1000 words",
+      "invalid_poll_answer": "Please select at least 1 answer",
+      "invalid_poll_answer_open_ended": "Please enter your answer"
     }
   },
   "account": {

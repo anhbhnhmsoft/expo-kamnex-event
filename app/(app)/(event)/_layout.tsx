@@ -47,6 +47,12 @@ export default function EventLayout(){
                     header: () => <DefaultHeader />,
                 }}
             />
+            <Stack.Screen
+                name="event-poll"
+                options={{
+                    header: () => <DefaultHeader title={'event.page.event_poll.title'}/>,
+                }}
+            />
         </Stack>
     );
 }

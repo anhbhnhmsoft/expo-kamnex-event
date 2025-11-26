@@ -71,3 +71,8 @@ export enum _EventCommentType {
     PUBLIC = 1,
     PRIVATE = 2,
 }
+
+export enum _EventPollQuestionType {
+    MULTIPLE = 1, // nhiều lựa chọn
+    OPEN_ENDED = 2, // câu hỏi tự luận
+}

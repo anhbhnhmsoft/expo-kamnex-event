@@ -19,14 +19,14 @@ import {
 import {DefaultSize, DefaultStyle} from "@/components/ui/defaultStyle";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import DefaultColor from "@/components/ui/defaultColor";
-import {Keyboard, TouchableOpacity, TouchableWithoutFeedback} from "react-native";
+import {Keyboard, TouchableOpacity, TouchableWithoutFeedback, RefreshControl} from "react-native";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {useTranslation} from "react-i18next";
 import Typo from "@/components/libs/Typo";
 import {
     useGetDataEventDetail,
     useInfiniteCommentList,
-    useInfiniteEventList
+    useInfiniteEventList, useQueryGetEventPoll
 } from "@/services/event/hooks/use-query-event";
 import useAuthStore from "@/services/auth/stores/useAuthStore";
 import {_ConfigMembership} from "@/services/membership/const";
@@ -46,6 +46,7 @@ import useEventDetailStore from "@/services/event/stores/useEventDetailStore";
 import useToast from "@/services/app/hooks/useToast";
 import {useFormComment} from "@/services/event/hooks/use-form";
 import {Controller} from "react-hook-form";
+import dayjs from "dayjs";
 
 export default function DetailScreen() {
     const [idEvent, setIdEvent] = useState<string | null>(null);
@@ -53,9 +54,10 @@ export default function DetailScreen() {
     const {id} = useLocalSearchParams<{ id?: string }>();
     const setEventUserHistory = useEventDetailStore(s => s.setEventUserHistory);
     const {t} = useTranslation();
-    const {event, loading} = useGetDataEventDetail(idEvent);
+    const {event, loading, refetch: refetchEvent} = useGetDataEventDetail(idEvent);
     const language = useAppStore(s => s.language);
     const setLoading = useAppStore(s => s.setLoading);
+    const loadApp = useAppStore(s => s.loading);
     const {mutate, isPending} = useMutateRegisterEventHistory();
     const handleError = useToastErrorHandler();
     const inset = useSafeAreaInsets();
@@ -66,11 +68,21 @@ export default function DetailScreen() {
         limit: 5
     });
 
+    const infiniteComment = useInfiniteCommentList({
+        filters: {
+            event_id: idEvent ?? "",
+            type: _EventCommentType.PUBLIC
+        },
+        limit: 6
+    });
+
+    const {data: eventPoll, loading: loadingPoll, refetch: refetchPoll} = useQueryGetEventPoll(idEvent);
+
     const listEvent = useMemo(() => data?.pages.flatMap((page) => page.data) || [], [data]);
 
     useEffect(() => {
-        setLoading(loading || isPending);
-    }, [loading, isPending]);
+        setLoading(loading || isPending || loadingPoll);
+    }, [loading, isPending, loadingPoll]);
 
     useEffect(() => {
         if (id) {
@@ -84,12 +96,15 @@ export default function DetailScreen() {
                 }
             })
         } else {
+            setLoading(false);
             router.back();
         }
         return () => {
             setEventUserHistory(null)
         }
     }, [id]);
+
+
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -98,6 +113,17 @@ export default function DetailScreen() {
                 contentContainerStyle={{flexGrow: 1, paddingBottom: inset.bottom + 40}}
                 enableOnAndroid={true}
                 scrollEnabled={true}
+                refreshControl={
+                    <RefreshControl
+                        refreshing={loadApp}
+                        onRefresh={() => {
+                            refetchEvent();
+                            refetchPoll();
+                            infiniteComment.refetch();
+                        }}
+                    />
+                }
+
             >
                 {event ?
                     <>
@@ -142,7 +168,7 @@ export default function DetailScreen() {
                             {/*Event history status*/}
                             <EventHistoryCard/>
 
-                            {/*Agenda sự kiện*/}
+                            {/*Lịch trình sự kiện*/}
                             <Typo weight={"700"} marginTop={20}
                                   fontSize={DefaultSize.xl}>{t('event.page.detail.agenda_event')}</Typo>
                             <XStack flexWrap={"wrap"}>
@@ -165,9 +191,66 @@ export default function DetailScreen() {
                                     </View>
                                 ))}
                             </XStack>
+
+                            {/*Bình chọn sự kiện*/}
+                            {eventPoll && Array.isArray(eventPoll) && eventPoll.length > 0 && (
+                                <>
+                                    <Typo weight={"700"} marginTop={20} fontSize={DefaultSize.xl}>{t('event.page.detail.poll_event')}</Typo>
+                                    {eventPoll.map((poll) => {
+                                        const now = dayjs();
+                                        const start_time = dayjs(poll.start_time);
+                                        const end_time = dayjs(poll.end_time);
+                                        const disabled = end_time.isBefore(now) || start_time.isAfter(now);
+
+                                        return (
+                                            <TouchableOpacity
+                                                key={`poll_${poll.id}`}
+                                                disabled={disabled}
+                                                onPress={() => {
+                                                    router.push({
+                                                        pathname: '/(app)/(event)/event-poll',
+                                                        params: {
+                                                            id: poll.id,
+                                                        }
+                                                    })
+                                                }}
+                                            >
+                                                <View padding={10} backgroundColor={disabled ? DefaultColor.slate["200"] : DefaultColor.white} borderRadius={5}>
+                                                    <View flexDirection={"row"} alignItems={"center"} justifyContent={"space-between"} gap={"$2"} marginBottom={10}>
+                                                        <Typo weight={"700"} fontSize={DefaultSize.base} numberOfLines={1}>
+                                                            {poll.title}
+                                                        </Typo>
+                                                        {/*Badge over time nếu đã disabled*/}
+                                                        {disabled && (
+                                                            <View paddingHorizontal={4} paddingVertical={2} borderRadius={4} backgroundColor={DefaultColor.primary_color}>
+                                                                <Typo weight={"700"} fontSize={DefaultSize.xs} color={DefaultColor.white}>
+                                                                    {start_time.isAfter(now) ? t('event.page.detail.not_started_poll') : t('event.page.detail.over_time_poll')}
+                                                                </Typo>
+                                                            </View>
+                                                        )}
+                                                    </View>
+                                                    <View gap={"$2"}>
+                                                        <Typo weight={"500"} color={DefaultColor.slate["500"]} fontSize={DefaultSize.base} numberOfLines={1}>
+                                                            {t('event.page.detail.number_question_poll')} :  {poll.duration_unit}
+                                                        </Typo>
+                                                        <Typo weight={"500"} color={DefaultColor.slate["500"]} fontSize={DefaultSize.base} numberOfLines={1}>
+                                                            {t('event.page.detail.start_time_poll')} :  {start_time.format('DD/MM/YYYY HH:mm')}
+                                                        </Typo>
+                                                        <Typo weight={"500"} color={DefaultColor.slate["500"]} fontSize={DefaultSize.base} numberOfLines={1}>
+                                                            {t('event.page.detail.end_time_poll')} :  {end_time.format('DD/MM/YYYY HH:mm')}
+                                                        </Typo>
+                                                    </View>
+                                                </View>
+                                            </TouchableOpacity>
+                                        )
+                                    })}
+
+                                </>
+                            )}
+
                             {/*Đặt câu hỏi và nhận xét*/}
                             <YStack marginTop={10} gap={"$4"} position={"relative"}>
-                                <CommentSection event_id={event.id}/>
+                                <CommentSection event_id={event.id} infiniteComment={infiniteComment}/>
                             </YStack>
                             {/*Tổng quan sự kiện*/}
                             <Card padded marginTop={10} backgroundColor={DefaultColor.white}>
@@ -232,12 +315,9 @@ export const HeaderDetailScreen = () => {
     const {t} = useTranslation();
     const {id} = useLocalSearchParams<{ id?: string }>();
     const {error} = useToast();
-    const handleError = useToastErrorHandler();
-    const setLoading = useAppStore(s => s.setLoading);
     const event = useEventDetailStore(s => s.event);
-    const {event_user_history, setEventUserHistory} = useEventDetailStore();
+    const {event_user_history} = useEventDetailStore();
     const user = useAuthStore(s => s.user);
-    const {mutate} = useMutateRegisterEventHistory();
 
     return (
         <XStack paddingTop={insets.top + 10} paddingHorizontal={DefaultSize.md} alignItems={"center"}
@@ -375,7 +455,8 @@ const EventHistoryCard = () => {
 
 const CommentSection: FC<{
     event_id: string;
-}> = ({event_id}) => {
+    infiniteComment: ReturnType<typeof useInfiniteCommentList>
+}> = ({event_id, infiniteComment}) => {
     const {t} = useTranslation();
     const {control, handleSubmit, formState: {errors, isSubmitting}, setValue} = useFormComment();
     const [showModal, setShowModal] = useState(false);
@@ -385,13 +466,7 @@ const CommentSection: FC<{
         setValue("event_id", event_id);
     }, [event_id]);
 
-    const {data, refetch} = useInfiniteCommentList({
-        filters: {
-            event_id: event_id,
-            type: _EventCommentType.PUBLIC
-        },
-        limit: 6
-    });
+    const {data, refetch} = infiniteComment;
     const language = useAppStore(s => s.language);
 
     const listComment = useMemo(() => data?.pages.flatMap((page) => page.data) || [], [data]);

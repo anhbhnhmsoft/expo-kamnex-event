@@ -32,7 +32,8 @@ export const useGetDataEventDetail = (id: string | null) => {
 
     return {
         event,
-        loading: query.isLoading || query.isRefetching
+        loading: query.isLoading || query.isRefetching,
+        refetch: query.refetch,
     };
 }
 
@@ -124,5 +125,60 @@ export const useQueryGetEventSeat = (event_id?: string, area_id?: string) => {
     return {
         event_seat,
         loading: query.isLoading || query.isRefetching
+    };
+}
+
+/**
+ * Lấy thông danh sách khảo sát của sự kiện
+ */
+export const useQueryGetEventPoll = (event_id: string | null) => {
+    const query = useQuery({
+        queryKey: ['eventApi-listPoll', event_id],
+        queryFn: async () => eventApi.listPoll({
+            event_id: event_id ?? ''
+        }),
+        enabled: !!event_id,
+        select: (res) => res.data,
+    });
+    const handleError = useToastErrorHandler();
+
+    useEffect(() => {
+        if (query.error){
+            handleError(query.error);
+        }
+    }, [query.error]);
+
+
+    return {
+        data: query.data,
+        loading: query.isLoading || query.isRefetching,
+        refetch: query.refetch,
+    };
+}
+
+/**
+ * Lấy thông tin khảo sát của sự kiện
+ */
+export const useQueryGetEventPollItem = (poll_id: string | null) => {
+    const query = useQuery({
+        queryKey: ['eventApi-itemPoll', poll_id],
+        queryFn: async () => eventApi.itemPoll({
+            poll_id: poll_id ?? ''
+        }),
+        enabled: !!poll_id,
+        select: (res) => res.data,
+    });
+    const handleError = useToastErrorHandler();
+    useEffect(() => {
+        if (query.error){
+            handleError(query.error);
+            router.back();
+        }
+    }, [query.error]);
+
+    return {
+        data: query.data,
+        loading: query.isLoading || query.isRefetching,
+        refetch: query.refetch,
     };
 }

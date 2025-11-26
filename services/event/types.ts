@@ -1,5 +1,12 @@
 import {BaseSearchRequest, ResponseDataSuccessType, ResponsePagingSuccessType} from "@/utils/@types";
-import {_EventCommentType, _EventSeatStatus, _EventStatus, _EventUserHistory, _EventUserRole} from "@/services/event/const";
+import {
+    _EventCommentType,
+    _EventPollQuestionType,
+    _EventSeatStatus,
+    _EventStatus,
+    _EventUserHistory,
+    _EventUserRole
+} from "@/services/event/const";
 
 export type SearchEventParams = {
     province_code?: string;
@@ -155,3 +162,50 @@ export type RegisterDocumentResponse = ResponseDataSuccessType<{
     money: string;
     description: string;
 }>
+
+
+export type ListPollRequest = {
+    event_id: string;
+}
+
+export type EventPollItem = {
+    id: string;
+    title: string;
+    poll_type: string;
+    start_time: string;
+    end_time: string;
+    duration: number;
+    duration_unit: number;
+    is_active: boolean;
+}
+
+export type ListPollResponse = ResponseDataSuccessType<EventPollItem[]>
+
+export type EventPollQuestion = {
+    id: string;
+    question: string;
+    type: _EventPollQuestionType;
+    options?: {
+        id: string;
+        label: string;
+    }[];
+}
+
+export type ItemPollRequest = {
+    poll_id: string;
+}
+
+export type ItemPollResponse = ResponseDataSuccessType<EventPollItem & {
+    questions : EventPollQuestion[]
+}>
+
+export type SubmitPollForm = {
+    question_id: string;
+    answer: string;
+    answer_ids?: string[];
+}
+
+export type SubmitPollRequest = {
+    poll_id: string;
+    questions: SubmitPollForm[];
+}

@@ -4,7 +4,7 @@
     "slug": "michec",
     "version": "1.0.1",
     "orientation": "portrait",
-    "icon": "assets/images/logo/logo-michec-icon.png",
+    "icon": "assets/images/logo/logo-michec-white.png",
     "scheme": "michecevent",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -31,9 +31,9 @@
       "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
-        "foregroundImage": "assets/images/logo/logo-michec-icon.png",
-        "backgroundImage": "assets/images/logo/logo-michec-icon.png",
-        "monochromeImage": "assets/images/logo/logo-michec-icon.png"
+        "foregroundImage": "assets/images/logo/logo-michec-white.png",
+        "backgroundImage": "assets/images/logo/logo-michec-white.png",
+        "monochromeImage": "assets/images/logo/logo-michec-white.png"
       },
       "edgeToEdgeEnabled": true,
       "config": {
@@ -55,7 +55,7 @@
     },
     "web": {
       "output": "static",
-      "favicon": "assets/images/logo/logo-michec-icon.png"
+      "favicon": "assets/images/logo/logo-michec-white.png"
     },
     "plugins": [
       "expo-router",
@@ -92,7 +92,7 @@
       [
         "expo-notifications",
         {
-          "icon": "assets/images/logo/logo-michec-icon.png",
+          "icon": "assets/images/logo/logo-michec-white.png",
           "color": "#ffffff",
           "defaultChannel": "default"
         }

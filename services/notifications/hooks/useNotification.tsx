@@ -62,7 +62,6 @@ const useNotification = () => {
     const pushNotification = useNotiStore(s => s.pushNotification);
     useEffect(() => {
         registerForPushNotificationsAsync().then((token) => {
-            console.log(token)
             // send token
             if (token){
                 notificationAPI.sendPushToken({

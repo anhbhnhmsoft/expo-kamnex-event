@@ -16,22 +16,15 @@ export default function QrScannerScreen() {
 
     const handleScan = useCallback(async (scanningResult: BarcodeScanningResult) => {
         if (!scanningResult?.bounds || isProcessing.current) return;
-
-        const {origin, size} = scanningResult.bounds;
-        const qrLeft = origin.x;
-        const qrTop = origin.y;
-        const qrRight = origin.x + size.width;
-        const qrBottom = origin.y + size.height;
-
-        // kiểm tra xem QR có nằm trong khung giữa không
-        const insideHorizontal = qrLeft >= frameLeft && qrRight <= frameLeft + frameSize;
-        const insideVertical = qrTop >= frameTop && qrBottom <= frameTop + frameSize;
-        const isInsideFrame = insideHorizontal && insideVertical;
-
+        const validPaths = [
+            '/event/quick-register',
+            '/event/quick-checkin'
+        ];
+        const isValidUrl = validPaths.some(path =>
+            scanningResult.data?.startsWith(`${BackendURL}${path}`)
+        );
         // Kiểm tra pattern URL đúng
-        const isValidUrl = scanningResult.data?.startsWith(`${BackendURL}/event/quick-register`);
-
-        if (isInsideFrame && isValidUrl) {
+        if (isValidUrl) {
             isProcessing.current = true;
             setDetected(true);
             await WebBrowser.openBrowserAsync(scanningResult.data, {
@@ -47,7 +40,7 @@ export default function QrScannerScreen() {
                 setDetected(false);
             }, 1000);
         }
-    }, [frameLeft, frameTop]);
+    }, []);
     return (
         <View flex={1} position={"relative"}>
             <CameraView

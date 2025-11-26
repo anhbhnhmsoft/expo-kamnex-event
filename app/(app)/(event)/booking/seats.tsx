@@ -38,7 +38,6 @@ export default function SeatsScreen() {
                 <View flex={1} justifyContent={"center"} alignItems={"center"}>
                     <XStack
                         flexWrap={"wrap"}
-                        // 1. Đổi thành flex-start để các ô luôn căn trái đều nhau
                         alignItems={"flex-start"}
                         justifyContent={"flex-start"}
                         gap={"$2"}

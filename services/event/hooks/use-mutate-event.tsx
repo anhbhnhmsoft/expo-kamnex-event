@@ -1,6 +1,11 @@
 import {useMutation} from "@tanstack/react-query";
 import eventApi from "@/services/event/api";
-import {CommentRequest, RegisterEventHistoryRequest, RegisterDocumentRequest} from "@/services/event/types";
+import {
+    CommentRequest,
+    RegisterEventHistoryRequest,
+    RegisterDocumentRequest,
+    SubmitPollRequest
+} from "@/services/event/types";
 
 
 export const useMutateRegisterEventHistory = () => {
@@ -18,5 +23,10 @@ export const useMutateCommentEvent = () => {
 export const useMutateRegisterDocument = () => {
     return useMutation({
         mutationFn: (data: RegisterDocumentRequest) => eventApi.registerDocument(data),
+    })
+}
+export const useMutateSubmitPoll = () => {
+    return useMutation({
+        mutationFn: (data: SubmitPollRequest) => eventApi.submitPoll(data),
     })
 }

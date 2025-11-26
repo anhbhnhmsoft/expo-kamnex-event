@@ -206,7 +206,13 @@
         "event_more": "Sự kiện liên quan",
         "thank_for_book_title": "Cảm ơn bạn đã đăng ký tham gia sự kiện",
         "thank_for_book_desc": "Đây là thông tin hàng ghế cũng như số vé của bạn",
-        "please_register_membership_or_buy_document_to_access": "Hãy đăng ký gói thành viên hoặc mua tài liệu để có thể truy cập tài liệu này"
+        "please_register_membership_or_buy_document_to_access": "Hãy đăng ký gói thành viên hoặc mua tài liệu để có thể truy cập tài liệu này",
+        "poll_event": "Khảo sát sự kiện",
+        "over_time_poll": "Hết hạn khảo sát",
+        "not_started_poll": "Chưa đến thời gian khảo sát",
+        "number_question_poll": "Số câu khảo sát",
+        "start_time_poll": "Bắt đầu",
+        "end_time_poll": "Kết thúc"
       },
       "detail-schedule": {
         "accessible": "Trung tâm tổ chức có thể truy cập"
@@ -222,10 +228,19 @@
       },
       "booking_check_trans": {
         "title": "Thông tin thanh toán"
+      },
+      "event_poll": {
+        "title": "Khảo sát sự kiện",
+        "choose_answer": "Chọn đáp án",
+        "write_answer": "Viết câu trả lời",
+        "submit": "Gửi khảo sát",
+        "poll_success": "Cảm ơn bạn đã khảo sát sự kiện này"
       }
     },
     "error": {
-      "invalid_comment": "Bạn hãy nhập nhận xét, và lưu ý nhận xét không quá 1000 từ"
+      "invalid_comment": "Bạn hãy nhập nhận xét, và lưu ý nhận xét không quá 1000 từ",
+      "invalid_poll_answer": "Bạn hãy chọn ít nhất 1 đáp án",
+      "invalid_poll_answer_open_ended": "Bạn hãy nhập câu trả lời của bạn"
     }
   },
   "account": {

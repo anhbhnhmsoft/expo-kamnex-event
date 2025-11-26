@@ -7,7 +7,7 @@ import {
     RegisterEventHistoryResponse,
     SearchEventRequest,
     RegisterDocumentRequest,
-    RegisterDocumentResponse
+    RegisterDocumentResponse, ListPollRequest, ListPollResponse, ItemPollRequest, ItemPollResponse, SubmitPollRequest
 } from "@/services/event/types";
 import {client} from "@/utils/axiosClient";
 import {ResponseSuccessType} from "@/utils/@types";
@@ -45,6 +45,18 @@ const eventApi = {
     },
     registerDocument: async (data: RegisterDocumentRequest): Promise<RegisterDocumentResponse> => {
         const response = await client.post('/schedule/document/register', data);
+        return response.data;
+    },
+    listPoll: async (params: ListPollRequest): Promise<ListPollResponse> => {
+        const response = await client.get(`${defaultUri}/${params.event_id}/poll`);
+        return response.data;
+    },
+    itemPoll: async (params: ItemPollRequest): Promise<ItemPollResponse> => {
+        const response = await client.get(`${defaultUri}/poll/${params.poll_id}`);
+        return response.data;
+    },
+    submitPoll: async (data: SubmitPollRequest): Promise<ResponseSuccessType> => {
+        const response = await client.post(`${defaultUri}/poll`, data);
         return response.data;
     }
 }
