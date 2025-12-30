@@ -2,7 +2,7 @@
   "expo": {
     "name": "michec",
     "slug": "michec",
-    "version": "1.0.1",
+    "version": "1.0.0",
     "orientation": "portrait",
     "icon": "assets/images/logo/logo-michec-white.png",
     "scheme": "michecevent",
@@ -13,13 +13,13 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.kamnex.michecevent",
+      "bundleIdentifier": "com.kamnex.michecevent.production",
+      "buildNumber": "1.0.0",
       "infoPlist": {
         "NSCameraUsageDescription": "Ứng dụng cần truy cập camera để chụp ảnh và quét mã QR.",
         "NSMicrophoneUsageDescription": "Ứng dụng cần sử dụng micro để ghi âm khi quay video.",
         "NSPhotoLibraryUsageDescription": "Ứng dụng cần quyền truy cập thư viện ảnh để bạn chọn và tải ảnh lên.",
         "NSLocationWhenInUseUsageDescription": "Ứng dụng cần truy cập vị trí để hiển thị bản đồ và gợi ý địa điểm.",
-        "NSUserTrackingUsageDescription": "Cho phép ứng dụng theo dõi hoạt động của bạn để cải thiện trải nghiệm người dùng.",
         "ITSAppUsesNonExemptEncryption": false
       },
       "config": {
@@ -29,11 +29,10 @@
     "android": {
       "package": "com.kamnex.michecevent",
       "googleServicesFile": "./google-services.json",
+      "versionCode": 3,
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
-        "foregroundImage": "assets/images/logo/logo-michec-white.png",
-        "backgroundImage": "assets/images/logo/logo-michec-white.png",
-        "monochromeImage": "assets/images/logo/logo-michec-white.png"
+        "backgroundColor": "#ffffff",
+        "foregroundImage": "assets/images/logo/logo-michec-white.png"
       },
       "edgeToEdgeEnabled": true,
       "config": {
@@ -78,21 +77,21 @@
       [
         "expo-camera",
         {
-          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera",
-          "microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone",
+          "cameraPermission": "Cho phép ứng dụng truy cập camera để chụp ảnh và quét mã QR.",
+          "microphonePermission": "Cho phép ứng dụng sử dụng micro để ghi âm khi quay video.",
           "recordAudioAndroid": true
         }
       ],
       [
         "expo-image-picker",
         {
-          "photosPermission": "The app accesses your photos to let you share them with your friends."
+          "photosPermission": "Ứng dụng cần quyền truy cập thư viện ảnh để bạn chọn và tải ảnh lên."
         }
       ],
       [
         "expo-notifications",
         {
-          "icon": "assets/images/logo/logo-michec-white.png",
+          "icon": "assets/images/logo/logo-michec-icon.png",
           "color": "#ffffff",
           "defaultChannel": "default"
         }

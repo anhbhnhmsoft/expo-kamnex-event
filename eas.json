@@ -14,13 +14,15 @@
     },
     "production": {
       "autoIncrement": true,
-      "android": { "buildType": "app-bundle" }
+      "android": {
+        "buildType": "app-bundle"
+      }
     }
   },
    "submit": {
       "production": {
-        "ios": {
-          "ascAppId": "6753855145"
+        "android": {
+          "track": "internal"
         }
       }
     }
