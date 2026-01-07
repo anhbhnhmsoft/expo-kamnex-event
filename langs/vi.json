@@ -252,7 +252,9 @@
         "take_photo": "Chụp ảnh",
         "choose_from_lib": "Chọn từ thư viện",
         "delete_avatar_title": "Xóa ảnh đại diện",
-        "delete_avatar_desc": "Bạn có chắc muốn xóa ảnh đại diện của bạn"
+        "delete_avatar_desc": "Bạn có chắc muốn xóa ảnh đại diện của bạn",
+        "delete_account_title": "Vô hiệu hóa tài khoản",
+        "delete_account_desc": "Bạn có chắc muốn vô hiệu hóa tài khoản của bạn ?"
       },
       "membership": {
         "list": {

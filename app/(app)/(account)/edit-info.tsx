@@ -1,9 +1,9 @@
 import {useTranslation} from "react-i18next";
-import {Alert, StyleSheet, TouchableOpacity, TouchableWithoutFeedback} from "react-native";
+import {Alert,  StyleSheet, TouchableOpacity, TouchableWithoutFeedback} from "react-native";
 import {SafeAreaView} from "react-native-safe-area-context";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 import LayoutView from "@/components/libs/LayoutView";
-import {Button, Form, Image, Input, Label, Sheet, Spinner, TextArea, View, XStack, YStack} from "tamagui";
+import {Button, Form, Image, Input, Label, Sheet, Spinner, View, XStack, YStack} from "tamagui";
 import DefaultColor from "@/components/ui/defaultColor";
 import Typo from "@/components/libs/Typo";
 import {DefaultSize} from "@/components/ui/defaultStyle";
@@ -15,6 +15,7 @@ import useFormEditInfoUser from "@/services/auth/hooks/useFormEditInfoUser";
 import {EditInfoRequest} from "@/services/auth/types";
 import useGetInfoUser from "@/services/auth/hooks/useGetInfoUser";
 import {
+    useMutationDeleteAccount,
     useMutationDeleteAvatar,
     useMutationEditAvatar,
     useMutationEditUser
@@ -26,6 +27,7 @@ import * as ImagePicker from "expo-image-picker";
 import {useAppStore} from "@/services/app/stores/useAppStore";
 import AlertFC from "@/components/libs/Alert";
 import useRequestPermissionCamera from "@/services/app/hooks/useRequestPermissionCamera";
+import useAuthStore from "@/services/auth/stores/useAuthStore";
 
 export default function EditInfoScreen() {
     const {t} = useTranslation();
@@ -38,9 +40,13 @@ export default function EditInfoScreen() {
 
     const {mutate, isPending} = useMutationEditUser();
 
+    const {mutate: mutateDeleteAccount, isPending: isPendingDeleteAccount} = useMutationDeleteAccount();
+
     const {success} = useToast();
 
     const handleError = useToastErrorHandler();
+
+    const logout = useAuthStore(state => state.logout);
 
     useEffect(() => {
         if (user) {
@@ -306,6 +312,7 @@ export default function EditInfoScreen() {
                                         />
                                     </FadeView>
 
+                                    {/* Save and Change Password and delete account */}
                                     <XStack gap={"$2"}>
                                         <Form.Trigger asChild disabled={isSubmitting || isPending}>
                                             <Button flex={1} theme={"blue"} backgroundColor={DefaultColor.primary_color}
@@ -318,7 +325,7 @@ export default function EditInfoScreen() {
                                         </Form.Trigger>
 
                                         <Button flex={1} theme={"white"} backgroundColor={DefaultColor.white}
-                                                disabled={isSubmitting || isPending}
+                                                disabled={isSubmitting || isPending || isPendingDeleteAccount}
                                                 onPress={() => {
                                                     setChangePass(!changePass);
                                                     setValue('password', undefined);
@@ -330,10 +337,49 @@ export default function EditInfoScreen() {
                                             </Typo>
                                         </Button>
                                     </XStack>
+
+                                    {/* Delete account */}
+                                    <View>
+                                        <Button flex={1} theme={"red"} backgroundColor={DefaultColor.red[400]}
+                                                disabled={isSubmitting || isPending || isPendingDeleteAccount}
+                                                onPress={() => {
+                                                    Alert.alert(
+                                                        t('account.page.edit_info.delete_account_title'),
+                                                        t('account.page.edit_info.delete_account_desc'),
+                                                        [
+                                                            {
+                                                                text: t('common.cancel'),
+                                                                style: "cancel"
+                                                            },
+                                                            {
+                                                                text: t('common.accept'),
+                                                                style: "destructive",
+                                                                onPress: () => {
+                                                                    mutateDeleteAccount(undefined, {
+                                                                        onSuccess: async (res) => {
+                                                                            await logout();
+                                                                            router.replace('/(app)/(tab)');
+                                                                        },
+                                                                        onError: (error) => {
+                                                                            handleError(error)
+                                                                        }
+                                                                    });
+                                                                }
+                                                            }
+                                                        ]
+                                                    );
+                                                }}>
+                                            {isPendingDeleteAccount ? <Spinner color={DefaultColor.white}/> :
+                                            <Typo textAlign={"center"} color={DefaultColor.white} weight={"700"}>
+                                                {t('account.page.edit_info.delete_account_title')}
+                                            </Typo>}
+                                        </Button>
+                                    </View>
                                 </Form>
                             </LayoutView>
                             :
-                            <LoadingList/>}
+                            <LoadingList/>
+                        }
                     </KeyboardAwareScrollView>
                 </TouchableWithoutFeedback>
             </SafeAreaView>

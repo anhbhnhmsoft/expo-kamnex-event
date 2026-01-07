@@ -22,3 +22,6 @@ export const useMutationEditAvatar = () => useMutation({
 export const useMutationDeleteAvatar = () => useMutation({
     mutationFn: () => authAPI.deleteAvatar(),
 });
+export const useMutationDeleteAccount = () => useMutation({
+    mutationFn: () => authAPI.deleteAccount(),
+});

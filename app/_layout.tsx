@@ -1,6 +1,6 @@
 import {Stack} from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import { useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import useFontDefault from "@/components/ui/defaultFonts";
 import {GestureHandlerRootView} from "react-native-gesture-handler";
 import initI18n from '@/utils/i18n';
@@ -10,6 +10,11 @@ import {createTamagui, TamaguiProvider} from "tamagui";
 import {defaultConfig} from "@tamagui/config/v4";
 import ToastManager from 'toastify-react-native'
 import DefaultHeader from "@/components/page/DefaultHeader";
+import Purchases, {LOG_LEVEL} from 'react-native-purchases';
+import {Platform} from "react-native";
+import {PurchasesAPIKeyAndroid, PurchasesAPIKeyIOS} from "@/utils/@types";
+
+
 SplashScreen.preventAutoHideAsync();
 
 const queryClient = new QueryClient();
@@ -31,6 +36,16 @@ export default function RootLayout() {
         }
     }, [loaded, error, readyI18n]);
 
+    useEffect(() => {
+        Purchases.setLogLevel(LOG_LEVEL.VERBOSE);
+
+        if (Platform.OS === 'ios') {
+            Purchases.configure({apiKey: PurchasesAPIKeyIOS});
+        } else if (Platform.OS === 'android') {
+            Purchases.configure({apiKey: PurchasesAPIKeyAndroid});
+        }
+    }, []);
+
     if (!(loaded || error) || !readyI18n) {
         return null;
     }
@@ -41,7 +56,7 @@ export default function RootLayout() {
             flex: 1,
         }}>
             <QueryClientProvider client={queryClient}>
-                <TamaguiProvider config={config}>
+                <TamaguiProvider config={config} defaultTheme={"light"}>
                     <Stack
                         initialRouteName="index"
                         screenOptions={{

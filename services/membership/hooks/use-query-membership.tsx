@@ -6,7 +6,12 @@ import {MembershipAccountRequest, MembershipListRequest} from "@/services/member
 export const useInfiniteMembershipList = (params: MembershipListRequest) => {
     return useInfiniteQuery({
         queryKey: ['membershipApi-list', params],
-        queryFn: async () => await membershipApi.list({...params, page: params.page ?? 1}),
+        queryFn: async ({ pageParam }) => {
+            return await membershipApi.list({
+                ...params,
+                page: pageParam as number
+            });
+        },
         getNextPageParam: (lastPage) => {
             const next = lastPage.pagination.current_page + 1;
             return next <= lastPage.pagination.last_page ? next : undefined;
@@ -28,7 +33,12 @@ export const useQueryCheckPayment = (tranId?: string | null) => useQuery({
 export const useInfiniteMembershipAccount = (params: MembershipAccountRequest) => {
     return useInfiniteQuery({
         queryKey: ['membershipApi-account', params],
-        queryFn: async () => await membershipApi.account({...params, page: params.page ?? 1}),
+        queryFn: async ({ pageParam }) => {
+            return await membershipApi.account({
+                ...params,
+                page: pageParam as number
+            });
+        },
         getNextPageParam: (lastPage) => {
             const next = lastPage.pagination.current_page + 1;
             return next <= lastPage.pagination.last_page ? next : undefined;

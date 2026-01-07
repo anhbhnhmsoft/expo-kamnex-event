@@ -40,7 +40,12 @@ export const useGetDataEventDetail = (id: string | null) => {
 export const useInfiniteEventList = (params: SearchEventRequest) => {
     return useInfiniteQuery({
         queryKey: ['eventApi-list', params],
-        queryFn: async () => await eventApi.list({...params, page: params.page ?? 1}),
+        queryFn: async ({ pageParam }) => {
+            return await eventApi.list({
+                ...params,
+                page: pageParam as number
+            });
+        },
         getNextPageParam: (lastPage) => {
             const next = lastPage.pagination.current_page + 1;
             return next <= lastPage.pagination.last_page ? next : undefined;
@@ -53,7 +58,12 @@ export const useInfiniteCommentList = (params: ListCommentRequest) => {
     return useInfiniteQuery({
         queryKey: ['eventApi-listComment', params],
         enabled: !!params?.filters?.event_id,
-        queryFn: async () => await eventApi.listComment({...params, page: params.page ?? 1}),
+        queryFn: async ({ pageParam }) => {
+            return await eventApi.listComment({
+                ...params,
+                page: pageParam as number
+            });
+        },
         getNextPageParam: (lastPage) => {
             const next = lastPage.pagination.current_page + 1;
             return next <= lastPage.pagination.last_page ? next : undefined;

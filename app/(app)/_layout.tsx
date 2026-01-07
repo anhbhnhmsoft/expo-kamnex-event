@@ -2,13 +2,14 @@ import { Stack} from "expo-router";
 import {useAppStore} from "@/services/app/stores/useAppStore";
 import FullScreenLoading from "@/components/libs/FullScreenLoading";
 import DefaultColor from "@/components/ui/defaultColor";
-import useCheckStatusLogin from "@/services/auth/hooks/useCheckStatusLogin";
 import useNotification from "@/services/notifications/hooks/useNotification";
+import useAuthStore from "@/services/auth/stores/useAuthStore";
+import {_AuthStatus} from "@/services/auth/const";
 
 export default function AppLayout(){
     const loading = useAppStore(state => state.loading);
+    const status = useAuthStore(state => state.status);
 
-    useCheckStatusLogin('app');
     // sử dụng thông báo
     useNotification();
 
@@ -24,8 +25,10 @@ export default function AppLayout(){
                 }}
             >
                 <Stack.Screen name="(tab)"/>
-                <Stack.Screen name="(event)"/>
-                <Stack.Screen name="(account)"/>
+                <Stack.Protected guard={status === _AuthStatus.AUTHORIZED}>
+                    <Stack.Screen name="(event)"/>
+                    <Stack.Screen name="(account)"/>
+                </Stack.Protected>
             </Stack>
         </>
     )

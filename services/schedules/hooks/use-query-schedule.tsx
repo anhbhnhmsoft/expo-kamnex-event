@@ -60,7 +60,12 @@ export const useQueryDetailDocument = (id?:string ) => {
 export const useInfiniteListDocument = (params: ListDocumentRequest) => {
     return useInfiniteQuery({
         queryKey: ['schedulesApi-listDocument', params],
-        queryFn: async () => await schedulesApi.listDocument({...params, page: params.page ?? 1}),
+        queryFn: async ({ pageParam }) => {
+            return await schedulesApi.listDocument({
+                ...params,
+                page: pageParam as number
+            });
+        },
         getNextPageParam: (lastPage) => {
             const next = lastPage.pagination.current_page + 1;
             return next <= lastPage.pagination.last_page ? next : undefined;

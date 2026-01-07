@@ -252,7 +252,9 @@
         "take_photo": "Take Photo",
         "choose_from_lib": "Choose from Library",
         "delete_avatar_title": "Delete Avatar",
-        "delete_avatar_desc": "Are you sure you want to delete your avatar?"
+        "delete_avatar_desc": "Are you sure you want to delete your avatar?",
+        "delete_account_title": "Delete Account",
+        "delete_account_desc": "Are you sure you want to delete your account?"
       },
       "membership": {
         "list": {

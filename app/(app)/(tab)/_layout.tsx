@@ -1,13 +1,16 @@
-import {Tabs} from "expo-router";
+import {router, Tabs} from "expo-router";
 import DefaultColor from "@/components/ui/defaultColor";
 import {FontAwesome5} from "@expo/vector-icons";
 import {useTranslation} from "react-i18next";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import useAuthStore from "@/services/auth/stores/useAuthStore";
+import {_AuthStatus} from "@/services/auth/const";
 
 
 export default function TabLayout() {
     const {t}  = useTranslation();
+    const status = useAuthStore((state) => state.status);
     return (
         <Tabs
             initialRouteName="index"
@@ -25,12 +28,22 @@ export default function TabLayout() {
                 },
             }}
         >
+
             <Tabs.Screen
                 name="index"
                 options={{
                     title: t('tab.home'),
                     tabBarIcon: (props) =>
-                        <FontAwesome5 name="home" size={props.size} color={props.color} />
+                        <FontAwesome5 name="home" size={props.size} color={props.color} />,
+
+                }}
+                listeners={{
+                    tabPress: (e) => {
+                        if (status !== _AuthStatus.AUTHORIZED) {
+                            e.preventDefault();
+                            router.push('/(auth)');
+                        }
+                    },
                 }}
             />
             <Tabs.Screen
@@ -40,6 +53,14 @@ export default function TabLayout() {
                     tabBarIcon: (props) =>
                         <FontAwesome6 name="newspaper" size={props.size} color={props.color} />
                 }}
+                listeners={{
+                    tabPress: (e) => {
+                        if (status !== _AuthStatus.AUTHORIZED) {
+                            e.preventDefault();
+                            router.push('/(auth)');
+                        }
+                    },
+                }}
             />
             <Tabs.Screen
                 name="registered"
@@ -48,6 +69,14 @@ export default function TabLayout() {
                     tabBarIcon: (props) =>
                         <FontAwesome name="sign-out" size={props.size} color={props.color} />
                 }}
+                listeners={{
+                    tabPress: (e) => {
+                        if (status !== _AuthStatus.AUTHORIZED) {
+                            e.preventDefault();
+                            router.push('/(auth)');
+                        }
+                    },
+                }}
             />
             <Tabs.Screen
                 name="account"
@@ -55,6 +84,14 @@ export default function TabLayout() {
                     title: t('tab.account'),
                     tabBarIcon: (props) =>
                         <FontAwesome name="user" size={props.size} color={props.color} />
+                }}
+                listeners={{
+                    tabPress: (e) => {
+                        if (status !== _AuthStatus.AUTHORIZED) {
+                            e.preventDefault();
+                            router.push('/(auth)');
+                        }
+                    },
                 }}
             />
         </Tabs>

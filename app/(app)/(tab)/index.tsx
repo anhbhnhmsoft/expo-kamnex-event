@@ -17,6 +17,7 @@ import {EventListItem} from "@/services/event/types";
 import {formatDate} from "@/utils/helper";
 import useToast from "@/services/app/hooks/useToast";
 import {useInfiniteEventList} from "@/services/event/hooks/use-query-event";
+import {useCheckAuthToRedirect} from "@/services/auth/hooks/useCheckAuth";
 
 export default function HomeScreen() {
     const {t} = useTranslation();
@@ -30,10 +31,13 @@ export default function HomeScreen() {
         isFetchingNextPage,
         refetch,
         isRefetching,
-        isLoading,
+        isLoading
     } = useInfiniteEventList(request);
 
+    const checkAuth = useCheckAuthToRedirect();
+
     const listEvent = useMemo(() => data?.pages.flatMap((page) => page.data) || [], [data]);
+
     useEffect(() => {
         setLoading(isLoading || isRefetching);
     }, [isRefetching, isLoading]);
@@ -57,7 +61,9 @@ export default function HomeScreen() {
                     gap={"$4"}
                 >
                     <FontAwesome name="search" size={DefaultSize["3xl"]} color={DefaultColor.black}/>
-                    <TouchableOpacity style={{flex: 1}} onPress={() => router.push('/(app)/(event)/search')}>
+                    <TouchableOpacity style={{flex: 1}} onPress={() => {
+                        checkAuth("/(app)/(event)/search");
+                    }}>
                         <YStack flex={1}>
                             <Typo color={DefaultColor.slate[400]}
                                   fontSize={DefaultSize.sm}>{t('tab.page.index.search_placeholder')}</Typo>
@@ -199,7 +205,7 @@ export default function HomeScreen() {
                         <RefreshControl refreshing={isRefetching} onRefresh={() => refetch()}/>
                     }
                     renderItem={({item, index}) => (
-                        <EventItem item={item} key={index}/>
+                        <EventItem item={item} key={index} checkAuth={checkAuth}/>
                     )}
                     ListEmptyComponent={() => <Empty/>}
                 />
@@ -208,12 +214,12 @@ export default function HomeScreen() {
     )
 }
 
-const EventItem: FC<{ item: EventListItem }> = ({item}) => {
+const EventItem: FC<{ item: EventListItem, checkAuth: ReturnType<typeof useCheckAuthToRedirect> }> = ({item, checkAuth}) => {
     const {t} = useTranslation();
     const language = useAppStore(s => s.language);
     return (
         <TouchableOpacity onPress={() => {
-            router.push({
+            checkAuth({
                 pathname: '/(app)/(event)/detail',
                 params: {
                     id: item.id,

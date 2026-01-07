@@ -1,5 +1,4 @@
 import {SafeAreaProvider} from 'react-native-safe-area-context';
-import useCheckStatusLogin from "@/services/auth/hooks/useCheckStatusLogin";
 import FocusAwareStatusBar from "@/components/libs/FocusAwareStatusBar";
 import {Stack} from "expo-router";
 import DefaultColor from "@/components/ui/defaultColor";
@@ -7,7 +6,6 @@ import DefaultColor from "@/components/ui/defaultColor";
 
 export default function AuthLayout() {
 
-    useCheckStatusLogin('auth');
 
     return (
         <SafeAreaProvider>

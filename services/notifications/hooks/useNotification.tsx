@@ -6,6 +6,8 @@ import DefaultColor from "@/components/ui/defaultColor";
 import {useEffect, useRef} from "react";
 import notificationAPI from "@/services/notifications/api";
 import useNotiStore from "@/services/notifications/stores/useNotiStore";
+import useAuthStore from "@/services/auth/stores/useAuthStore";
+import {_AuthStatus} from "@/services/auth/const";
 
 Notifications.setNotificationHandler({
     handleNotification: async () => ({
@@ -60,7 +62,11 @@ const useNotification = () => {
     const notificationListener = useRef<Notifications.EventSubscription>(null);
     const responseListener = useRef<Notifications.EventSubscription>(null);
     const pushNotification = useNotiStore(s => s.pushNotification);
+    const status = useAuthStore(state => state.status);
     useEffect(() => {
+        if (status !== _AuthStatus.AUTHORIZED) {
+            return;
+        }
         registerForPushNotificationsAsync().then((token) => {
             // send token
             if (token){
@@ -90,7 +96,7 @@ const useNotification = () => {
                 responseListener.current.remove();
             }
         };
-    }, []);
+    }, [status]);
 }
 
 export default useNotification;

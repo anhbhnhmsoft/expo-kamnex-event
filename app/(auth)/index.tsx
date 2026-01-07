@@ -16,8 +16,17 @@ export default function OnboardScreen() {
     const {setLanguage, language} = useLanguage();
     const requestPermission = useRequestPermissionCamera();
     const inset = useSafeAreaInsets();
+    const canGoBack = router.canGoBack();
     return (
         <View style={styles.container}>
+            {canGoBack && (
+                <View position={"absolute"} top={inset.top + 16} left={16} alignItems={"center"}
+                      justifyContent={"center"}>
+                    <TouchableOpacity onPress={() => router.back()}>
+                        <MaterialCommunityIcons name="arrow-left" size={32} color={DefaultColor.primary_color}/>
+                    </TouchableOpacity>
+                </View>
+            )}
             <View style={styles.content}>
                 <View style={styles.logo_container}>
                     <Image
@@ -30,14 +39,16 @@ export default function OnboardScreen() {
                     </Typo>
                 </View>
                 <View style={styles.btn_container}>
-                    <Button width={"100%"} borderRadius={DefaultSize["4xl"]} theme={"blue"} backgroundColor={"transparent"} bordered borderColor={DefaultColor.primary_color}
+                    <Button width={"100%"} borderRadius={DefaultSize["4xl"]} theme={"blue"}
+                            backgroundColor={"transparent"} bordered borderColor={DefaultColor.primary_color}
                             onPress={() => router.push("/(auth)/register")}
                     >
                         <Typo textTransform={"uppercase"} color={DefaultColor.primary_color} weight={"700"}>
                             {t('common.register')}
                         </Typo>
                     </Button>
-                    <Button width={"100%"} borderRadius={DefaultSize["4xl"]} theme={"blue"} backgroundColor={DefaultColor.primary_color}
+                    <Button width={"100%"} borderRadius={DefaultSize["4xl"]} theme={"blue"}
+                            backgroundColor={DefaultColor.primary_color}
                             onPress={() => router.push("/(auth)/login")}
                     >
                         <Typo textTransform={"uppercase"} color={DefaultColor.white} weight={"700"}>
@@ -48,7 +59,7 @@ export default function OnboardScreen() {
                 <View style={styles.lang_container}>
                     <TouchableOpacity
                         onPress={async () => {
-                           await setLanguage(_LanguageCode.VI);
+                            await setLanguage(_LanguageCode.VI);
                         }}
                         disabled={language === _LanguageCode.VI}
                     >
@@ -77,7 +88,8 @@ export default function OnboardScreen() {
                         padding={10}
                         onPress={() => requestPermission('QR-scanner')}
                         backgroundColor={DefaultColor.primary_color}
-                        icon={<MaterialCommunityIcons name="qrcode-scan" size={DefaultSize["xl"]} color={DefaultColor.white} />}
+                        icon={<MaterialCommunityIcons name="qrcode-scan" size={DefaultSize["xl"]}
+                                                      color={DefaultColor.white}/>}
                 >
                 </Button>
             </View>
@@ -92,7 +104,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         position: "relative",
     },
-    content:{
+    content: {
         alignItems: "center",
         justifyContent: "center",
         maxWidth: 277,
@@ -121,19 +133,19 @@ const styles = StyleSheet.create({
         gap: 10,
         marginBottom: 23
     },
-    btn_text:{
+    btn_text: {
         fontSize: DefaultSize["base"],
         color: DefaultColor.white,
         textAlign: "center",
-        textTransform:"uppercase",
+        textTransform: "uppercase",
     },
-    lang_container:{
-        flexDirection:"row",
-        alignItems:"center",
-        justifyContent:"center",
+    lang_container: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
         gap: 10
     },
-    logo_lang_btn:{
+    logo_lang_btn: {
         width: 50,
         height: 33,
         borderRadius: 5

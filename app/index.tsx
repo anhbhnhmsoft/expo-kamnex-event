@@ -54,18 +54,15 @@ export default function IndexScreen() {
                 try {
                     const user = await authAPI.user();
                     await setUser(user.data);
-                    router.replace('/(app)/(tab)');
                 }catch {
                     // Nếu có lỗi thì logout
                     warning({
                         message: t('common_error.invalid_or_expired_token')
                     })
                     await logout();
-                    router.replace('/(auth)');
                 }
-            } else {
-                router.replace('/(auth)');
             }
+            router.replace('/(app)/(tab)');
         },2000);
 
         return () => {

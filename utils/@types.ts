@@ -1,4 +1,8 @@
 export const BackendURL = process.env.EXPO_PUBLIC_BACKEND_URL || "https://michec.vn";
+export const PurchasesAPIKeyIOS = process.env.EXPO_PUBLIC_PURCHASES_API_KEY_IOS || "";
+export const PurchasesAPIKeyAndroid = process.env.EXPO_PUBLIC_PURCHASES_API_KEY_ANDROID || "";
+
+
 
 export enum _LanguageCode {
     VI = 'vi',

@@ -38,7 +38,12 @@ export const useGetUnreadCount = () => {
 export const useInfiniteNotificationList = (params: NotificationListRequest) => {
     return useInfiniteQuery({
         queryKey: ['notificationAPI-list', params],
-        queryFn: async () => await notificationAPI.list({...params, page: params.page ?? 1}),
+        queryFn: async ({ pageParam }) => {
+            return await notificationAPI.list({
+                ...params,
+                page: pageParam as number
+            });
+        },
         getNextPageParam: (lastPage) => {
             const next = lastPage.pagination.current_page + 1;
             return next <= lastPage.pagination.last_page ? next : undefined;

@@ -25,6 +25,7 @@ import {useAppStore} from "@/services/app/stores/useAppStore";
 import {useMutationLogin} from "@/services/auth/hooks/useMutationAuth";
 import useToastErrorHandler from "@/services/app/hooks/useToastErrorHandler";
 import useAuthStore from "@/services/auth/stores/useAuthStore";
+import Purchases from "react-native-purchases";
 
 export default function LoginScreen() {
     const insets = useSafeAreaInsets();
@@ -50,11 +51,26 @@ export default function LoginScreen() {
             onError: (error) => {
                 handleError(error);
             },
-            onSuccess: (res) => {
-                login(res).then(() => {
+            onSuccess: async (res) => {
+                try {
+                    await login(res);
+                    try {
+                        // Quy ước ID giống hệt logic Backend bạn vừa viết
+                        // Ví dụ: "tenant_5_user_100"
+                        const compositeID = `tenant_${res.user.organizer_id}_user_${res.user.id}`;
+
+                        // Đăng nhập vào RevenueCat
+                        const { customerInfo, created } = await Purchases.logIn(compositeID);
+                        return customerInfo;
+                    } catch (e) {
+                        console.error("Lỗi định danh RevenueCat:", e);
+                    }
                     success({message: t('auth.success.login_success')});
                     router.replace('/(app)/(tab)');
-                });
+                }catch (error) {
+                    handleError(error);
+                }
+
             }
         });
     },[lang]);

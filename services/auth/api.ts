@@ -57,5 +57,9 @@ const authAPI = {
         const response = await client.get(`${defaultUri}/link-support`);
         return response.data;
     },
+    deleteAccount: async (): Promise<ResponseSuccessType> =>  {
+        const response = await client.delete(`${defaultUri}/delete-account`);
+        return response.data;
+    },
 }
 export default authAPI;
