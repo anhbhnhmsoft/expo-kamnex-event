@@ -37,12 +37,9 @@ export default function RootLayout() {
     }, [loaded, error, readyI18n]);
 
     useEffect(() => {
-        Purchases.setLogLevel(LOG_LEVEL.VERBOSE);
-
         if (Platform.OS === 'ios') {
+            Purchases.setLogLevel(LOG_LEVEL.VERBOSE);
             Purchases.configure({apiKey: PurchasesAPIKeyIOS});
-        } else if (Platform.OS === 'android') {
-            Purchases.configure({apiKey: PurchasesAPIKeyAndroid});
         }
     }, []);
 

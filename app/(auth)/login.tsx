@@ -54,17 +54,16 @@ export default function LoginScreen() {
             onSuccess: async (res) => {
                 try {
                     await login(res);
-                    try {
-                        // Quy ước ID giống hệt logic Backend bạn vừa viết
-                        // Ví dụ: "tenant_5_user_100"
-                        const compositeID = `tenant_${res.user.organizer_id}_user_${res.user.id}`;
-
-                        // Đăng nhập vào RevenueCat
-                        const { customerInfo, created } = await Purchases.logIn(compositeID);
-                        return customerInfo;
-                    } catch (e) {
-                        console.error("Lỗi định danh RevenueCat:", e);
-                    }
+                    // try {
+                    //     // Quy ước ID giống hệt logic Backend bạn vừa viết
+                    //     // Ví dụ: "tenant_5_user_100"
+                    //     const compositeID = `tenant_${res.user.organizer_id}_user_${res.user.id}`;
+                    //     // Đăng nhập vào RevenueCat
+                    //     const { customerInfo, created } = await Purchases.logIn(compositeID);
+                    //     return customerInfo;
+                    // } catch (e) {
+                    //     console.error("Lỗi định danh RevenueCat:", e);
+                    // }
                     success({message: t('auth.success.login_success')});
                     router.replace('/(app)/(tab)');
                 }catch (error) {
