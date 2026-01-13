@@ -3,8 +3,8 @@ import {
     ListGiftRequest, ListGiftResponse,
     LoginRequest,
     LoginResponse,
-    RegisterRequest,
-    UserResponse
+    RegisterRequest, ResendCodeRequest,
+    UserResponse, VerifyCodeRequest
 } from "@/services/auth/types";
 import {client} from "@/utils/axiosClient";
 import {_LanguageCode, ResponseSuccessType} from "@/utils/@types";
@@ -61,5 +61,15 @@ const authAPI = {
         const response = await client.delete(`${defaultUri}/delete-account`);
         return response.data;
     },
+    // xác thực OTP
+    verifyCode : async (data : VerifyCodeRequest): Promise<ResponseSuccessType> =>  {
+        const response = await client.post(`${defaultUri}/verify-code` , data);
+        return response.data;
+    },
+    // lấy lại mã otp
+    resendCode : async (data : ResendCodeRequest): Promise<ResponseSuccessType> =>  {
+        const response = await client.post(`${defaultUri}/resend-code`, data);
+        return response.data;
+    }
 }
 export default authAPI;

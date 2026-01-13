@@ -8,7 +8,7 @@
     "had_join": "Đã tham gia",
     "had_cancel": "Đã hủy",
     "full_name": "Họ và tên",
-    "email": "Email",
+    "email_or_phone": "Email hoặc số điện thoại",
     "phone": "Số điện thoại",
     "address": "Địa chỉ của bạn",
     "introduce": "Giới thiệu về bản thân",
@@ -49,7 +49,8 @@
     "file_assign": "File đính kèm",
     "seat_capacity": "Chỗ ngồi",
     "event": "Sự kiện",
-    "price": "Giá"
+    "price": "Giá",
+    "verify": "Xác nhận"
   },
   "common_success": {
     "save_image_success": "Lưu trữ ảnh thành công",
@@ -172,14 +173,27 @@
         "title_2": "Tài khoản của bạn",
         "choose_org": "Chọn bên tổ chức sự kiện",
         "have_account": "Bạn đã có tài khoản?"
+      },
+      "verify": {
+        "title": "Xác thực OTP",
+        "subtitle": "Vui lòng nhập mã xác thực đã được gửi đến email",
+        "resend_success": "Mã OTP đã được gửi lại thành công!",
+        "verify_success": "Xác thực thành công!",
+        "not_receive_code": "Bạn không nhận được mã?",
+        "resend_now": "Gửi lại ngay",
+        "resend_in": "Gửi lại sau",
+        "message_not_verify": "Tài khoản của bạn chưa được xác thực. Vui lòng xác thực để tiếp tục."
       }
+
     },
     "error": {
       "invalid_name": "Tên phải có ít nhất 4 ký tự và không được vượt quá 50 ký tự",
       "invalid_email": "Email không hợp lệ",
       "invalid_password": "Mật khẩu phải có ít nhất 8 kí tự",
       "invalid_confirm_password": "Mật khẩu nhập lại không giống với mật khẩu",
-      "invalid_organizer": "Vui lòng chọn bên tổ chức"
+      "invalid_organizer": "Vui lòng chọn bên tổ chức",
+      "invalid_username": "Vui lòng nhập email hoặc số điện thoại",
+      "invalid_email_or_phone": "Email hoặc số điện thoại không hợp lệ"
     },
     "success": {
       "login_success": "Đăng nhập thành công, chào mừng bạn trở lại!"
