@@ -1,5 +1,11 @@
 import {useMutation} from "@tanstack/react-query";
-import {EditInfoRequest, LoginRequest, RegisterRequest} from "@/services/auth/types";
+import {
+    EditInfoRequest,
+    LoginRequest,
+    RegisterRequest,
+    ResendCodeRequest,
+    VerifyCodeRequest
+} from "@/services/auth/types";
 import authAPI from "@/services/auth/api";
 
 
@@ -25,3 +31,11 @@ export const useMutationDeleteAvatar = () => useMutation({
 export const useMutationDeleteAccount = () => useMutation({
     mutationFn: () => authAPI.deleteAccount(),
 });
+
+export const useVerifyCodeMutation = () => useMutation({
+    mutationFn:(data : VerifyCodeRequest) => authAPI.verifyCode(data),
+})
+
+export const useResendCodeMutation = () => useMutation({
+    mutationFn:(data : ResendCodeRequest) => authAPI.resendCode(data),
+})

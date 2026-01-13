@@ -18,6 +18,7 @@ import {useMutationRegister} from "@/services/auth/hooks/useMutationAuth";
 import {useAppStore} from "@/services/app/stores/useAppStore";
 import useToastErrorHandler from "@/services/app/hooks/useToastErrorHandler";
 import useToast from "@/services/app/hooks/useToast";
+import {_TypeVerify} from "@/services/auth/const";
 
 export default function RegisterScreen() {
     const insets = useSafeAreaInsets();
@@ -25,28 +26,46 @@ export default function RegisterScreen() {
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const [openSelectOrg, setOpenSelectOrg] = useState<boolean>(false);
     const [labelOrg, setLabelOrg] = useState<string>(t('common.select'));
-
-    const {control, handleSubmit, formState: {errors, isSubmitting}, setValue, watch} = useFormRegister();
+    const {control, handleSubmit, formState: {errors, isSubmitting}, setValue, watch , reset} = useFormRegister();
     const organizerId = watch('organizer_id');
-
     const {mutate, isPending} = useMutationRegister();
     const handleError = useToastErrorHandler();
     const {success} = useToast();
-
     const lang = useAppStore(s => s.language);
 
     const onSubmit = useCallback((data: RegisterRequest) => {
         data.locate = lang;
+
         mutate(data, {
             onError: (error) => {
                 handleError(error);
             },
             onSuccess: (res) => {
-                success({message: res.message});
-                router.push('/(auth)/login')
-            }
+                success({ message: res.message });
+                reset();
+
+                // Kiểm tra username có phải email không
+                const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.username);
+
+                if (isEmail) {
+                    // Nếu là email → quay về login
+                    router.replace('/(auth)/login');
+                } else {
+                    // Nếu là số điện thoại → chuyển sang verify OTP
+                    router.push({
+                        pathname: '/(auth)/verify-otp',
+                        params: {
+                            username: data.username,
+                            organizer_id: data.organizer_id.toString(),
+                            type : _TypeVerify.REGISTER
+                        },
+                    });
+                }
+            },
         });
-    },[lang]);
+    }, [handleError, lang, mutate, reset, success, router]);
+
+
 
     return (
         <>
@@ -118,12 +137,12 @@ export default function RegisterScreen() {
                                     {/*Email*/}
                                     <Controller
                                         control={control}
-                                        name="email"
+                                        name="username"
                                         render={({field: {onChange, onBlur, value}}) => (
                                             <View marginBottom={DefaultSize.base}>
                                                 <Typo weight={"700"} color={DefaultColor.primary_color}
                                                       fontSize={DefaultSize["md"]}>
-                                                    {t('common.email')}
+                                                    {t('common.email_or_phone')}
                                                 </Typo>
                                                 <TextInput
                                                     textContentType={"emailAddress"}
@@ -134,9 +153,9 @@ export default function RegisterScreen() {
                                                     placeholderTextColor={DefaultColor.slate["300"]}
                                                     placeholder={"demo@gmail.com"}
                                                 />
-                                                {!!errors.email && (
+                                                {!!errors.username && (
                                                     <Label color="red" size="$2">
-                                                        {errors.email.message}
+                                                        {errors.username.message}
                                                     </Label>
                                                 )}
                                             </View>
@@ -268,8 +287,8 @@ export default function RegisterScreen() {
                                 <YStack gap={"$2"} alignItems={"flex-end"}>
                                     <Typo>{t('auth.page.register.have_account')}</Typo>
                                     <TouchableOpacity
-                                        onPress={() => {
-                                            router.push("/(auth)/login");
+                                        onPress={()=> {
+                                            router.push('/login');
                                         }}
                                     >
                                         <Typo fontSize={DefaultSize["4xl"]} color={DefaultColor.primary_color}

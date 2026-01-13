@@ -25,7 +25,7 @@ import {useAppStore} from "@/services/app/stores/useAppStore";
 import {useMutationLogin} from "@/services/auth/hooks/useMutationAuth";
 import useToastErrorHandler from "@/services/app/hooks/useToastErrorHandler";
 import useAuthStore from "@/services/auth/stores/useAuthStore";
-import Purchases from "react-native-purchases";
+import {_TypeVerify} from "@/services/auth/const";
 
 export default function LoginScreen() {
     const insets = useSafeAreaInsets();
@@ -37,7 +37,7 @@ export default function LoginScreen() {
     const organizerId = watch('organizer_id');
     const {mutate, isPending} = useMutationLogin();
 
-    const {success} = useToast();
+    const {success , warning} = useToast();
 
     const lang = useAppStore(s => s.language);
 
@@ -48,9 +48,21 @@ export default function LoginScreen() {
     const onSubmit = useCallback((data: LoginRequest) => {
         data.locate = lang;
         mutate(data, {
-            onError: (error) => {
-                handleError(error);
+            onError: (error: any) => {
+                warning({message: t("auth.page.verify.message_not_verify")});
+                if (error?.rawError?.data?.unverified_phone) {
+                    // ở đây có thể redirect sang OTP page
+                    router.push({
+                        pathname: '/(auth)/verify-otp',
+                        params: {
+                            username: data.username,
+                            organizer_id: data.organizer_id.toString(),
+                            type : _TypeVerify.LOGIN
+                        },// hoặc từ dữ liệu form
+                    });
+                }
             },
+
             onSuccess: async (res) => {
                 try {
                     await login(res);
@@ -102,7 +114,7 @@ export default function LoginScreen() {
                                 <Typo weight={"700"} color={DefaultColor.primary_color} fontSize={DefaultSize["2xl"]}>
                                     {t('auth.page.login.title_2')}
                                 </Typo>
-                            </View>
+                            </View>a
                             <YStack flex={1}
                                     backgroundColor={DefaultColor.white}
                                     borderTopLeftRadius={50}
@@ -117,12 +129,12 @@ export default function LoginScreen() {
                                     {/*Email*/}
                                     <Controller
                                         control={control}
-                                        name="email"
+                                        name="username"
                                         render={({field: {onChange, onBlur, value}}) => (
                                             <View marginBottom={DefaultSize.base}>
                                                 <Typo weight={"700"} color={DefaultColor.primary_color}
                                                       fontSize={DefaultSize["md"]}>
-                                                    {t('common.email')}
+                                                    {t('common.email_or_phone')}
                                                 </Typo>
                                                 <TextInput
                                                     textContentType={"emailAddress"}
@@ -133,9 +145,9 @@ export default function LoginScreen() {
                                                     placeholderTextColor={DefaultColor.slate["300"]}
                                                     placeholder={"demo@gmail.com"}
                                                 />
-                                                {!!errors.email && (
+                                                {!!errors.username && (
                                                     <Label color="red" size="$2">
-                                                        {errors.email.message}
+                                                        {errors.username.message}
                                                     </Label>
                                                 )}
                                             </View>
@@ -184,6 +196,16 @@ export default function LoginScreen() {
                                             </View>
                                         )}
                                     />
+                                    <YStack flex={1} alignItems="flex-end">
+                                        <Typo
+                                            weight="700"
+                                            color={DefaultColor.primary_color}
+                                            fontSize={DefaultSize["md"]}
+                                        >
+                                            {t('auth.page.forgot_password.title')}
+                                        </Typo>
+                                    </YStack>
+
                                     {/*organizer_id*/}
                                     <Controller
                                         control={control}
