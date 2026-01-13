@@ -196,16 +196,6 @@ export default function LoginScreen() {
                                             </View>
                                         )}
                                     />
-                                    <YStack flex={1} alignItems="flex-end">
-                                        <Typo
-                                            weight="700"
-                                            color={DefaultColor.primary_color}
-                                            fontSize={DefaultSize["md"]}
-                                        >
-                                            {t('auth.page.forgot_password.title')}
-                                        </Typo>
-                                    </YStack>
-
                                     {/*organizer_id*/}
                                     <Controller
                                         control={control}
