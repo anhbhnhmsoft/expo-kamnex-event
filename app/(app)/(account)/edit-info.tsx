@@ -414,6 +414,7 @@ const EditAvatarSheet: FC<{
             const result = await ImagePicker.launchImageLibraryAsync({
                 mediaTypes: ImagePicker.MediaTypeOptions.Images,
                 quality: 0.5,
+                presentationStyle: ImagePicker.UIImagePickerPresentationStyle.FULL_SCREEN,
             });
             if (!result.canceled) {
                 const form = new FormData();
