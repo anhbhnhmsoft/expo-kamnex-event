@@ -226,7 +226,10 @@
         "not_started_poll": "Chưa đến thời gian khảo sát",
         "number_question_poll": "Số câu khảo sát",
         "start_time_poll": "Bắt đầu",
-        "end_time_poll": "Kết thúc"
+        "end_time_poll": "Kết thúc",
+        "membership_feature_title": "Tính năng dành cho Thành viên",
+        "register_membership_to_comment_desc": "Vui lòng đăng nhập tài khoản Thành viên để tham gia thảo luận về sự kiện này.",
+        "register_membership_to_document_desc": "Vui lòng đăng nhập tài khoản Thành viên để có thể xem tài liệu về sự kiện này"
       },
       "detail-schedule": {
         "accessible": "Trung tâm tổ chức có thể truy cập"

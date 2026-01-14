@@ -4,52 +4,53 @@
     "logout": "Logout",
     "register": "Register",
     "had_register": "Registered",
-    "register_now": "Register Now",
+    "register_now": "Register now",
     "had_join": "Joined",
     "had_cancel": "Cancelled",
-    "full_name": "Full Name",
-    "email": "Email",
-    "phone": "Phone Number",
-    "address": "Your Address",
-    "introduce": "About Yourself",
+    "full_name": "Full name",
+    "email_or_phone": "Email or phone number",
+    "phone": "Phone number",
+    "address": "Your address",
+    "introduce": "Self-introduction",
     "password": "Password",
-    "re_password": "Re-enter Password",
+    "re_password": "Confirm password",
     "placeholder_search": "Search...",
     "empty": "No data to display...",
     "select": "Select",
     "search": "Search",
-    "press_to_search": "Press to search",
-    "press_to_see_detail": "Press to see detail",
+    "press_to_search": "Tap to search",
+    "press_to_see_detail": "Tap to see details",
     "province": "Province/City",
     "district": "District",
-    "ward": "Ward/Commune",
-    "free_to_join": "Free to Join",
-    "paid_event": "Paid Event",
+    "ward": "Ward",
+    "free_to_join": "Free to join",
+    "paid_event": "Paid event",
     "account": "Account",
     "vip": "VIP",
-    "upgrade_now": "Upgrade Now",
+    "upgrade_now": "Upgrade now",
     "cancel": "Cancel",
     "delete": "Delete",
     "accept": "Accept",
     "send": "Send",
     "save": "Save",
-    "see_more": "See More",
-    "area_name": "Area Name",
-    "seat_code": "Seat Code",
-    "ticket_code": "Ticket Code",
+    "see_more": "See more",
+    "area_name": "Area name",
+    "seat_code": "Seat code",
+    "ticket_code": "Ticket code",
     "month": "Month",
     "membership": "Membership",
-    "download_qr_code": "Save QR Code",
+    "download_qr_code": "Save QR",
     "desc": "Note",
-    "account_number": "Account Number",
+    "account_number": "Account number",
     "duration": "Duration",
     "to": "to",
     "document": "Document",
-    "buy_document": "Buy Document",
-    "file_assign": "Attached File",
-    "seat_capacity": "Seat Capacity",
+    "buy_document": "Purchase document",
+    "file_assign": "Attached file",
+    "seat_capacity": "Seats",
     "event": "Event",
-    "price": "Price"
+    "price": "Price",
+    "verify": "Verify"
   },
   "common_success": {
     "save_image_success": "Image saved successfully",
@@ -58,32 +59,32 @@
   },
   "common_error": {
     "server_error": "A server error occurred, please contact the administrator for support.",
-    "request_error": "No response received from the server, please contact the administrator for support.",
-    "program_error": "A program error occurred, please contact the administrator for support.",
+    "request_error": "No response from server, please contact the administrator for support.",
+    "program_error": "An application error occurred, please contact the administrator for support.",
     "unknown_error": "An unknown error occurred, please contact the administrator for support.",
-    "invalid_or_expired_token": "Your account has expired or is invalid. Please log in again.",
-    "api_not_found": "Unknown source occurred, please contact the administrator for support.",
-    "method_not_allowed": "Incorrect API format, please contact the administrator for support.",
+    "invalid_or_expired_token": "Your session has expired or is invalid. Please log in again.",
+    "api_not_found": "Resource not found, please contact the administrator for support.",
+    "method_not_allowed": "Invalid API format, please contact the administrator for support.",
     "permission_error": "You do not have permission to perform this action, please contact the administrator for support.",
     "authorization_header_not_found": "Authorization header not found, please contact the administrator for support.",
-    "refresh_token_fail": "Your account has expired or is invalid. Please log in again.",
+    "refresh_token_fail": "Your session has expired or is invalid. Please log in again.",
     "data_not_found": "Data is empty, please try again later.",
-    "data_not_fields": "Some data fields are missing, please try again.",
+    "data_not_fields": "Some fields are missing, please try again.",
     "data_exists": "Data already exists, please try again.",
-    "copy_error": "Error copying",
-    "warning_location": "Currently, your location service is not enabled. Please enable location to use this feature.",
+    "copy_error": "Error while copying",
+    "warning_location": "Location services are currently disabled, please enable them to use this feature.",
     "download_failed": "File download failed, please contact the administrator for support",
     "file_already_exist": "This file already exists on your device",
-    "linking_not_support": "Your phone does not support quick linking"
+    "linking_not_support": "Your device does not support Quick Linking"
   },
   "permission": {
     "camera": {
-      "title": "The app needs camera access permission",
-      "message": "This feature requires camera access. Please go to settings -> applications -> grant camera access to use it"
+      "title": "Camera access required",
+      "message": "This feature requires camera access. Please go to Settings -> Apps -> Grant camera permission to continue."
     },
     "picture_lib": {
-      "title": "The app needs library access permission",
-      "message": "This feature requires library access. Please go to settings -> applications -> grant library access to use it"
+      "title": "Library access required",
+      "message": "This feature requires library access. Please go to Settings -> Apps -> Grant library permission to continue."
     }
   },
   "enum": {
@@ -92,19 +93,19 @@
       "PRESENTER": "Presenter"
     },
     "_EventStatus": {
-      "FOR_USER": "For You",
-      "ACTIVE": "Happening Now",
+      "FOR_USER": "For you",
+      "ACTIVE": "Happening now",
       "UPCOMING": "Upcoming",
-      "CLOSED": "Closed"
+      "CLOSED": "Ended"
     },
     "_EventUserHistory": {
-      "BOOKED": "Booked",
+      "BOOKED": "Registered",
       "PARTICIPATED": "Participated",
       "CANCELLED": "Cancelled",
       "SEENED": "Viewed"
     },
     "_ConfigMembership": {
-      "ALLOW_COMMENT": "Comment and ask questions directly during the event",
+      "ALLOW_COMMENT": "Comment and ask questions during the event",
       "ALLOW_CHOOSE_SEAT": "Priority area and seat selection",
       "ALLOW_DOCUMENTARY": "Download documents before and after the event"
     },
@@ -120,7 +121,7 @@
   },
   "component": {
     "choose_organizer": {
-      "placeholder_search": "Search for organizer..."
+      "placeholder_search": "Search organizers..."
     }
   },
   "tab": {
@@ -134,26 +135,26 @@
       },
       "account": {
         "register_membership_1": "Upgrade account",
-        "register_membership_2": "to receive many offers from us",
-        "account_info": "Personal Information",
-        "qr_scan": "Scan QR Code",
-        "manager_notification": "Notification Management",
-        "manager_file": "Document Management",
-        "manager_membership": "Membership Upgrade",
-        "manager_gift": "View Event Gifts",
+        "register_membership_2": "to receive more offers from us",
+        "account_info": "Personal information",
+        "qr_scan": "Scan QR code",
+        "manager_notification": "Manage notifications",
+        "manager_file": "Manage documents",
+        "manager_membership": "Upgrade membership",
+        "manager_gift": "View event gifts",
         "support": "Support",
         "title_logout": "Logout",
-        "desc_logout": "Are you sure you want to log out from this device?",
+        "desc_logout": "Are you sure you want to log out of this device?",
         "zalo_support": "Contact via Zalo",
-        "zalo_support_desc": "Message directly for quick support",
+        "zalo_support_desc": "Message directly for fast support",
         "facebook_support": "Contact via Facebook",
-        "facebook_support_desc": "Chat with the support team on Fanpage"
+        "facebook_support_desc": "Chat with our support team on Fanpage"
       },
       "seen": {
-        "title": "Viewed Events"
+        "title": "Viewed events"
       },
       "registered": {
-        "title": "Registered Events"
+        "title": "Registered events"
       }
     }
   },
@@ -164,22 +165,34 @@
       },
       "login": {
         "title_1": "Hello",
-        "title_2": "Please log in!",
+        "title_2": "Please login!",
         "have_no_account": "Don't have an account?"
       },
       "register": {
-        "title_1": "Create a new",
-        "title_2": "Account",
-        "choose_org": "Choose event organizer",
+        "title_1": "Create new",
+        "title_2": "Your account",
+        "choose_org": "Select event organizer",
         "have_account": "Already have an account?"
+      },
+      "verify": {
+        "title": "OTP Verification",
+        "subtitle": "Please enter the verification code sent to your email",
+        "resend_success": "OTP code has been resent successfully!",
+        "verify_success": "Verification successful!",
+        "not_receive_code": "Didn't receive the code?",
+        "resend_now": "Resend now",
+        "resend_in": "Resend in",
+        "message_not_verify": "Your account has not been verified. Please verify to continue."
       }
     },
     "error": {
-      "invalid_name": "Name must be at least 4 characters and not exceed 50 characters",
+      "invalid_name": "Name must be between 4 and 50 characters",
       "invalid_email": "Invalid email",
       "invalid_password": "Password must be at least 8 characters",
-      "invalid_confirm_password": "Re-entered password does not match the password",
-      "invalid_organizer": "Please choose an organizer"
+      "invalid_confirm_password": "Confirm password does not match",
+      "invalid_organizer": "Please select an organizer",
+      "invalid_username": "Please enter your email or phone number",
+      "invalid_email_or_phone": "Invalid email or phone number"
     },
     "success": {
       "login_success": "Login successful, welcome back!"
@@ -187,111 +200,114 @@
   },
   "membership": {
     "page": {
-      "title": "Membership Packages",
-      "description": "Choose the suitable membership package to experience full features"
+      "title": "Membership Plans",
+      "description": "Choose a suitable membership plan to experience all features"
     }
   },
   "event": {
     "page": {
       "detail": {
-        "time_of_organization": "Organization Time",
-        "agenda_event": "Event Agenda",
-        "question_label": "Comment on the event",
-        "private_comment": "Private Comment",
-        "private_comment_desc": "Private comments are only for registered members",
-        "register_membership_to_comment": "Please register for a membership package to comment on this event",
-        "register_membership_to_document": "Please register for a membership package to view documents for this event",
-        "question_placeholder": "Enter your question or comment",
-        "event_overview": "Event Overview",
-        "event_more": "Related Events",
-        "thank_for_book_title": "Thank you for registering to attend the event",
-        "thank_for_book_desc": "This is your row and ticket number information",
-        "please_register_membership_or_buy_document_to_access": "Please register for a membership package or buy the document to access this document",
-        "poll_event": "Event Poll",
-        "over_time_poll": "Poll has expired",
-        "not_started_poll": "Poll has not started yet",
+        "time_of_organization": "Event time",
+        "agenda_event": "Event schedule",
+        "question_label": "Event comments",
+        "private_comment": "Private comment",
+        "private_comment_desc": "Private comments are for registered members only",
+        "register_membership_to_comment": "Please upgrade to a membership plan to comment on this event",
+        "register_membership_to_document": "Please upgrade to a membership plan to view documents for this event",
+        "question_placeholder": "Enter your question or feedback",
+        "event_overview": "Event overview",
+        "event_more": "Related events",
+        "thank_for_book_title": "Thank you for registering for the event",
+        "thank_for_book_desc": "Here is your seating area and ticket number information",
+        "please_register_membership_or_buy_document_to_access": "Please upgrade to a membership plan or purchase the document to access this content",
+        "poll_event": "Event survey",
+        "over_time_poll": "Survey expired",
+        "not_started_poll": "Survey not started yet",
         "number_question_poll": "Number of questions",
-        "start_time_poll": "Start time",
-        "end_time_poll": "End time"
+        "start_time_poll": "Start",
+        "end_time_poll": "End",
+        "membership_feature_title": "Membership Features",
+        "register_membership_to_comment_desc": "Please log in with a Member account to join the discussion for this event.",
+        "register_membership_to_document_desc": "Please log in with a Member account to view documents for this event."
       },
       "detail-schedule": {
-        "accessible": "Organizing center is accessible"
+        "accessible": "Accessible event center"
       },
       "list_comment": {
-        "title": "Event Comments"
+        "title": "Event comments"
       },
       "booking_area": {
-        "title": "Select Area"
+        "title": "Select area"
       },
       "booking_seats": {
-        "title": "Select Seats"
+        "title": "Select seats"
       },
       "booking_check_trans": {
-        "title": "Payment Information"
+        "title": "Payment information"
       },
       "event_poll": {
-        "title": "Event Poll",
-        "choose_answer": "Choose an answer",
-        "write_answer": "Write an answer",
-        "submit": "Submit Poll",
-        "poll_success": "Thank you for polling the event"
+        "title": "Event survey",
+        "choose_answer": "Select answer",
+        "write_answer": "Write your answer",
+        "submit": "Submit survey",
+        "poll_success": "Thank you for participating in the survey"
       }
     },
     "error": {
-      "invalid_comment": "Please enter a comment, and note that the comment must not exceed 1000 words",
-      "invalid_poll_answer": "Please select at least 1 answer",
+      "invalid_comment": "Please enter your feedback (max 1000 words)",
+      "invalid_poll_answer": "Please select at least one answer",
       "invalid_poll_answer_open_ended": "Please enter your answer"
     }
   },
   "account": {
     "page": {
       "edit_info": {
-        "change_avatar": "Change Avatar",
-        "active_change_password": "Cancel Change Password",
-        "unactive_change_password": "Change Password",
-        "take_photo": "Take Photo",
-        "choose_from_lib": "Choose from Library",
-        "delete_avatar_title": "Delete Avatar",
+        "change_avatar": "Change avatar",
+        "active_change_password": "Cancel change password",
+        "unactive_change_password": "Change password",
+        "take_photo": "Take photo",
+        "choose_from_lib": "Choose from library",
+        "delete_avatar_title": "Delete avatar",
         "delete_avatar_desc": "Are you sure you want to delete your avatar?",
-        "delete_account_title": "Delete Account",
-        "delete_account_desc": "Are you sure you want to delete your account?"
+        "delete_account_title": "Disable account",
+        "delete_account_desc": "Are you sure you want to disable your account?"
       },
       "membership": {
         "list": {
-          "title": "Membership Packages",
-          "register": "Register Membership Package"
+          "title": "Membership plans",
+          "register": "Register for membership plan"
         },
         "register_list": {
-          "title": "Register Membership Package"
+          "title": "Register for membership plan"
         },
         "check_trans": {
-          "title": "Payment Information"
+          "title": "Payment information"
         }
       },
       "notifications": {
         "title": "Notifications",
-        "mask_all_read": "Mark All as Read"
+        "mask_all_read": "Mark all as read"
       },
       "list_document": {
-        "title": "Document Management"
+        "title": "Manage documents"
       },
       "gift": {
-        "title": "Received Gifts"
+        "title": "Received gifts"
       }
     },
     "error": {
-      "invalid_name": "Name must be at least 4 characters and not exceed 50 characters",
+      "invalid_name": "Name must be between 4 and 50 characters",
       "invalid_email": "Invalid email",
       "invalid_password": "Password must be at least 8 characters",
-      "invalid_confirm_password": "Re-entered password does not match the password",
+      "invalid_confirm_password": "Confirm password does not match",
       "invalid_phone": "Invalid phone number",
-      "invalid_address": "Address maximum 255 characters",
-      "empty_trans": "No transaction to perform",
+      "invalid_address": "Address must be at most 255 characters",
+      "empty_trans": "No transaction to process",
       "error_save_qr": "An error occurred while saving the QR code"
     }
   },
   "notifications": {
-    "mark_as_read_success": "Notification successfully marked as read",
-    "mark_all_as_read_success": "All notifications successfully marked as read"
+    "mark_as_read_success": "Notification marked as read",
+    "mark_all_as_read_success": "All notifications marked as read"
   }
 }

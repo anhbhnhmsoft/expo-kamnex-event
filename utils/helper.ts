@@ -5,6 +5,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import {_LanguageCode} from "@/utils/@types";
 import {User} from "@/services/auth/types";
 import {_ConfigMembership} from "@/services/membership/const";
+import {Platform} from "react-native";
 
 export const formatDate = (date: string | Date, locale: _LanguageCode = _LanguageCode.VI) => {
     dayjs.locale(locale);
@@ -50,3 +51,8 @@ export const checkMembershipConfig = (user: User | null, config: _ConfigMembersh
     }
     return false
 }
+
+
+export const checkIOS = () => {
+    return Platform.OS === 'ios';
+};
