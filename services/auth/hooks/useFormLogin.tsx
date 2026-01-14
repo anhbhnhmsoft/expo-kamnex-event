@@ -4,19 +4,29 @@ import { useForm } from "react-hook-form";
 import {useTranslation} from "react-i18next";
 import {LoginRequest} from "@/services/auth/types";
 
-
+const PHONE_REGEX = /^(0|\+84)[0-9]{9,10}$/;
 
 const useFormLogin = () => {
     const {t} = useTranslation();
 
     return useForm<LoginRequest>({
         defaultValues: {
-            email: "",
+            username: "",
             password: "",
             organizer_id: ""
         },
         resolver: zodResolver(z.object({
-            email: z.email({ message: t('auth.error.invalid_email') }),
+            username: z
+                .string()
+                .min(1, { message: t('auth.error.invalid_username') })
+                .refine(
+                    (value) =>
+                        z.string().email().safeParse(value).success ||
+                        PHONE_REGEX.test(value),
+                    {
+                        message: t('auth.error.invalid_email_or_phone'),
+                    }
+                ),
             password: z
                 .string()
                 .min(8, { message: t('auth.error.invalid_password') }),

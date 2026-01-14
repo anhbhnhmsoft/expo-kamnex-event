@@ -4,12 +4,15 @@ import {RegisterRequest} from "@/services/auth/types";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {z} from "zod";
 
+const PHONE_REGEX = /^(0|\+84)[0-9]{9,10}$/;
+
+
 const useFormRegister = () => {
     const {t} = useTranslation();
     return useForm<RegisterRequest>({
         defaultValues: {
             name: "",
-            email: "",
+            username: "",
             password: "",
             confirm_password: "",
             organizer_id: ""
@@ -18,7 +21,17 @@ const useFormRegister = () => {
                 name: z.string()
                     .min(4, {message: t('auth.error.invalid_name')})
                     .max(50, {message: t('auth.error.invalid_name')}),
-                email: z.email({message: t('auth.error.invalid_email')}),
+                username: z
+                    .string()
+                    .min(1, { message: t('auth.error.invalid_username') })
+                    .refine(
+                        (value) =>
+                            z.string().email().safeParse(value).success ||
+                            PHONE_REGEX.test(value),
+                        {
+                            message: t('auth.error.invalid_email_or_phone'),
+                        }
+                    ),
                 password: z
                     .string()
                     .min(8, {message: t('auth.error.invalid_password')}),

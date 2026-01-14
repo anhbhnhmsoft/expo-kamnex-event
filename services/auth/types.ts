@@ -3,7 +3,7 @@ import {ConfigMembership} from "@/services/membership/type";
 
 
 export type LoginRequest = {
-    email: string;
+    username: string;
     password: string;
     organizer_id: string;
     locate?: _LanguageCode
@@ -33,7 +33,7 @@ export type User = {
 
 export type RegisterRequest = {
     name: string;
-    email: string;
+    username: string;
     password: string;
     confirm_password: string;
     organizer_id: string;
@@ -66,3 +66,17 @@ export type ListGiftResponse = ResponsePagingSuccessType<{
     },
     created_at: string
 }>
+
+export type VerifyCodeRequest = {
+    username: string;
+    code: string;
+    organizer_id: number;
+    type : string;
+};
+
+
+export type ResendCodeRequest = {
+    username: string;
+    organizer_id: number;
+    type : string
+};

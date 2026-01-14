@@ -5,7 +5,6 @@ import {FontAwesome, FontAwesome5} from '@expo/vector-icons';
 import {FlatList, RefreshControl, TouchableOpacity} from "react-native";
 import {DefaultSize} from "@/components/ui/defaultStyle";
 import {useTranslation} from "react-i18next";
-import {router} from "expo-router";
 import LayoutView from "@/components/libs/LayoutView";
 import useSearchEventStore from "@/services/event/stores/useSearchEventStore";
 import {useAppStore} from "@/services/app/stores/useAppStore";
