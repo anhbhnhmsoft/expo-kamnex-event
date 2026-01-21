@@ -17,6 +17,7 @@ import {formatDate} from "@/utils/helper";
 import useToast from "@/services/app/hooks/useToast";
 import {useInfiniteEventList} from "@/services/event/hooks/use-query-event";
 import {useCheckAuthToRedirect} from "@/services/auth/hooks/useCheckAuth";
+import {router} from "expo-router";
 
 export default function HomeScreen() {
     const {t} = useTranslation();
@@ -213,13 +214,16 @@ export default function HomeScreen() {
     )
 }
 
-const EventItem: FC<{ item: EventListItem, checkAuth: ReturnType<typeof useCheckAuthToRedirect> }> = ({item, checkAuth}) => {
+const EventItem: FC<{ item: EventListItem, checkAuth: ReturnType<typeof useCheckAuthToRedirect> }> = ({
+                                                                                                          item,
+                                                                                                          checkAuth
+                                                                                                      }) => {
     const {t} = useTranslation();
     const language = useAppStore(s => s.language);
     return (
         <TouchableOpacity onPress={() => {
-            checkAuth({
-                pathname: '/(app)/(event)/detail',
+            router.push({
+                pathname: '/(app)/booking-detail',
                 params: {
                     id: item.id,
                 }
@@ -230,7 +234,7 @@ const EventItem: FC<{ item: EventListItem, checkAuth: ReturnType<typeof useCheck
                     <Image source={{uri: item.image_represent_path}}
                            style={{
                                height: 230,
-                               width:"100%",
+                               width: "100%",
                                borderRadius: 10,
                                backgroundColor: DefaultColor.slate["100"]
                            }}

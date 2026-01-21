@@ -184,7 +184,6 @@
         "resend_in": "Gửi lại sau",
         "message_not_verify": "Tài khoản của bạn chưa được xác thực. Vui lòng xác thực để tiếp tục."
       }
-
     },
     "error": {
       "invalid_name": "Tên phải có ít nhất 4 ký tự và không được vượt quá 50 ký tự",
@@ -270,7 +269,7 @@
         "choose_from_lib": "Chọn từ thư viện",
         "delete_avatar_title": "Xóa ảnh đại diện",
         "delete_avatar_desc": "Bạn có chắc muốn xóa ảnh đại diện của bạn",
-        "delete_account_title": "Vô hiệu hóa tài khoản",
+        "delete_account_title": "Xóa tài khoản",
         "delete_account_desc": "Bạn có chắc muốn vô hiệu hóa tài khoản của bạn ?"
       },
       "membership": {

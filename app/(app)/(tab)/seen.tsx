@@ -12,7 +12,7 @@ import EventCard from "@/components/page/EventCard";
 import {useInfiniteEventList} from "@/services/event/hooks/use-query-event";
 
 
-export default function SeenScreen(){
+export default function SeenScreen() {
     const {t} = useTranslation();
     const {setLoading} = useAppStore();
 
@@ -49,8 +49,8 @@ export default function SeenScreen(){
                     if (hasNextPage && !isFetchingNextPage) fetchNextPage();
                 }}
                 contentContainerStyle={{
-                    flex: 1,
-                    gap: 12
+                    gap: 12,
+                    paddingTop: 20,
                 }}
                 onEndReachedThreshold={0.5}
                 ListFooterComponent={() => {

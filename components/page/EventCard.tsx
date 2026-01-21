@@ -20,25 +20,26 @@ const EventCard: FC<Props> = ({item}) => {
     return (
         <TouchableOpacity onPress={() => {
             router.push({
-                pathname: '/(app)/(event)/detail',
+                pathname: '/(app)/booking-detail',
                 params: {
                     id: item.id,
                 }
             })
         }}>
-            <XStack alignItems={"flex-start"} gap={"$3"} flexGrow={1} >
+            <XStack alignItems={"flex-start"} gap={"$3"} flexGrow={1}>
                 <View position={"relative"} width={"40%"}>
                     <Image source={{uri: item.image_represent_path}}
                            style={{
                                height: 95,
-                               width:"100%",
+                               width: "100%",
                                borderRadius: 10
                            }}
                            resizeMode={"cover"}
                     />
                     {item.status_history &&
                         <View position={"absolute"} bottom={6} left={0} right={0}>
-                            <View alignSelf={"center"} paddingHorizontal={10} paddingVertical={6} borderRadius={20} backgroundColor={DefaultColor.primary_color}>
+                            <View alignSelf={"center"} paddingHorizontal={10} paddingVertical={6} borderRadius={20}
+                                  backgroundColor={DefaultColor.primary_color}>
                                 <Typo
                                     color={DefaultColor.white}>
                                     {t(getLabelEventUserHistory(item.status_history))}
