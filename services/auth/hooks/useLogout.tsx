@@ -9,14 +9,14 @@ import useToastErrorHandler from "@/services/app/hooks/useToastErrorHandler";
 
 const useLogout = () => {
     const logout = useAuthStore(state => state.logout);
-    const setLoading = useAppStore(s =>s.setLoading)
+    const setLoading = useAppStore(s => s.setLoading)
     const handleError = useToastErrorHandler();
     const {mutate} = useMutation({
         mutationFn: () => authAPI.logout(),
         onSuccess: async () => {
             setLoading(false);
             await logout();
-            router.replace('/(auth)');
+            router.replace('/(app)/(tab)');
         },
         onError: (error) => {
             setLoading(false);
@@ -27,7 +27,7 @@ const useLogout = () => {
     return useCallback(async () => {
         setLoading(true);
         mutate();
-    },[]);
+    }, []);
 }
 
 export default useLogout;

@@ -1,5 +1,5 @@
 import {router, useLocalSearchParams} from "expo-router";
-import {useQueryGetEventSeat, useGetDataEventDetail} from "@/services/event/hooks/use-query-event";
+import {useGetDataEventDetail, useQueryGetEventSeat} from "@/services/event/hooks/use-query-event";
 import {useAppStore} from "@/services/app/stores/useAppStore";
 import {useEffect} from "react";
 import {Card, View, XStack} from "tamagui";
@@ -18,13 +18,13 @@ import useToast from "@/services/app/hooks/useToast";
 export default function SeatsScreen() {
     const {event_id, area_id} = useLocalSearchParams<{ event_id?: string, area_id?: string }>();
     const {event_seat, loading} = useQueryGetEventSeat(event_id, area_id);
-    const { loading: eventLoading} = useGetDataEventDetail(event_id || null);
+    const {loading: eventLoading} = useGetDataEventDetail(event_id || null);
     const setLoading = useAppStore(s => s.setLoading);
-    
+
     useEffect(() => {
         setLoading(loading || eventLoading);
     }, [loading, eventLoading]);
-    
+
     const handleError = useToastErrorHandler();
     const {success} = useToast();
     const {mutate} = useMutateRegisterEventHistory();
@@ -46,7 +46,7 @@ export default function SeatsScreen() {
                             <TouchableOpacity
                                 disabled={item.status === _EventSeatStatus.BOOKED}
                                 key={item.id}
-                                style={{ width: "23%" }}
+                                style={{width: "23%"}}
                                 onPress={() => {
                                     if (event_id) {
                                         setLoading(true);
@@ -65,7 +65,7 @@ export default function SeatsScreen() {
                                                     success({message: res.message});
                                                     setEventUserHistory(res.data || null);
                                                     router.replace({
-                                                        pathname: '/(app)/(event)/detail',
+                                                        pathname: '/(app)/booking-detail',
                                                         params: {
                                                             id: event_id,
                                                         }

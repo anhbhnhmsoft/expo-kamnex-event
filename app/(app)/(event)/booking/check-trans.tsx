@@ -3,22 +3,22 @@ import LayoutView from "@/components/libs/LayoutView";
 import LoadingList from "@/components/libs/LoadingList";
 import Typo from "@/components/libs/Typo";
 import DefaultColor from "@/components/ui/defaultColor";
-import { DefaultSize } from "@/components/ui/defaultStyle";
+import {DefaultSize} from "@/components/ui/defaultStyle";
 import useCountDown from "@/services/app/hooks/useCountDown";
 import useDisableBackGesture from "@/services/app/hooks/useDisableBackGesture";
 import useToast from "@/services/app/hooks/useToast";
-import { useQueryCheckPayment } from "@/services/membership/hooks/use-query-membership";
+import {useQueryCheckPayment} from "@/services/membership/hooks/use-query-membership";
 import useStoreTransactionEventSeat from "@/services/event/stores/useStoreTransactionEventSeat";
-import { generateQRCodeImageUrl } from "@/utils/helper";
+import {generateQRCodeImageUrl} from "@/utils/helper";
 import AntDesign from '@expo/vector-icons/AntDesign';
 import * as Clipboard from 'expo-clipboard';
-import { Directory, File, Paths } from "expo-file-system";
+import {Directory, File, Paths} from "expo-file-system";
 import * as MediaLibrary from "expo-media-library";
-import { router } from "expo-router";
-import { useCallback, useEffect, useMemo } from "react";
-import { useTranslation } from "react-i18next";
-import { Alert } from "react-native";
-import { Button, Image, View, XGroup, XStack } from "tamagui";
+import {router} from "expo-router";
+import {useCallback, useEffect, useMemo} from "react";
+import {useTranslation} from "react-i18next";
+import {Alert} from "react-native";
+import {Button, Image, View, XGroup, XStack} from "tamagui";
 
 export default function CheckEventSeatTransScreen() {
     useDisableBackGesture();
@@ -81,18 +81,18 @@ export default function CheckEventSeatTransScreen() {
     }, [trans, t]);
 
     useEffect(() => {
-        if (data){
-            if (data.status === true){
+        if (data) {
+            if (data.status === true) {
                 success({message: t('common_success.payment_success')})
                 router.dismissAll();
                 if (trans?.event_id) {
                     router.push({
-                        pathname: '/(app)/(event)/detail',
+                        pathname: '/(app)/booking-detail',
                         params: {
                             id: trans?.event_id,
                         }
                     })
-                }else{
+                } else {
                     router.replace("/");
                 }
             }
@@ -101,7 +101,7 @@ export default function CheckEventSeatTransScreen() {
 
     return (
         <LayoutView>
-            <FocusAwareStatusBar hidden={true} />
+            <FocusAwareStatusBar hidden={true}/>
             {trans ? (
                 <>
                     <Typo textAlign={"center"} fontSize={DefaultSize["2xl"]} color={DefaultColor.primary_color}
@@ -120,7 +120,7 @@ export default function CheckEventSeatTransScreen() {
                     <View marginTop={20} gap={"$2"}>
                         <XStack alignItems={"center"} justifyContent={"center"} gap={"$2"}>
                             <Typo>{t('common.account_number')}: {trans.config_pay.number}</Typo>
-                            <Button size={"$2"} icon={<AntDesign name="copy" size={12} color="black" />}
+                            <Button size={"$2"} icon={<AntDesign name="copy" size={12} color="black"/>}
                                     onPress={async () => {
                                         await Clipboard.setStringAsync(trans.config_pay.number);
                                         success({message: t('common_success.copy_success')})
@@ -129,11 +129,11 @@ export default function CheckEventSeatTransScreen() {
                         </XStack>
                         <XStack alignItems={"center"} justifyContent={"center"} gap={"$2"}>
                             <Typo>{t('common.desc')}: {trans.description}</Typo>
-                            <Button size={"$2"} icon={<AntDesign name="copy" size={12} color="black" />}
-                                onPress={async () => {
-                                    await Clipboard.setStringAsync(trans.description);
-                                    success({message: t('common_success.copy_success')})
-                                }}
+                            <Button size={"$2"} icon={<AntDesign name="copy" size={12} color="black"/>}
+                                    onPress={async () => {
+                                        await Clipboard.setStringAsync(trans.description);
+                                        success({message: t('common_success.copy_success')})
+                                    }}
                             />
                         </XStack>
                         <XGroup>
