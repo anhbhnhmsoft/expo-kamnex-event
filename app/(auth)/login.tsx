@@ -256,6 +256,17 @@ export default function LoginScreen() {
                       </View>
                     )}
                   />
+                  <TouchableOpacity
+                    onPress={() => router.push("/(auth)/forgot-password")}
+                    style={{ alignSelf: "flex-end", marginTop: 8 }}
+                  >
+                    <Typo
+                      fontSize={DefaultSize.base}
+                      color={DefaultColor.slate["700"]}
+                    >
+                      {t("auth.page.login.forgot_password")}
+                    </Typo>
+                  </TouchableOpacity>
                   {/*organizer_id*/}
                   <Controller
                     control={control}
