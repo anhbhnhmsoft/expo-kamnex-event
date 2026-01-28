@@ -10,10 +10,6 @@ import { createTamagui, TamaguiProvider } from "tamagui";
 import { defaultConfig } from "@tamagui/config/v4";
 import ToastManager from "toastify-react-native";
 import DefaultHeader from "@/components/page/DefaultHeader";
-import Purchases, { LOG_LEVEL } from "react-native-purchases";
-import { Platform } from "react-native";
-import { PurchasesAPIKeyAndroid, PurchasesAPIKeyIOS } from "@/utils/@types";
-import { checkForAppUpdate } from "@/utils/checkAppUpdate";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -33,16 +29,15 @@ export default function RootLayout() {
   useEffect(() => {
     if ((loaded || error) && readyI18n) {
       SplashScreen.hideAsync();
-      checkForAppUpdate();
     }
   }, [loaded, error, readyI18n]);
 
-  useEffect(() => {
-    if (Platform.OS === "ios") {
-      Purchases.setLogLevel(LOG_LEVEL.VERBOSE);
-      Purchases.configure({ apiKey: PurchasesAPIKeyIOS });
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (Platform.OS === "ios") {
+  //     Purchases.setLogLevel(LOG_LEVEL.VERBOSE);
+  //     Purchases.configure({ apiKey: PurchasesAPIKeyIOS });
+  //   }
+  // }, []);
   if (!(loaded || error) || !readyI18n) {
     return null;
   }

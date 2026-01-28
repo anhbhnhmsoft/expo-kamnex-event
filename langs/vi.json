@@ -50,7 +50,15 @@
     "seat_capacity": "Chỗ ngồi",
     "event": "Sự kiện",
     "price": "Giá",
-    "verify": "Xác nhận"
+    "verify": "Xác nhận",
+    "update": {
+      "title": "Cập nhật mới",
+      "message": "Đã có phiên bản mới. Bạn có muốn cập nhật ngay không?",
+      "confirm": "Cập nhật",
+      "cancel": "Để sau",
+      "downloading": "Đang tải bản cập nhật...",
+      "error": "Có lỗi xảy ra khi cập nhật ứng dụng"
+    }
   },
   "common_success": {
     "save_image_success": "Lưu trữ ảnh thành công",
