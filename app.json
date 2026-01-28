@@ -2,7 +2,7 @@
   "expo": {
     "name": "michec",
     "slug": "michec",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "assets/images/logo/logo-michec-white.png",
     "scheme": "michecevent",
@@ -22,7 +22,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.kamnex.michecevent.production",
-      "buildNumber": "1.0.0",
+      "buildNumber": "2",
       "infoPlist": {
         "NSCameraUsageDescription": "Ứng dụng cần truy cập camera để chụp ảnh và quét mã QR.",
         "NSMicrophoneUsageDescription": "Ứng dụng cần sử dụng micro để ghi âm khi quay video.",
@@ -37,7 +37,7 @@
     "android": {
       "package": "com.kamnex.michecevent",
       "googleServicesFile": "./google-services.json",
-      "versionCode": 3,
+      "versionCode": 4,
       "adaptiveIcon": {
         "backgroundColor": "#ffffff",
         "foregroundImage": "assets/images/logo/logo-michec-white.png"
