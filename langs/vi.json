@@ -50,7 +50,15 @@
     "seat_capacity": "Chỗ ngồi",
     "event": "Sự kiện",
     "price": "Giá",
-    "verify": "Xác nhận"
+    "verify": "Xác nhận",
+    "update": {
+      "title": "Cập nhật mới",
+      "message": "Đã có phiên bản mới. Bạn có muốn cập nhật ngay không?",
+      "confirm": "Cập nhật",
+      "cancel": "Để sau",
+      "downloading": "Đang tải bản cập nhật...",
+      "error": "Có lỗi xảy ra khi cập nhật ứng dụng"
+    }
   },
   "common_success": {
     "save_image_success": "Lưu trữ ảnh thành công",
@@ -166,7 +174,13 @@
       "login": {
         "title_1": "Xin chào",
         "title_2": "Vui lòng đăng nhập !",
-        "have_no_account": "Bạn chưa có tài khoản?"
+        "have_no_account": "Bạn chưa có tài khoản?",
+        "forgot_password": "Quên mật khẩu?",
+        "placeholder_username": "demo@gmail.com hoặc 09xxxx"
+      },
+      "forgot_password": {
+        "title": "Quên mật khẩu",
+        "description": "Vui lòng nhập email hoặc số điện thoại đã đăng ký để nhận mã xác thực (OTP)."
       },
       "register": {
         "title_1": "Tạo mới",
@@ -183,6 +197,15 @@
         "resend_now": "Gửi lại ngay",
         "resend_in": "Gửi lại sau",
         "message_not_verify": "Tài khoản của bạn chưa được xác thực. Vui lòng xác thực để tiếp tục."
+      },
+      "reset_password": {
+        "title": "Đặt lại mật khẩu",
+        "subtitle": "Tạo mật khẩu mới bảo mật hơn",
+        "description": "Vui lòng nhập mật khẩu mới. Bạn nên sử dụng kết hợp chữ cái, số và ký hiệu.",
+        "new_password": "Mật khẩu mới",
+        "confirm_password": "Xác nhận mật khẩu mới",
+        "placeholder_password": "Nhập mật khẩu mới",
+        "placeholder_confirm": "Xác nhận lại mật khẩu"
       }
     },
     "error": {

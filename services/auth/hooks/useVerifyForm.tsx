@@ -10,6 +10,7 @@ import {
 } from "@/services/auth/hooks/useMutationAuth";
 import { ResendCodeRequest, VerifyCodeRequest } from "@/services/auth/types";
 import { Alert } from "react-native";
+import { _TypeVerify } from "../const";
 
 export const CELL_COUNT = 6;
 
@@ -71,7 +72,7 @@ export function useVerifyForm({
     if (!username || !organizer_id) {
       Alert.alert(
         "Lỗi",
-        "Không tìm thấy thông tin tài khoản. Vui lòng quay lại màn hình đăng ký và thử lại."
+        "Không tìm thấy thông tin tài khoản. Vui lòng quay lại màn hình đăng ký và thử lại.",
       );
       return;
     }
@@ -118,16 +119,26 @@ export function useVerifyForm({
         type,
       };
       mutate(newData, {
-        onSuccess: () => {
+        onSuccess: (res) => {
           success({ message: t("auth.page.verify.verify_success") });
-          router.replace("/(auth)/login");
+          if (type === _TypeVerify.FORGOT_PASSWORD && res.data.reset_token) {
+            router.push({
+              pathname: "/(auth)/reset-password",
+              params: {
+                reset_token: res.data.reset_token,
+              },
+            });
+          } else {
+            router.replace("/(auth)/login");
+          }
         },
         onError: (err) => {
+          console.log(err);
           handleError(err);
         },
       });
     },
-    [username, organizer_id, mutate, handleError, success, t]
+    [username, organizer_id, mutate, handleError, success, t, type],
   );
 
   return {
