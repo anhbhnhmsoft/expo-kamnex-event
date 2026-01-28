@@ -1,19 +1,19 @@
-import {Stack} from "expo-router";
+import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from "react";
 import useFontDefault from "@/components/ui/defaultFonts";
-import {GestureHandlerRootView} from "react-native-gesture-handler";
-import initI18n from '@/utils/i18n';
-import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import initI18n from "@/utils/i18n";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import DefaultColor from "@/components/ui/defaultColor";
-import {createTamagui, TamaguiProvider} from "tamagui";
-import {defaultConfig} from "@tamagui/config/v4";
-import ToastManager from 'toastify-react-native'
+import { createTamagui, TamaguiProvider } from "tamagui";
+import { defaultConfig } from "@tamagui/config/v4";
+import ToastManager from "toastify-react-native";
 import DefaultHeader from "@/components/page/DefaultHeader";
-import Purchases, {LOG_LEVEL} from 'react-native-purchases';
-import {Platform} from "react-native";
-import {PurchasesAPIKeyAndroid, PurchasesAPIKeyIOS} from "@/utils/@types";
-
+import Purchases, { LOG_LEVEL } from "react-native-purchases";
+import { Platform } from "react-native";
+import { PurchasesAPIKeyAndroid, PurchasesAPIKeyIOS } from "@/utils/@types";
+import { checkForAppUpdate } from "@/utils/checkAppUpdate";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -22,58 +22,59 @@ const queryClient = new QueryClient();
 const config = createTamagui(defaultConfig);
 
 export default function RootLayout() {
-    const [loaded, error] = useFontDefault();
-    const [readyI18n, setReadyI18n] = useState(false);
+  const [loaded, error] = useFontDefault();
+  const [readyI18n, setReadyI18n] = useState(false);
 
-    // Init i18n
-    useEffect(() => {
-        initI18n().finally(() => setReadyI18n(true));
-    }, []);
+  // Init i18n
+  useEffect(() => {
+    initI18n().finally(() => setReadyI18n(true));
+  }, []);
 
-    useEffect(() => {
-        if ((loaded || error) && readyI18n) {
-            SplashScreen.hideAsync();
-        }
-    }, [loaded, error, readyI18n]);
-
-    useEffect(() => {
-        if (Platform.OS === 'ios') {
-            Purchases.setLogLevel(LOG_LEVEL.VERBOSE);
-            Purchases.configure({apiKey: PurchasesAPIKeyIOS});
-        }
-    }, []);
-
-    if (!(loaded || error) || !readyI18n) {
-        return null;
+  useEffect(() => {
+    if ((loaded || error) && readyI18n) {
+      SplashScreen.hideAsync();
+      checkForAppUpdate();
     }
+  }, [loaded, error, readyI18n]);
 
-    return (
+  useEffect(() => {
+    if (Platform.OS === "ios") {
+      Purchases.setLogLevel(LOG_LEVEL.VERBOSE);
+      Purchases.configure({ apiKey: PurchasesAPIKeyIOS });
+    }
+  }, []);
+  if (!(loaded || error) || !readyI18n) {
+    return null;
+  }
 
-        <GestureHandlerRootView style={{
-            flex: 1,
-        }}>
-            <QueryClientProvider client={queryClient}>
-                <TamaguiProvider config={config} defaultTheme={"light"}>
-                    <Stack
-                        initialRouteName="index"
-                        screenOptions={{
-                            contentStyle: {backgroundColor: DefaultColor.primary_bg},
-                        }}
-                    >
-                        <Stack.Screen name="index" options={{headerShown: false}}/>
-                        <Stack.Screen name="(app)" options={{headerShown: false}}/>
-                        <Stack.Screen name="(auth)" options={{headerShown: false}}/>
-                        <Stack.Screen
-                            name="qr-scanner"
-                            options={{
-                                header: () => <DefaultHeader/>,
-                                animation: "slide_from_right",
-                            }}
-                        />
-                    </Stack>
-                    <ToastManager/>
-                </TamaguiProvider>
-            </QueryClientProvider>
-        </GestureHandlerRootView>
-    );
+  return (
+    <GestureHandlerRootView
+      style={{
+        flex: 1,
+      }}
+    >
+      <QueryClientProvider client={queryClient}>
+        <TamaguiProvider config={config} defaultTheme={"light"}>
+          <Stack
+            initialRouteName="index"
+            screenOptions={{
+              contentStyle: { backgroundColor: DefaultColor.primary_bg },
+            }}
+          >
+            <Stack.Screen name="index" options={{ headerShown: false }} />
+            <Stack.Screen name="(app)" options={{ headerShown: false }} />
+            <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+            <Stack.Screen
+              name="qr-scanner"
+              options={{
+                header: () => <DefaultHeader />,
+                animation: "slide_from_right",
+              }}
+            />
+          </Stack>
+          <ToastManager />
+        </TamaguiProvider>
+      </QueryClientProvider>
+    </GestureHandlerRootView>
+  );
 }
