@@ -88,7 +88,6 @@ export default function LoginScreen() {
             //     const { customerInfo, created } = await Purchases.logIn(compositeID);
             //     return customerInfo;
             // } catch (e) {
-            //     console.error("Lỗi định danh RevenueCat:", e);
             // }
             success({ message: t("auth.success.login_success") });
             router.replace("/(app)/(tab)");

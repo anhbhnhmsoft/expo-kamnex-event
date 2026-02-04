@@ -58,7 +58,7 @@ function HorizontalTabBar<T extends string | number>({
                                     UIManager.measureLayout(
                                         tabNode,
                                         scrollNode,
-                                        () => console.warn('measure failed'),
+                                        () => console.log('measure failed'),
                                         (x, y, width) => {
                                             const screenWidth = Dimensions.get('window').width;
                                             const scrollToX = x + width / 2 - screenWidth / 2;

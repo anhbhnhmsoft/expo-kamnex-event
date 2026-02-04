@@ -452,15 +452,13 @@ export default function DetailScreen() {
     );
 }
 
-export const HeaderDetailScreen = () => {
+export const HeaderDetailScreen = ({id} :{id?:string}) => {
     const insets = useSafeAreaInsets();
     const {t} = useTranslation();
-    const {id} = useLocalSearchParams<{ id?: string }>();
     const {error} = useToast();
     const event = useEventDetailStore((s) => s.event);
     const {event_user_history} = useEventDetailStore();
     const user = useAuthStore((s) => s.user);
-
     return (
         <XStack
             paddingTop={insets.top + 10}

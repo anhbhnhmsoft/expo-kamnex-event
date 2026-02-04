@@ -29,7 +29,12 @@ export default function AppLayout() {
                     <Stack.Screen name="(event)" options={{headerShown: false}}/>
                     <Stack.Screen name="(account)" options={{headerShown: false}}/>
                 </Stack.Protected>
-                <Stack.Screen name="booking-detail" options={{header: () => <HeaderDetailScreen/>}}/>
+                <Stack.Screen
+                    name="booking-detail"
+                    options={({ route }: { route: { params?: { id?: string } } }) => ({
+                        header: () => <HeaderDetailScreen id={route.params?.id} />
+                    })}
+                />
             </Stack>
         </>
     )
