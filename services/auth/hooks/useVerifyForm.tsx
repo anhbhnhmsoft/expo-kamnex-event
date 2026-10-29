@@ -23,7 +23,7 @@ export const formatTime = (totalSeconds: number): string => {
 
 type UseVerifyFormParams = {
   username?: string;
-  organizer_id?: number;
+  organizer_id?: string;
   type: string;
 };
 export function useVerifyForm({
@@ -36,7 +36,7 @@ export function useVerifyForm({
   const handleError = useToastErrorHandler();
   const { mutate } = useVerifyCodeMutation();
   const { mutate: resendMutate } = useResendCodeMutation();
-  const [timer, setTimer] = useState(300);
+  const [timer, setTimer] = useState(60);
   const [isCanResend, setIsCanResend] = useState(false);
 
   const {
@@ -79,13 +79,13 @@ export function useVerifyForm({
 
     const payload: ResendCodeRequest = {
       username,
-      organizer_id: Number(organizer_id),
+      organizer_id: organizer_id.toString(),
       type,
     };
 
     resendMutate(payload, {
       onSuccess: (res) => {
-        setTimer(300);
+        setTimer(60);
         setIsCanResend(false);
         success({
           message: t("auth.page.verify.resend_success"),
@@ -115,7 +115,7 @@ export function useVerifyForm({
       const newData: VerifyCodeRequest = {
         username: username,
         code: data.otp,
-        organizer_id,
+        organizer_id: organizer_id.toString(),
         type,
       };
       mutate(newData, {

@@ -18,11 +18,17 @@ const useFormLogin = () => {
         resolver: zodResolver(z.object({
             username: z
                 .string()
+                .trim()
                 .min(1, { message: t('auth.error.invalid_username') })
                 .refine(
-                    (value) =>
-                        z.string().email().safeParse(value).success ||
-                        PHONE_REGEX.test(value),
+                    (value) => {
+                        const trimmed = value.trim();
+                        const cleanPhone = trimmed.replace(/[\s.-]/g, '');
+                        return (
+                            z.string().email().safeParse(trimmed).success ||
+                            PHONE_REGEX.test(cleanPhone)
+                        );
+                    },
                     {
                         message: t('auth.error.invalid_email_or_phone'),
                     }

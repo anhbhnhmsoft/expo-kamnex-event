@@ -60,20 +60,26 @@ export default function LoginScreen() {
 
   const onSubmit = useCallback(
     (data: LoginRequest) => {
+      const trimmedUser = data.username.trim();
+      const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedUser);
+      data.username = isEmail ? trimmedUser : trimmedUser.replace(/[\s.-]/g, '');
       data.locate = lang;
       mutate(data, {
         onError: (error: any) => {
-          warning({ message: t("auth.page.verify.message_not_verify") });
           if (error?.rawError?.data?.unverified_phone) {
-            // ở đây có thể redirect sang OTP page
+            warning({ message: error?.message || t("auth.page.verify.message_not_verify") });
             router.push({
               pathname: "/(auth)/verify-otp",
               params: {
                 username: data.username,
                 organizer_id: data.organizer_id.toString(),
                 type: _TypeVerify.LOGIN,
-              }, // hoặc từ dữ liệu form
+              },
             });
+          } else if (error?.rawError?.data?.unverified_email) {
+            warning({ message: error?.message || t("auth.page.verify.message_not_verify") });
+          } else {
+            handleError(error);
           }
         },
 

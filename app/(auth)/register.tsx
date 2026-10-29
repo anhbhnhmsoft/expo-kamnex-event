@@ -51,6 +51,10 @@ export default function RegisterScreen() {
 
   const onSubmit = useCallback(
     (data: RegisterRequest) => {
+      const trimmedUser = data.username.trim();
+      const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedUser);
+      data.username = isEmail ? trimmedUser : trimmedUser.replace(/[\s.-]/g, '');
+      data.name = data.name.trim();
       data.locate = lang;
 
       mutate(data, {

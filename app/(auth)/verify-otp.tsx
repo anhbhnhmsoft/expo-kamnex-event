@@ -24,7 +24,7 @@ export default function VerifyOTPScreen() {
         isSubmitting, isPending, timer, isCanResend, onResendOTP, t
     } = useVerifyForm({
         username,
-        organizer_id: organizer_id ? Number(organizer_id) : undefined,
+        organizer_id: organizer_id || undefined,
         type
     });
 

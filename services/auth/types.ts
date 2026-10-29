@@ -73,13 +73,13 @@ export type ListGiftResponse = ResponsePagingSuccessType<{
 export type VerifyCodeRequest = {
   username: string;
   code: string;
-  organizer_id: number;
+  organizer_id: string;
   type: string;
 };
 
 export type ResendCodeRequest = {
   username: string;
-  organizer_id: number;
+  organizer_id: string;
   type: string;
 };
 
